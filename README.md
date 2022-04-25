@@ -9,4 +9,5 @@ DOFUS
 ## Auteurs
 
 - Andreas Chatel alias [@999-andreas](https://github.com/999-andreas)
-- Max Delprat alias [@Maxdelprat](https://github.com/Maxdelprat)
+- Jack Qiu alias [@Shizukin](https://github.com/Shizukin)
+- Tifenn James alias [@Tifenn007](https://github.com/Tifenn007)
