@@ -2,8 +2,6 @@
 
 int main()
 {
-
-
     setup_allegro();
 
     allegro_message("bonjour le monde");
@@ -12,6 +10,7 @@ int main()
     {
 
     }
+
     return 0;
 }
 END_OF_MAIN();
