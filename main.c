@@ -4,6 +4,6 @@
 
 int main()
 {
-    printf("Hello ECE!\n");
+    printf("Hello ECE ING1!\n");
     return 0;
 }
