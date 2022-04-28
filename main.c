@@ -1,9 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-//#include <allegro.h>
+#include "header.h"
 
 int main()
 {
-    printf("Hello ECE ING1!\n");
+    setup_allegro();
+
+    allegro_message("bonjour le monde");
+
+    while (!key[KEY_ESC])
+    {
+
+    }
     return 0;
 }
+END_OF_MAIN();
