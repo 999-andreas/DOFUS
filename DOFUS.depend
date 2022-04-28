@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1651155788 source:c:\users\jackq\documents\github\dofus\main.c
+1651159405 source:c:\users\jackq\documents\github\dofus\main.c
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
