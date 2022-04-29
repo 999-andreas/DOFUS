@@ -5,10 +5,12 @@ void nbr_joueur()
 
     BITMAP *joueur;
     BITMAP * page;
-    page=create_bitmap(1300,700);
     BITMAP * carre;
+
+    page=create_bitmap(1300,700);
     carre=create_bitmap(1300,700);
     joueur=load_bitmap("joueur.bmp",NULL);
+
     int choixJ=0; ///variable nombre de joueur
 
 
@@ -20,18 +22,21 @@ void nbr_joueur()
     }
 
     show_mouse(screen);
+
     blit(joueur,page,0,0,0,0, joueur->w, joueur->h);
-    // Affichage de l'image sur l'écran
-    blit(page,screen,0,0,0,0, page->w, page->h);
-    // Boucle interactive
-    while (choixJ!=2 || choixJ!=3 || choixJ!=4)
+    blit(page,screen,0,0,0,0, page->w, page->h);// Affichage de l'image sur l'écran
+
+
+    while (choixJ!=2 || choixJ!=3 || choixJ!=4)// Boucle interactive
     {
+
         textprintf_ex(page,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         blit(page,screen,0,0,0,0, page->w, page->h);
 
         if (mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)
         {
-            rect(page,152,373,305,485,makecol(255,0,0));
+
+            rect(page,152,373,310,490,makecol(255,0,0));
 
             if (mouse_b & 1 && mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)///boutton 2 joueurs
             {
@@ -42,6 +47,7 @@ void nbr_joueur()
                 classeJ(choixJ);
             }
         }
+
 
         if (mouse_b & 1 && mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)///boutton 3 joueurs
         {
