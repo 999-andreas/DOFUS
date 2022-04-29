@@ -16,3 +16,15 @@
 1651175610 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\utilitaire.c
 	"header.h"
 
+1651246958 source:c:\users\james\documents\github\dofus\main.c
+	"header.h"
+
+1651246723 c:\users\james\documents\github\dofus\header.h
+	<stdio.h>
+	<stdlib.h>
+	<allegro.h>
+	"utilitaire.c"
+
+1651246723 c:\users\james\documents\github\dofus\utilitaire.c
+	"header.h"
+
