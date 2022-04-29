@@ -2,9 +2,12 @@
 
 int main()
 {
-    BITMAP *joueur;
+    //BITMAP *joueur;
+
     allegro_init();
     install_keyboard();
+    install_mouse();
+
 
     set_color_depth(desktop_color_depth());
     if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,1300,700,0,0)!=0)
@@ -13,27 +16,7 @@ int main()
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-
-
-    joueur=load_bitmap("joueur.bmp",NULL);
-
-
-    if (!joueur)// Vérification que l'image est bien chargée
-    {
-        allegro_message("pas pu trouver/charger mon_image.bmp");
-        allegro_exit();
-        exit(EXIT_FAILURE);
-    }
-
-
-    blit(joueur,screen,0,0,0,0 , joueur->w, joueur->h);// Affichage de l'image sur l'écran
-
-    // Boucle interactive
-    while (!key[KEY_ESC])
-    {
-        //if (key[KEY_SPACE])
-          //  blit(image,screen,0,0, rand()%(SCREEN_W-image->w), rand()%(SCREEN_H-image->h), image->w, image->h);
-    }
+    nbr_joueur();
 
     return 0;
 }

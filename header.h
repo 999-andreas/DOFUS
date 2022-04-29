@@ -16,14 +16,18 @@ typedef struct joueur
     int vivant; // 1 ou 0
 }t_joueur;
 
-#include "utilitaire.c"
+
 //inclure les nouveaux fichier .c ici
+
+
 
 ///utilitaire.c
 void setup_allegro();
 
 
-///fichier.c
+///Menu.c
+void nbr_joueur();
+void classeJ(int choixJ);
 //mettre les prototypes des nouveaux fichier ici
 
 
