@@ -16,7 +16,9 @@ int main()
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    nbr_joueur();
+    nbr_joueur(0);
+
+
 
     return 0;
 }

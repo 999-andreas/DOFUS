@@ -1,6 +1,6 @@
 #include "header.h"
 
-void nbr_joueur()
+void nbr_joueur(int i)
 {
 
     BITMAP *joueur;
@@ -11,7 +11,7 @@ void nbr_joueur()
     page=create_bitmap(1300,700);
     joueur=load_bitmap("joueur.bmp",NULL);
 
-    int choixJ=0; ///variable nombre de joueur
+    //int choixJ=0; ///variable nombre de joueur
 
     sprite_transp=load_bitmap("rectangle.bmp",NULL);
 
@@ -33,7 +33,7 @@ void nbr_joueur()
     blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-    while (choixJ!=2 || choixJ!=3 || choixJ!=4)// Boucle interactive
+    while (i!=2 || i!=3 || i!=4)// Boucle interactive
     {
         blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -51,11 +51,11 @@ void nbr_joueur()
 
             if (mouse_b & 1 && mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)///boutton 2 joueurs
             {
-                choixJ=2;
+                i=2;
                 clear(joueur);
                 clear(screen);
                 clear(page);
-                classeJ(choixJ);
+                classeJ(i);
             }
         }
 
@@ -68,12 +68,11 @@ void nbr_joueur()
             if (mouse_b & 1 && mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)///boutton 3 joueurs
             {
 
-                choixJ=3;
+                i=3;
                 clear(joueur);
                 clear(screen);
                 clear(page);
-                classeJ(choixJ);
-
+                classeJ(i);
             }
         }
 
@@ -85,20 +84,82 @@ void nbr_joueur()
             if (mouse_b & 1 && mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)///boutton 4 joueurs
             {
 
-                choixJ=4;
+                i=4;
                 clear(joueur);
                 clear(page);
                 clear(screen);
-                classeJ(choixJ);
-
+                classeJ(i);
             }
         }
         rest(100);
     }
+    rest(20);
 }
 
 
 void classeJ(int choixJ)
+{
+
+    BITMAP* page;
+    BITMAP*Classss;
+    int tour=1;
+    Classss=create_bitmap(1300,700);
+    Classss=load_bitmap("classes.bmp",NULL);
+
+    if (!Classss)// Vérification que l'image est bien chargée
+    {
+        allegro_message("pas pu trouver/charger Classe.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    show_mouse(screen);
+
+    blit(Classss,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+    printf("nbrrrrr : %d\n", choixJ);
+    t_joueur *J[choixJ];
+
+    while(choixJ>tour)
+    {
+        blit(Classss,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
+        blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        printf("tour: %d \n",tour);
+
+        if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)//// classe 1
+        {
+
+            if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
+            {
+
+               // J[tour]->classe= 1;
+               // printf("classe: %d \n",J[tour]->classe);
+                tour=tour+1;
+                rest(300);
+            }
+        }
+
+
+        /*if (mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)////classe 2
+        {
+
+            if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
+            {
+                printf("tour: %d \n",tour);
+
+                J[tour]->classe= 2;
+                printf("classe: %d \n",J[tour]->classe);
+                tour=tour+1;
+                rest(300);
+
+            }
+        }*/
+    }
+}
+
+
+void jeux()
 {
 
     BITMAP* Classss;

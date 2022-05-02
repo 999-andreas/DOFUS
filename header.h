@@ -26,8 +26,9 @@ void setup_allegro();
 
 
 ///Menu.c
-void nbr_joueur();
+void nbr_joueur(int i);
 void classeJ(int choixJ);
+void jeux();
 //mettre les prototypes des nouveaux fichier ici
 
 
