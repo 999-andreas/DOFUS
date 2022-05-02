@@ -102,7 +102,7 @@ void classeJ(int choixJ)
 
     BITMAP* page;
     BITMAP*Classss;
-    int tour=1;
+    int tour=0;
     Classss=create_bitmap(1300,700);
     Classss=load_bitmap("classes.bmp",NULL);
 
@@ -120,41 +120,38 @@ void classeJ(int choixJ)
     printf("nbrrrrr : %d\n", choixJ);
     t_joueur *J[choixJ];
 
-    while(choixJ>tour)
+    while(choixJ != tour)
     {
         blit(Classss,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        printf("tour: %d \n",tour);
+
 
         if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)//// classe 1
         {
 
             if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
             {
-
-               // J[tour]->classe= 1;
-               // printf("classe: %d \n",J[tour]->classe);
+                printf("tour: %d \n",tour);
+                // J[tour]->classe= 1;
+                // printf("classe: %d \n",J[tour]->classe);
                 tour=tour+1;
                 rest(300);
             }
         }
 
 
-        /*if (mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)////classe 2
+        if (mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)////classe 2
         {
 
             if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
             {
                 printf("tour: %d \n",tour);
-
-                J[tour]->classe= 2;
-                printf("classe: %d \n",J[tour]->classe);
                 tour=tour+1;
                 rest(300);
 
             }
-        }*/
+        }
     }
 }
 
