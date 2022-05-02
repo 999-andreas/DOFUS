@@ -13,4 +13,7 @@ void setup_allegro()
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+    show_mouse(screen);
 }
+
+//il faudrait faire une fonction "zone_cliquer" avec en paramètre les coo et les dimensions de la zone
