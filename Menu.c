@@ -99,25 +99,31 @@ void nbr_joueur(int i)
 
 void classeJ(int choixJ)
 {
+   ///BITMAP///
 
     BITMAP* bmp;
     BITMAP*Classss;
     BITMAP* rect;
+    BITMAP* suivant;
 
 
     BITMAP* J1;
     BITMAP* J2;
     BITMAP* J3;
     BITMAP* J4;
+
+    BITMAP* carac1;
     int tour=0;
 
-    bmp=create_bitmap(1300,700);
+    bmp=create_bitmap(1300,700); ///buffer
     Classss=load_bitmap("classes.bmp",NULL);
     rect=load_bitmap("rectt.bmp",NULL);
+    suivant=load_bitmap("suivant.bmp",NULL);
     J1=load_bitmap("joueur1.bmp",NULL);
     J2=load_bitmap("joueur2.bmp",NULL);
     J3=load_bitmap("joueur3.bmp",NULL);
     J4=load_bitmap("joueur4.bmp",NULL);
+    carac1=load_bitmap("carac1.bmp",NULL);
 
     if (!Classss)/// Vérification que l'image est bien chargée///
     {
@@ -128,6 +134,12 @@ void classeJ(int choixJ)
     if (!rect)/// Vérification que l'image est bien chargée///
     {
         allegro_message("pas pu trouver/charger rectt.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!suivant)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger suivant.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
@@ -155,6 +167,13 @@ void classeJ(int choixJ)
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+
+    if (!carac1)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger carac1.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
     show_mouse(screen);
 
     blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -175,7 +194,11 @@ void classeJ(int choixJ)
         printf("nbrrrrr : %d\n", choixJ);
         printf ("c'est au joueur %d de jouer \n", tour+1);
 
-
+        if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)
+        {
+            draw_sprite(bmp, suivant, 1011,594 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        }
 
         if (tour == 0)
         {
@@ -206,6 +229,7 @@ void classeJ(int choixJ)
         if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
         {
             draw_sprite(bmp, rect, 125,160 );
+            draw_sprite(bmp, carac1, 125,400 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
@@ -262,27 +286,52 @@ void classeJ(int choixJ)
         }
 
         ///CLASSE 4 : LE ZOMBIE ///
-        if(mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
+        if(mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)///coordonées du bouttons de la classe4
         {
             draw_sprite(bmp, rect, 945,162 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
             {
-                if (classe4!=1)
+                if (classe4!=1)///condition pour que la classe sois prise par un seul joueur
                 {
-                    J[tour].classe=4;
+                    J[tour].classe=4;///classe 4 pour le joueur tour
                     printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
-                    tour=tour+1;
+                    tour=tour+1; ///incrémenation du joueur
                     classe4 = 1;
 
                 }
 
             }
         }
-        rest(200);
+        rest(200);///pause sinon ca va trop vite
     }
-    rest(50);
+
+    int termine;
+
+    while (termine!=1)///boucle pour le boutton suivant
+    {
+        blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+        if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)/// coordonées du boutton
+        {
+            draw_sprite(bmp, suivant, 1011,594 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+            if (mouse_b & 1 && mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)
+            {
+                termine=1;
+                clear(screen);///efface l'écran
+
+                ///efface les bitmaps///
+                clear(Classss);
+                clear(bmp);
+            }
+            rest(100);
+        }
+    }
+    jeux();
 }
 
 
