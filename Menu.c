@@ -103,21 +103,55 @@ void classeJ(int choixJ)
     BITMAP* bmp;
     BITMAP*Classss;
     BITMAP* rect;
+
+
+    BITMAP* J1;
+    BITMAP* J2;
+    BITMAP* J3;
+    BITMAP* J4;
     int tour=0;
 
     bmp=create_bitmap(1300,700);
     Classss=load_bitmap("classes.bmp",NULL);
     rect=load_bitmap("rectt.bmp",NULL);
+    J1=load_bitmap("joueur1.bmp",NULL);
+    J2=load_bitmap("joueur2.bmp",NULL);
+    J3=load_bitmap("joueur3.bmp",NULL);
+    J4=load_bitmap("joueur4.bmp",NULL);
 
-    if (!Classss)// Vérification que l'image est bien chargée
+    if (!Classss)/// Vérification que l'image est bien chargée///
     {
         allegro_message("pas pu trouver/charger Classe.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-     if (!rect)// Vérification que l'image est bien chargée
+    if (!rect)/// Vérification que l'image est bien chargée///
     {
         allegro_message("pas pu trouver/charger rectt.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!J1)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger joueur1.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!J2)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger joueur2.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!J3)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger joueur3.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!J4)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger joueur4.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
@@ -126,17 +160,48 @@ void classeJ(int choixJ)
     blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
+    t_joueur J[choixJ];
 
-    t_joueur *J[choixJ];
+    int classe1, classe2, classe3, classe4;
 
     while(tour != choixJ)
     {
+
+        rest (100);
         textprintf_ex(Classss,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         printf("nbrrrrr : %d\n", choixJ);
         printf ("c'est au joueur %d de jouer \n", tour+1);
+
+
+
+        if (tour == 0)
+        {
+            draw_sprite(bmp, J1, 500,100 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        }
+
+        if (tour == 1)
+        {
+            draw_sprite(bmp, J2, 500,100 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        }
+
+        if (tour == 2)
+        {
+            draw_sprite(bmp, J3, 500,100 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        }
+
+        if (tour == 3)
+        {
+            draw_sprite(bmp, J4, 500,100 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        }
+
+        ///CLASSE 1:  LA SORCIERE///
 
         if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
         {
@@ -145,22 +210,79 @@ void classeJ(int choixJ)
 
             if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
             {
-                tour=tour+1;
-                rest(200);
+                if (classe1!=1)
+                {
+                    J[tour].classe=1;
+                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
+                    tour=tour+1;
+                    classe1=1;
+                }
+
+            }
+        }
+
+        ///CLASSE 2: STEVE///
+
+        if(mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
+        {
+            draw_sprite(bmp, rect, 393,162 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+            if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
+            {
+                if (classe2!=1)
+                {
+                    J[tour].classe=2;
+                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
+                    tour=tour+1;
+                    classe2=1;
+                }
+
+            }
+        }
+
+        ///CLASSE 3 : LE SQUELETTE///
+
+        if(mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
+        {
+            draw_sprite(bmp, rect, 670,162 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+            if (mouse_b & 1 && mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
+            {
+                if (classe3!=1)
+                {
+                    J[tour].classe=3;
+                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
+                    tour=tour+1;
+                    classe3=1;
+                }
+
+            }
+        }
+
+        ///CLASSE 4 : LE ZOMBIE ///
+        if(mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
+        {
+            draw_sprite(bmp, rect, 945,162 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+            if (mouse_b & 1 && mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
+            {
+                if (classe4!=1)
+                {
+                    J[tour].classe=4;
+                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
+                    tour=tour+1;
+                    classe4 = 1;
+
+                }
+
             }
         }
         rest(200);
-
-
-        /* if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
-         {
-             printf("tour: %d \n",tour);
-             tour=tour+1;
-             rest(300);
-
-         }*/
-
     }
+    rest(50);
 }
 
 
