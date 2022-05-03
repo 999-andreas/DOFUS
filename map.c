@@ -9,7 +9,10 @@ void init_maps(int maps[26][14])
     {
         for (j = 0 ;j<14 ;j++)
         {
-            maps[i][j] = rand()%3;
+            if(rand()%100 <10)
+                maps[i][j] = 2;
+            else
+                maps[i][j] = rand()%2;
         }
     }
 }
@@ -45,7 +48,7 @@ void refresh_objets(BITMAP* terrain, int maps[26][14], BITMAP* arbre)
     {
         for (j = 0 ;j<14 ;j++)
         {
-            if(maps[i][j] == 2 && ((rand()%100)<= 25) )
+            if(maps[i][j] == 2)
             {
                 draw_sprite(terrain, arbre, (i*50), (j*50));
             }
