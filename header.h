@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro.h>
+#include <time.h>
 
 //stockage des données du joueur
 typedef struct joueur
@@ -27,5 +28,7 @@ int cliquer_zone(int x, int y, int tx, int ty);
 
 ///map.c
 void init_maps(int maps[26][14]);
+void init_terrain(BITMAP* terrain, int maps[26][14], BITMAP* dirt, BITMAP* grass, BITMAP* arbre);
+void refresh_objets(BITMAP* terrain, int maps[26][14], BITMAP* arbre);
 
 #endif // HEADER_H_INCLUDED
