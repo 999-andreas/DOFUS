@@ -5,6 +5,7 @@ void setup_allegro()
 {
     allegro_init();
     install_keyboard();
+    install_mouse();
 
     set_color_depth(desktop_color_depth());
     if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,1300,700,0,0)!=0)
@@ -16,4 +17,12 @@ void setup_allegro()
     show_mouse(screen);
 }
 
-//il faudrait faire une fonction "zone_cliquer" avec en paramètre les coo et les dimensions de la zone
+
+int cliquer_zone(int x, int y, int tx, int ty)
+{
+    if(mouse_b & 1 && mouse_x>=x && mouse_x<=(x+tx) && mouse_y>=y && mouse_y<= (y+ty))
+    {
+        return 1;
+    }
+    return 0;
+}

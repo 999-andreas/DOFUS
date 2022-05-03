@@ -2,15 +2,22 @@
 
 int main()
 {
-    int map[26][14]; //matrice de la map (case de 50 sur 50 pixels)
+    int maps[26][14]; //matrice de la map (case de 50 sur 50 pixels)
 
+    BITMAP* croix;
+    BITMAP* sol;
+    BITMAP* arbre;
+
+    BITMAP* terrain;
 
 
     setup_allegro();
 
-    allegro_message("bonjour le monde");
+    croix = load_bitmap("images/croix.bmp", NULL);
 
-    while (!key[KEY_ESC])
+    blit(croix, screen,0,0,0,0,SCREEN_W, SCREEN_H);
+
+    while (!cliquer_zone(0,0,croix->w, croix->h))
     {
 
     }
@@ -23,7 +30,7 @@ END_OF_MAIN();
 je sais pas encore comment je vais stocker la position de tout les joueurs,
 les infos pour chaque classe et comment vas se presenter le plateau en memoire*/
 
-//faire une fonction zone cliquer
+//faire une fonction zone cliquer //
 //faire une fonction pour faire des matrice aleatoire avec une collection de case dans un fichier texte
 //recup ces fichier texte pour les infos de la map et l'affichage
 //faire un giga tableau pour les infos de chaque classe

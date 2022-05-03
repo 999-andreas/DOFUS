@@ -22,9 +22,10 @@ typedef struct joueur
 
 ///utilitaire.c
 void setup_allegro();
+int cliquer_zone(int x, int y, int tx, int ty);
 
 
 ///map.c
-lecture_fichier(int maps[24][14]);
+void init_maps(int maps[26][14]);
 
 #endif // HEADER_H_INCLUDED

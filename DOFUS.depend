@@ -4,15 +4,20 @@
 	<stdlib.h>
 	<allegro.h>
 
-1651175762 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\main.c
+1651571957 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\main.c
 	"header.h"
 
-1651175712 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\header.h
+1651571957 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\header.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
-	"utilitaire.c"
 
 1651175610 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\utilitaire.c
+	"header.h"
+
+1651569935 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\utilitaire.c
+	"header.h"
+
+1651568654 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\map.c
 	"header.h"
 
