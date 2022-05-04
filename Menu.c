@@ -35,7 +35,6 @@ void nbr_joueur(int i)
 
     while (i!=2 || i!=3 || i!=4)// Boucle interactive
     {
-        blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
 
@@ -91,6 +90,7 @@ void nbr_joueur(int i)
                 classeJ(i);
             }
         }
+        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         rest(100);
     }
     rest(50);
@@ -185,12 +185,8 @@ void classeJ(int choixJ)
 
     while(tour != choixJ)
     {
-
-        rest (100);
-        textprintf_ex(Classss,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
+        //textprintf_ex(Classss,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         printf("nbrrrrr : %d\n", choixJ);
         printf ("c'est au joueur %d de jouer \n", tour+1);
 
@@ -202,8 +198,8 @@ void classeJ(int choixJ)
 
         if (tour == 0)
         {
-            draw_sprite(screen,J1, 500,100 );
-            blit(screen,font, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+            draw_sprite(bmp,J1, 500,100 );
+            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
         if (tour == 1)
         {
@@ -302,8 +298,10 @@ void classeJ(int choixJ)
                 }
 
             }
+
         }
-        rest(200);///pause sinon ca va trop vite
+        blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        rest(100);///pause sinon ca va trop vite
     }
 
     int termine;
@@ -311,7 +309,6 @@ void classeJ(int choixJ)
     while (termine!=1)///boucle pour le boutton suivant
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)/// coordonées du boutton
         {
@@ -327,8 +324,10 @@ void classeJ(int choixJ)
                 clear(Classss);
                 clear(bmp);
             }
-            rest(100);
+
         }
+        blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        rest(100);
     }
     jeux();
 }
