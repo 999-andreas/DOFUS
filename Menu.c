@@ -229,7 +229,7 @@ void classeJ(int choixJ)
         if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
         {
             draw_sprite(bmp, rect, 125,160 );
-            draw_sprite(bmp, carac1, 125,400 );
+            draw_sprite(bmp, carac1, 20,500 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
