@@ -9,11 +9,11 @@ void nbr_joueur(int i)
     BITMAP *sprite_transp;
 
     page=create_bitmap(1300,700);
-    joueur=load_bitmap("joueur.bmp",NULL);
+    joueur=load_bitmap("image/joueur.bmp",NULL);
 
     //int choixJ=0; ///variable nombre de joueur
 
-    sprite_transp=load_bitmap("rectangle.bmp",NULL);
+    sprite_transp=load_bitmap("image/rectangle.bmp",NULL);
 
     if (!sprite_transp)
     {
@@ -113,17 +113,23 @@ void classeJ(int choixJ)
     BITMAP* J4;
 
     BITMAP* carac1;
+    BITMAP* carac2;
+    BITMAP* carac3;
+    BITMAP* carac4;
     int tour=0;
 
     bmp=create_bitmap(1300,700); ///buffer
-    Classss=load_bitmap("classes.bmp",NULL);
-    rect=load_bitmap("rectt.bmp",NULL);
-    suivant=load_bitmap("suivant.bmp",NULL);
-    J1=load_bitmap("joueur1.bmp",NULL);
-    J2=load_bitmap("joueur2.bmp",NULL);
-    J3=load_bitmap("joueur3.bmp",NULL);
-    J4=load_bitmap("joueur4.bmp",NULL);
-    carac1=load_bitmap("carac1.bmp",NULL);
+    Classss=load_bitmap("image/classes.bmp",NULL);
+    rect=load_bitmap("image/rectt.bmp",NULL);
+    suivant=load_bitmap("image/suivant.bmp",NULL);
+    J1=load_bitmap("image/joueur1.bmp",NULL);
+    J2=load_bitmap("image/joueur2.bmp",NULL);
+    J3=load_bitmap("image/joueur3.bmp",NULL);
+    J4=load_bitmap("image/joueur4.bmp",NULL);
+    carac1=load_bitmap("image/carac1.bmp",NULL);
+    carac2=load_bitmap("image/carac2.bmp",NULL);
+    carac3=load_bitmap("image/carac3.bmp",NULL);
+    carac4=load_bitmap("image/carac4.bmp",NULL);
 
     if (!Classss)/// Vérification que l'image est bien chargée///
     {
@@ -171,6 +177,24 @@ void classeJ(int choixJ)
     if (!carac1)/// Vérification que l'image est bien chargée///
     {
         allegro_message("pas pu trouver/charger carac1.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!carac2)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger carac2.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    if (!carac3)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger carac3.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+     if (!carac4)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger carac4.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
@@ -245,6 +269,7 @@ void classeJ(int choixJ)
         if(mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
         {
             draw_sprite(bmp, rect, 393,162 );
+            draw_sprite(bmp, carac2, 20,500 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
@@ -265,6 +290,7 @@ void classeJ(int choixJ)
         if(mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
         {
             draw_sprite(bmp, rect, 670,162 );
+            draw_sprite(bmp, carac3, 20,500 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
@@ -284,6 +310,7 @@ void classeJ(int choixJ)
         if(mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)///coordonées du bouttons de la classe4
         {
             draw_sprite(bmp, rect, 945,162 );
+            draw_sprite(bmp, carac4, 20,500 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
@@ -338,7 +365,7 @@ void jeux()
 
     BITMAP* Classss;
     Classss=create_bitmap(1300,700);
-    Classss=load_bitmap("paysage.bmp",NULL);
+    Classss=load_bitmap("image/paysage.bmp",NULL);
 
     if (!Classss)// Vérification que l'image est bien chargée
     {
