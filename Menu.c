@@ -99,7 +99,7 @@ void nbr_joueur(int i)
 
 void classeJ(int choixJ)
 {
-   ///BITMAP///
+    ///BITMAP///
 
     BITMAP* bmp;
     BITMAP*Classss;
@@ -202,10 +202,9 @@ void classeJ(int choixJ)
 
         if (tour == 0)
         {
-            draw_sprite(bmp, J1, 500,100 );
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+            draw_sprite(screen,J1, 500,100 );
+            blit(screen,font, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
-
         if (tour == 1)
         {
             draw_sprite(bmp, J2, 500,100 );
