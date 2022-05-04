@@ -3,13 +3,16 @@
 void nbr_joueur(int i)
 {
 
+    install_mouse();
     BITMAP *joueur;
     BITMAP * page;
 
     BITMAP *sprite_transp;
+    BITMAP *viseur;
 
     page=create_bitmap(1300,700);
     joueur=load_bitmap("image/joueur.bmp",NULL);
+    viseur=load_bitmap("image/viseur.bmp",NULL);
 
     //int choixJ=0; ///variable nombre de joueur
 
@@ -27,8 +30,14 @@ void nbr_joueur(int i)
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+    if (!viseur)// Vérification que l'image est bien chargée
+    {
+        allegro_message("pas pu trouver/charger viseur.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
 
-    show_mouse(screen);
+    //show_mouse(screen);
 
     blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -36,7 +45,7 @@ void nbr_joueur(int i)
     while (i!=2 || i!=3 || i!=4)// Boucle interactive
     {
         blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
+        draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
 
 
         //textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
@@ -99,6 +108,9 @@ void nbr_joueur(int i)
 
 void classeJ(int choixJ)
 {
+
+    install_mouse();
+
     ///BITMAP///
 
     BITMAP* bmp;
@@ -116,6 +128,9 @@ void classeJ(int choixJ)
     BITMAP* carac2;
     BITMAP* carac3;
     BITMAP* carac4;
+
+    BITMAP*viseur;
+
     int tour=0;
 
     bmp=create_bitmap(1300,700); ///buffer
@@ -130,6 +145,7 @@ void classeJ(int choixJ)
     carac2=load_bitmap("image/carac2.bmp",NULL);
     carac3=load_bitmap("image/carac3.bmp",NULL);
     carac4=load_bitmap("image/carac4.bmp",NULL);
+    viseur=load_bitmap("image/viseur.bmp",NULL);
 
     if (!Classss)/// Vérification que l'image est bien chargée///
     {
@@ -198,7 +214,13 @@ void classeJ(int choixJ)
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    show_mouse(screen);
+    if (!viseur)/// Vérification que l'image est bien chargée///
+    {
+        allegro_message("pas pu trouver/charger viseur.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    //show_mouse(screen);
 
     blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -210,6 +232,7 @@ void classeJ(int choixJ)
     while(tour != choixJ)
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
         //textprintf_ex(Classss,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         printf("nbrrrrr : %d\n", choixJ);
         printf ("c'est au joueur %d de jouer \n", tour+1);
@@ -223,23 +246,27 @@ void classeJ(int choixJ)
         if (tour == 0)
         {
             draw_sprite(bmp,J1, 500,100 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
         if (tour == 1)
         {
             draw_sprite(bmp, J2, 500,100 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
         if (tour == 2)
         {
             draw_sprite(bmp, J3, 500,100 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
         if (tour == 3)
         {
             draw_sprite(bmp, J4, 500,100 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
@@ -249,6 +276,7 @@ void classeJ(int choixJ)
         {
             draw_sprite(bmp, rect, 125,160 );
             draw_sprite(bmp, carac1, 20,500 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
@@ -270,6 +298,7 @@ void classeJ(int choixJ)
         {
             draw_sprite(bmp, rect, 393,162 );
             draw_sprite(bmp, carac2, 20,500 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
@@ -291,6 +320,7 @@ void classeJ(int choixJ)
         {
             draw_sprite(bmp, rect, 670,162 );
             draw_sprite(bmp, carac3, 20,500 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
@@ -311,6 +341,7 @@ void classeJ(int choixJ)
         {
             draw_sprite(bmp, rect, 945,162 );
             draw_sprite(bmp, carac4, 20,500 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
@@ -336,6 +367,7 @@ void classeJ(int choixJ)
     while (termine!=1)///boucle pour le boutton suivant
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
 
         if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)/// coordonées du boutton
         {
