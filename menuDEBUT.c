@@ -198,19 +198,26 @@ void menuDEBUT()
                 printf("Saisir un nom: ");
                 scanf("%s",Joueur[i].joueur);
             }
+            time_t temps = time(NULL);
 
 
         while(fin != 1 && Joueur[0].dernierENVIE != 1)
         {
-            clear_bitmap(screen);
-            if(play %4 == 0)
+            printf("Durée : %d seconde \n",(int) (time(NULL)-temps));
+            if(time(NULL)-temps > 15 )
             {
-                play = 0;
-                //Joueur[0].dernierENVIE--;
+                play = play+1;
+                temps= time(NULL);
             }
-            textprintf_ex(screen,font,100,205,makecol(255,255,0),makecol(2,2,2),"Joueur: %s de jouer",Joueur[play].joueur);
-            rest(300);
-            play = play+1;
+              clear_bitmap(screen);
+              if(play %4 == 0)
+              {
+                  play = 0;
+                  //Joueur[0].dernierENVIE--;
+              }
+              textprintf_ex(screen,font,100,205,makecol(255,255,0),makecol(2,2,2),"Joueur: %s de jouer",Joueur[play].joueur);
+              rest(30);
+              //play = play+1;
 
         }
              // CONDITION POUR JOUER
