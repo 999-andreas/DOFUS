@@ -12,9 +12,11 @@ void menuFIN()
     BITMAP *jouerred;
     BITMAP *revanchered;
     BITMAP *quitterred;
+    //SAMPLE *son;
 
     install_keyboard();
     install_mouse();
+    //install_sound();
     //show_mouse(screen);
 
     int fin = 0;
@@ -29,6 +31,7 @@ void menuFIN()
     jouerred = load_bitmap("jouerrouge.bmp",NULL);
     revanchered = load_bitmap("revancherouge.bmp",NULL);
     quitterred = load_bitmap("quitterrouge.bmp",NULL);
+
 
     while (!key[KEY_ESC] && fin != 1)
     {
@@ -142,9 +145,11 @@ void menuDEBUT()
     BITMAP *image1;
     BITMAP *jouerred;
     BITMAP *quitterred;
+    SAMPLE *son;
 
     install_keyboard();
     install_mouse();
+    install_sound(20,30,1);
     //show_mouse(screen);
 
     // CHOIX DES JOUEURS INITIALISATION
@@ -161,9 +166,11 @@ void menuDEBUT()
     viseur = load_bitmap("viseur.bmp",NULL);
     jouerred = load_bitmap("jouerrouge.bmp",NULL);
     quitterred = load_bitmap("quitterrouge.bmp",NULL);
+    son = load_sample("son.wav");
 
     while (!key[KEY_ESC] && fin != 1)
     {
+        play_sample(son,100,20,2000,0);
 
     //clear_bitmap(doubleBuffer);
     //textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);

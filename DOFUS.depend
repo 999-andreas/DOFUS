@@ -2,10 +2,10 @@
 1651754330 source:c:\users\jackq\documents\github\dofus\main.c
 	"sous programme.h"
 
-1651756532 source:c:\users\jackq\documents\github\dofus\menudebut.c
+1651765497 source:c:\users\jackq\documents\github\dofus\menudebut.c
 	"sous programme.h"
 
-1651756937 c:\users\jackq\documents\github\dofus\sous programme.h
+1651763371 c:\users\jackq\documents\github\dofus\sous programme.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
