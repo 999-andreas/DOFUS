@@ -1,13 +1,13 @@
 #include "header.h"
 
-void init_maps(int maps[26][14])
+void init_maps(int maps[26][12])
 {
     int i = 0;
     int j = 0;
 
     for (i = 0 ;i <26 ; i++)
     {
-        for (j = 0 ;j<14 ;j++)
+        for (j = 0 ;j<12 ;j++)
         {
             if(rand()%100 <10)
                 maps[i][j] = 2;
@@ -17,14 +17,14 @@ void init_maps(int maps[26][14])
     }
 }
 
-void init_terrain(BITMAP* terrain, int maps[26][14], BITMAP* dirt, BITMAP* grass, BITMAP* arbre)
+void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* arbre)
 {
     int i = 0;
     int j = 0;
 
     for (i = 0 ;i <26 ; i++)
     {
-        for (j = 0 ;j<14 ;j++)
+        for (j = 0 ;j<12 ;j++)
         {
 
             if(maps[i][j] == 0) //dirt
@@ -39,14 +39,14 @@ void init_terrain(BITMAP* terrain, int maps[26][14], BITMAP* dirt, BITMAP* grass
     }
 }
 
-void refresh_objets(BITMAP* terrain, int maps[26][14], BITMAP* arbre)
+void refresh_objets(BITMAP* terrain, int maps[26][12], BITMAP* arbre)
 {
     int i = 0;
     int j = 0;
 
-    for (i = 0 ;i <26 ; i++)
+    for (i = 0 ;i <23 ; i++)
     {
-        for (j = 0 ;j<14 ;j++)
+        for (j = 0 ;j<9 ;j++)
         {
             if(maps[i][j] == 2)
             {
@@ -55,7 +55,5 @@ void refresh_objets(BITMAP* terrain, int maps[26][14], BITMAP* arbre)
         }
     }
 }
-
-//faire une fonction qui donne un pixel aleatoirement entre sol, arbre, mur
 
 

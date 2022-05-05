@@ -4,7 +4,7 @@ int main()
 {
     srand(time(NULL));
 
-    int maps[26][14]; //matrice de la map (case de 50 sur 50 pixels)
+    int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     BITMAP* viseur;
     BITMAP* dirt;
@@ -18,7 +18,7 @@ int main()
 
     setup_allegro();
 
-    terrain = create_bitmap(SCREEN_W, SCREEN_H);
+    terrain = create_bitmap(1400, 600);
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
     viseur = load_bitmap("images/viseur.bmp", NULL);
@@ -31,22 +31,21 @@ int main()
 
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, arbre);
-    /*blit(terrain, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-
-    refresh_objets(terrain, maps, arbre);
-    blit(terrain, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-
-    blit(hotbar, screen,0,0,250,600, hotbar->w, hotbar->h);
-    blit(croix, screen,0,0,0,0,SCREEN_W, SCREEN_H);*/
 
     while (!cliquer_zone(0,0,50, 50))
     {
 
-        blit(terrain, buffer, 0,0,0,0, SCREEN_W, SCREEN_H);
+        clear_bitmap(buffer);
+
+        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
         refresh_objets(buffer, maps, arbre);
 
         blit(hotbar, buffer, 0,0,250,600,hotbar->w, hotbar->h);
+
+        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", 15);
+        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: %d", 14);
+        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: %d", 13);
 
         draw_sprite(buffer, viseur, mouse_x-10, mouse_y);
 

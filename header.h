@@ -27,8 +27,8 @@ int cliquer_zone(int x, int y, int tx, int ty);
 
 
 ///map.c
-void init_maps(int maps[26][14]);
-void init_terrain(BITMAP* terrain, int maps[26][14], BITMAP* dirt, BITMAP* grass, BITMAP* arbre);
-void refresh_objets(BITMAP* terrain, int maps[26][14], BITMAP* arbre);
+void init_maps(int maps[26][12]);
+void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* arbre);
+void refresh_objets(BITMAP* terrain, int maps[26][12], BITMAP* arbre);
 
 #endif // HEADER_H_INCLUDED
