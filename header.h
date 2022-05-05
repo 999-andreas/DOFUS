@@ -30,5 +30,7 @@ int cliquer_zone(int x, int y, int tx, int ty);
 void init_maps(int maps[26][12]);
 void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* lava);
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* croix, BITMAP* bleu, BITMAP* rouge);
+void update_jauge(int pv, int pm, int pa, BITMAP* buffer);
+
 
 #endif // HEADER_H_INCLUDED

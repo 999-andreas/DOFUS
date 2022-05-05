@@ -6,7 +6,13 @@ int main()
 
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
-    //FONT* grand = load_font("../cheminverslefont/comic_sans_12.pcx",NULL,NULL);
+    int pv;
+    int pa;
+    int pm;
+
+    pv = 100;
+    pm = 50;
+    pa = 25;
 
     BITMAP* viseur;
     BITMAP* dirt;
@@ -53,16 +59,18 @@ int main()
 
         blit(hotbar, buffer, 0,0,250,600,hotbar->w, hotbar->h);
 
-        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", 15);
-        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: %d", 14);
-        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: %d", 13);
+        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");
+        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: ");
+        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: ");
+
+        update_jauge(pv, pm, pa, buffer);
 
         draw_sprite(buffer, viseur, mouse_x-10, mouse_y);
 
         blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
 
     }
-
+    //destroy_font(grand);
     return 0;
 }
 END_OF_MAIN();

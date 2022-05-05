@@ -69,7 +69,7 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
 
             if(cliquer_zone((i*50), (j*50) , 50,50) == 2)
             {
-                if(maps[i][j] == 2 || maps[i][j] == 3)
+                if(maps[i][j] == 2)
                     blit(rouge, buffer,0,0,(50*i),(50*j), 50, 50 );
                 else
                     blit(bleu, buffer,0,0,(50*i),(50*j), 50, 50 );
@@ -79,9 +79,39 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
     }
 }
 
-/*void surbrillance(BITMAP* buffer, BITMAP*, BITMAP* croix)
+void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
 {
+    int i;
+
+    for(i = 0; i<(pv); i++)
+    {
+
+        putpixel(buffer, i+100, 610, makecol(52,201,36));
+        putpixel(buffer, i+100, 611, makecol(52,201,36));
+        putpixel(buffer, i+100, 612, makecol(52,201,36));
+        putpixel(buffer, i+100, 613, makecol(52,201,36));
+        putpixel(buffer, i+100, 614, makecol(52,201,36));
+    }
+
+    for(i = 0; i<(pm); i++)
+    {
+
+        putpixel(buffer, i+100, 630, makecol(52,201,36));
+        putpixel(buffer, i+100, 631, makecol(52,201,36));
+        putpixel(buffer, i+100, 632, makecol(52,201,36));
+        putpixel(buffer, i+100, 633, makecol(52,201,36));
+        putpixel(buffer, i+100, 634, makecol(52,201,36));
+    }
+
+    for(i = 0; i<(pa); i++)
+    {
+
+        putpixel(buffer, i+100, 650, makecol(52,201,36));
+        putpixel(buffer, i+100, 651, makecol(52,201,36));
+        putpixel(buffer, i+100, 652, makecol(52,201,36));
+        putpixel(buffer, i+100, 653, makecol(52,201,36));
+        putpixel(buffer, i+100, 654, makecol(52,201,36));
+    }
 }
-*/
 
 
