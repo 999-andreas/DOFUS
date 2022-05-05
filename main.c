@@ -6,11 +6,17 @@ int main()
 
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
+    //FONT* grand = load_font("../cheminverslefont/comic_sans_12.pcx",NULL,NULL);
+
     BITMAP* viseur;
     BITMAP* dirt;
     BITMAP* grass;
-    BITMAP* arbre;
+    BITMAP* lava;
     BITMAP* hotbar;
+    BITMAP* croix;
+    BITMAP* bush;
+    BITMAP* bleu;
+    BITMAP* rouge;
 
     BITMAP* terrain;
     BITMAP* buffer;
@@ -21,25 +27,29 @@ int main()
     terrain = create_bitmap(1400, 600);
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
+    rouge = load_bitmap("images/rouge.bmp",NULL);
+    bleu = load_bitmap("images/bleu.bmp",NULL);
+    bush = load_bitmap("images/herbe.bmp", NULL);
+    croix = load_bitmap("images/croix.bmp", NULL);
     viseur = load_bitmap("images/viseur.bmp", NULL);
     dirt = load_bitmap("images/dirt.bmp", NULL);
     grass = load_bitmap("images/grass.bmp", NULL);
-    arbre = load_bitmap("images/arbre3.bmp", NULL);
+    lava = load_bitmap("images/lava.bmp", NULL);
     hotbar = load_bitmap("images/hotbar.bmp", NULL);
 
 
 
     init_maps(maps);
-    init_terrain(terrain, maps, dirt, grass, arbre);
+    init_terrain(terrain, maps, dirt, grass, lava);
 
-    while (!cliquer_zone(0,0,50, 50))
+    while (cliquer_zone(0,0,50, 50)!=1)
     {
 
         clear_bitmap(buffer);
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
-        refresh_objets(buffer, maps, arbre);
+        refresh_objets(buffer, maps, lava, bush, croix, bleu, rouge);
 
         blit(hotbar, buffer, 0,0,250,600,hotbar->w, hotbar->h);
 

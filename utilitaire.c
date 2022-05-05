@@ -20,9 +20,13 @@ void setup_allegro()
 
 int cliquer_zone(int x, int y, int tx, int ty)
 {
-    if(mouse_b & 1 && mouse_x>=x && mouse_x<=(x+tx) && mouse_y>=y && mouse_y<= (y+ty))
+    if(mouse_x>=x && mouse_x<=(x+tx) && mouse_y>=y && mouse_y<= (y+ty))
     {
-        return 1;
+        if(mouse_b & 1)
+        {
+            return 1;
+        }
+        return 2;
     }
     return 0;
 }
