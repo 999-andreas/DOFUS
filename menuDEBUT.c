@@ -147,6 +147,10 @@ void menuDEBUT()
     install_mouse();
     //show_mouse(screen);
 
+    // CHOIX DES JOUEURS INITIALISATION
+    t_joueur Joueur[3];
+    int play=0;
+
     int fin = 0;
 
     doubleBuffer = create_bitmap(SCREEN_W, SCREEN_H);
@@ -186,13 +190,30 @@ void menuDEBUT()
 
         if(mouse_b&1)
         {
+            clear_bitmap(screen);
             textprintf_ex(screen,font,100,200,makecol(255,255,0),makecol(0,0,0),"JOUER UNE PARTIE");
 
+            for(int i=0;i<4;i++)
+            {
+                printf("Saisir un nom: ");
+                scanf("%s",Joueur[i].joueur);
+            }
 
-        /*while(1)
+
+        while(fin != 1 && Joueur[0].dernierENVIE != 1)
         {
+            clear_bitmap(screen);
+            if(play %4 == 0)
+            {
+                play = 0;
+                //Joueur[0].dernierENVIE--;
+            }
+            textprintf_ex(screen,font,100,205,makecol(255,255,0),makecol(2,2,2),"Joueur: %s de jouer",Joueur[play].joueur);
+            rest(300);
+            play = play+1;
+
+        }
              // CONDITION POUR JOUER
-        }*/
         }
 
     }

@@ -6,5 +6,11 @@
 #include <stdlib.h>
 #include <allegro.h>
 
+typedef struct Joueur
+{
+    char joueur[100];
+    int dernierENVIE;
+}t_joueur;
+
 void menuDEBUT();
 void menuFIN();
