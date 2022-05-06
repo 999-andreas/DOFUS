@@ -25,6 +25,7 @@ void init_maps(int maps[26][12])
     }
 }
 
+//initialise le terrain en debut de partie
 void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* lava)
 {
     int i = 0;
@@ -51,6 +52,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
     }
 }
 
+//affichage des objets sur la map càd les element qui sont par dessus tout le reste
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge)
 {
     int i = 0;
@@ -77,6 +79,7 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
     }
 }
 
+//mise a jour des jauge de PV PM PA
 void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
 {
     int i;
@@ -112,6 +115,7 @@ void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
     }
 }
 
+//mise à jour des coo d'un joueur si clique sur une case
 void update_coo(t_joueur* michel, int maps[26][12])
 {
     int i = 0;

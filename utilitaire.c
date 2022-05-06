@@ -17,16 +17,16 @@ void setup_allegro()
     show_mouse(screen);
 }
 
-
+//test si une zone defini est parcourue par la souris ou cliquer
 int cliquer_zone(int x, int y, int tx, int ty)
 {
     if(mouse_x>=x && mouse_x<=(x+tx) && mouse_y>=y && mouse_y<= (y+ty))
     {
         if(mouse_b & 1)
         {
-            return 1;
+            return 1; // la zone est cliquer
         }
-        return 2;
+        return 2; //la zone est seulement parcourue par la souris
     }
     return 0;
 }
