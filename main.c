@@ -6,6 +6,11 @@ int main()
 
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
+    t_joueur* michel;
+
+    michel->posx = 650;
+    michel->posy = 350;
+
     int pv;
     int pa;
     int pm;
@@ -14,15 +19,16 @@ int main()
     pm = 50;
     pa = 25;
 
-    BITMAP* viseur;
-    BITMAP* dirt;
-    BITMAP* grass;
-    BITMAP* lava;
-    BITMAP* hotbar;
-    BITMAP* croix;
-    BITMAP* bush;
-    BITMAP* bleu;
-    BITMAP* rouge;
+
+    BITMAP* viseur; //utile
+    BITMAP* dirt; //utile
+    BITMAP* grass; //utile
+    BITMAP* lava; //utile
+    BITMAP* hotbar; //utile
+    BITMAP* steve;
+    BITMAP* bush; //utile
+    BITMAP* bleu; //utile
+    BITMAP* rouge; //utile
 
     BITMAP* terrain;
     BITMAP* buffer;
@@ -36,7 +42,7 @@ int main()
     rouge = load_bitmap("images/rouge.bmp",NULL);
     bleu = load_bitmap("images/bleu.bmp",NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
-    croix = load_bitmap("images/croix.bmp", NULL);
+    steve = load_bitmap("images/steve.bmp", NULL);
     viseur = load_bitmap("images/viseur.bmp", NULL);
     dirt = load_bitmap("images/dirt.bmp", NULL);
     grass = load_bitmap("images/grass.bmp", NULL);
@@ -55,7 +61,11 @@ int main()
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
-        refresh_objets(buffer, maps, lava, bush, croix, bleu, rouge);
+        update_coo(michel, maps);
+
+        draw_sprite(buffer, steve, (michel->posx), (michel->posy));
+
+        refresh_objets(buffer, maps, lava, bush, bleu, rouge);
 
         blit(hotbar, buffer, 0,0,250,600,hotbar->w, hotbar->h);
 
@@ -75,15 +85,7 @@ int main()
 }
 END_OF_MAIN();
 
-/*note :
-je sais pas encore comment je vais stocker la position de tout les joueurs,
-les infos pour chaque classe et comment vas se presenter le plateau en memoire*/
-
-//faire une fonction zone cliquer //
-//faire une fonction pour faire des matrice aleatoire avec une collection de case dans un fichier texte //
-//recup ces fichier texte pour les infos de la map et l'affichage //
 //faire un giga tableau pour les infos de chaque classe
 //peut etre les infos de classe dans un fichier txt ?
 //pour que le code soit plus lisible
-//faire l'inteface des PV PM PA
-//peut etre des jauge ? ca peut etre cool
+//mettre des flammes comme obstacle, qui fond des degats

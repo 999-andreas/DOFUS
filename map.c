@@ -21,8 +21,6 @@ void init_maps(int maps[26][12])
 
             else
                 maps[i][j] = rand()%2;
-
-            printf("%d  | proba :%d\n", maps[i][j], proba );
         }
     }
 }
@@ -53,7 +51,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
     }
 }
 
-void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* croix, BITMAP* bleu, BITMAP* rouge)
+void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge)
 {
     int i = 0;
     int j = 0;
@@ -111,6 +109,30 @@ void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
         putpixel(buffer, i+100, 652, makecol(52,201,36));
         putpixel(buffer, i+100, 653, makecol(52,201,36));
         putpixel(buffer, i+100, 654, makecol(52,201,36));
+    }
+}
+
+void update_coo(t_joueur* michel, int maps[26][12])
+{
+    int i = 0;
+    int j = 0;
+
+    for (i = 0 ;i <26 ; i++)
+    {
+        for (j = 0 ;j<12 ;j++)
+        {
+            if(cliquer_zone((i*50), (j*50) , 50,50) == 1)
+            {
+                if(maps[i][j] == 2)
+                {}
+                else
+                {
+                    michel->posx = i*50;
+                    michel->posy = (j*50)-50;
+                }
+
+            }
+        }
     }
 }
 
