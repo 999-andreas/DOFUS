@@ -22,7 +22,7 @@ void menuFIN()
     int fin = 0;
 
     doubleBuffer = create_bitmap(SCREEN_W, SCREEN_H);
-    image1 = load_bitmap("minecraft.bmp",NULL);
+    image1 = load_bitmap("minecraft3.bmp",NULL);
     dofus = load_bitmap("dofus.bmp",NULL);
     jouer = load_bitmap("jouer.bmp",NULL);
     revanche = load_bitmap("revanche.bmp",NULL);
@@ -36,28 +36,28 @@ void menuFIN()
 
     while (!key[KEY_ESC] && fin != 1)
     {
-        play_sample(son,100,20,2000,0);
+        //play_sample(son,100,20,2000,0);
 
     //clear_bitmap(doubleBuffer);
     //textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
     //rectfill(screen, mouse_x, mouse_y, mouse_x+5, mouse_y+5, makecol(255,0,0));
     //draw_sprite(image1,viseur,mouse_x,mouse_y);
     //clear_bitmap(doubleBuffer);
-    draw_sprite(image1,dofus,450,0);
+    //draw_sprite(image1,dofus,450,0);
     //draw_sprite(image1,jouer,505,210);
     //draw_sprite(image1,revanche,505,330);
     //draw_sprite(image1,classement,255+250,341);
     //draw_sprite(image1,quitter,505,450);
-    draw_sprite(doubleBuffer,viseur,mouse_x,mouse_y);
+    //draw_sprite(doubleBuffer,viseur,mouse_x,mouse_y);
     //masked_blit(viseur,image1,mouse_x,mouse_y,mouse_x+20,mouse_y+20,SCREEN_W,SCREEN_H);
     blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
     draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
     blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     //clear_bitmap(doubleBuffer);
-    if( mouse_x > 550 && mouse_x < 750 && mouse_y > 246 && mouse_y < 318)
+    if( mouse_x > 440 && mouse_x < 868 && mouse_y > 312 && mouse_y < 355)
     {
         //clear_bitmap(screen);
-        draw_sprite(image1,jouerred,505,210);
+        draw_sprite(image1,jouerred,390,250);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -76,13 +76,13 @@ void menuFIN()
     }
     else
     {
-        draw_sprite(image1,jouer,505,210);
+        draw_sprite(image1,jouer,390,250);
     }
 
-     if( mouse_x > 550 && mouse_x < 750 && mouse_y > 370 && mouse_y < 436)
+     if( mouse_x > 440 && mouse_x <868  && mouse_y > 362 && mouse_y < 405)
     {
         //clear_bitmap(screen);
-        draw_sprite(image1,revanchered,505,330);
+        draw_sprite(image1,revanchered,390,300);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -100,7 +100,7 @@ void menuFIN()
     }
     else
     {
-        draw_sprite(image1,revanche,505,330);
+        draw_sprite(image1,revanche,390,300);
     }
    /* else if(mouse_b&1 && mouse_x > 300+250 && mouse_x < 495+250 && mouse_y > 375 && mouse_y < 448)
     {
@@ -112,9 +112,9 @@ void menuFIN()
         }
 
     }*/
-    if( mouse_x > 550 && mouse_x < 750 && mouse_y > 494 && mouse_y < 554)
+    if( mouse_x > 440 && mouse_x < 868 && mouse_y > 412 && mouse_y < 455)
     {
-        draw_sprite(image1,quitterred,505,450);
+        draw_sprite(image1,quitterred,390,350);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -127,7 +127,7 @@ void menuFIN()
     }
     else
     {
-        draw_sprite(image1,quitter,505,450);
+        draw_sprite(image1,quitter,390,350);
     }
 
     }
@@ -176,7 +176,7 @@ void menuDEBUT()
 
     while (!key[KEY_ESC] && fin != 1)
     {
-        //play_sample(son,100,20,2000,0);
+        play_sample(son,100,20,2000,0);
 
 
     //clear_bitmap(doubleBuffer);
