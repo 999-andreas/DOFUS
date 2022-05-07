@@ -41,14 +41,18 @@ int main()
 
     // Chargement de l'image (l'allocation a lieu en même temps)
     image=load_bitmap("steve.bmp",NULL);
-    if (!image)  {
-        allegro_message("pas pu trouver/charger carotte.bmp");
-        allegro_exit(); exit(EXIT_FAILURE);
+    if (!image)
+    {
+        allegro_message("pas pu trouver/charger steve.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
     }
-   image1=load_bitmap("stevedep.bmp",NULL);
-    if (!image)  {
-        allegro_message("pas pu trouver/charger carotte.bmp");
-        allegro_exit(); exit(EXIT_FAILURE);
+    image1=load_bitmap("stevedep.bmp",NULL);
+    if (!image)
+    {
+        allegro_message("pas pu trouver/charger stevedep.bmp");
+        allegro_exit();
+        exit(EXIT_FAILURE);
     }
 
 
@@ -62,9 +66,11 @@ int main()
     // Position initiale au centre
     posx=SCREEN_W/2-tx/2;
     posy=SCREEN_H/2-ty/2;
-   //posx = 50;
-   //posy =50;
+    //posx = 50;
+    //posy =50;
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    blit(image1,buffer,0,0,mouse_x,mouse_y,tx,ty);
+    //blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
     /*if(mouse_x>0&&mouse_y>0&&mouse_x<50&&mouse_y<50)
     {
@@ -104,38 +110,44 @@ int main()
     // Boucle d'animation (pas d'interaction)
     while (!key[KEY_ESC])
     {
+
         textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
-        textprintf_ex(screen,font,60,500,makecol(0,255,0),makecol(0,0,0),"%4d %4d",posx,posy);
-        textprintf_ex(screen,font,60,100,makecol(0,255,0),makecol(0,0,0),"%4d %4d",tx,ty);
+        // textprintf_ex(screen,font,60,500,makecol(0,255,0),makecol(0,0,0),"%4d %4d",posx,posy);
+        // textprintf_ex(screen,font,60,100,makecol(0,255,0),makecol(0,0,0),"%4d %4d",tx,ty);
 
 
-   /*if(mouse_b & 1){
-    if(mouse_x>0&&mouse_y>0&&mouse_x<50&&mouse_y<50)
-    {
-        posx=0;
-        posy=0;
-    }
-    if(mouse_x>0&&mouse_x<50&&mouse_y>50&&mouse_y<100)
-    {
-        posx=0;
-        posy=50;
-    }
-    }
-        blit(image1,screen,0,0,posx,posy,tx,ty);*/
-         blit(image1,screen,0,0,posx,posy,tx,ty);
-
-        if (mouse_b & 1) {
-                blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
-                blit(image1,screen,0,0,mouse_x,mouse_y,tx,ty);
-
+        /*if(mouse_b & 1){
+         if(mouse_x>0&&mouse_y>0&&mouse_x<50&&mouse_y<50)
+         {
+             posx=0;
+             posy=0;
          }
+         if(mouse_x>0&&mouse_x<50&&mouse_y>50&&mouse_y<100)
+         {
+             posx=0;
+             posy=50;
+         }
+         }
+             blit(image1,screen,0,0,posx,posy,tx,ty);*/
 
 
+
+
+
+        if (mouse_b & 1)
+        {
+            //  blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+            clear_bitmap(buffer);
+            blit(image1,buffer,0,0,mouse_x,mouse_y,tx,ty);
+        }
+
+
+         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         //if (mouse_b&1){
 
-            //  blit(image1,screen,0,0,posx,posy,tx,ty);
+        //  blit(image1,screen,0,0,posx,posy,tx,ty);
 
 
         // 4) ON FAIT UNE PETITE PAUSE à chaque fois sinon ça va trop vite...
@@ -145,3 +157,4 @@ int main()
     return 0;
 }
 END_OF_MAIN();
+
