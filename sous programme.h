@@ -14,4 +14,4 @@ typedef struct Joueur
 }t_joueur;
 
 void menuDEBUT();
-void menuFIN();
+//void menuFIN();
