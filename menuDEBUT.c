@@ -12,7 +12,8 @@ void menuFIN()
     BITMAP *jouerred;
     BITMAP *revanchered;
     BITMAP *quitterred;
-    SAMPLE *son;
+    SAMPLE *ouverture;
+    SAMPLE *combat;
 
     install_keyboard();
     install_mouse();
@@ -31,12 +32,13 @@ void menuFIN()
     jouerred = load_bitmap("jouerrouge.bmp",NULL);
     revanchered = load_bitmap("revancherouge.bmp",NULL);
     quitterred = load_bitmap("quitterrouge.bmp",NULL);
-    son = load_sample("son.wav");
+    ouverture = load_sample("ouverture.wav");
+    combat = load_sample("combat.wav");
 
 
     while (!key[KEY_ESC] && fin != 1)
     {
-        //play_sample(son,100,20,2000,0);
+        play_sample(ouverture,100,20,1000,0);
 
     //clear_bitmap(doubleBuffer);
     //textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
@@ -64,6 +66,8 @@ void menuFIN()
 
         if(mouse_b&1)
         {
+            stop_sample(ouverture);
+            play_sample(combat,100,20,1000,10);
             textprintf_ex(screen,font,100,200,makecol(255,255,0),makecol(0,0,0),"JOUER UNE PARTIE");
 
 
@@ -148,7 +152,8 @@ void menuDEBUT()
     BITMAP *image1;
     BITMAP *jouerred;
     BITMAP *quitterred;
-    SAMPLE *son;
+    SAMPLE *ouverture;
+    SAMPLE *combat;
     BITMAP *logo;
     //BITMAP *epee;
 
@@ -170,13 +175,14 @@ void menuDEBUT()
     viseur = load_bitmap("viseur.bmp",NULL);
     jouerred = load_bitmap("jouerrouge.bmp",NULL);
     quitterred = load_bitmap("quitterrouge.bmp",NULL);
-    son = load_sample("son.wav");
+    ouverture = load_sample("ouverture.wav");
+    combat = load_sample("combat.wav");
     //logo = load_bitmap("logo.bmp",NULL);
     //epee = load_bitmap("epee.bmp",NULL);
 
     while (!key[KEY_ESC] && fin != 1)
     {
-        play_sample(son,100,20,2000,0);
+        play_sample(ouverture,100,20,1000,5);
 
 
     //clear_bitmap(doubleBuffer);
@@ -205,6 +211,8 @@ void menuDEBUT()
 
         if(mouse_b&1)
         {
+            stop_sample(ouverture);
+            play_sample(combat,100,20,1000,10);
             clear_bitmap(screen);
             textprintf_ex(screen,font,100,200,makecol(255,255,0),makecol(0,0,0),"JOUER UNE PARTIE");
 
