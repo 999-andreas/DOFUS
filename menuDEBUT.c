@@ -24,14 +24,14 @@ void menuFIN()
     int fin = 0;
 
     doubleBuffer = create_bitmap(SCREEN_W, SCREEN_H);
-    image1 = load_bitmap("minecraft3.bmp",NULL);
-    jouer = load_bitmap("jouer.bmp",NULL);
-    revanche = load_bitmap("revanche.bmp",NULL);
-    quitter = load_bitmap("quitter.bmp",NULL);
-    viseur = load_bitmap("viseur.bmp",NULL);
-    jouerred = load_bitmap("jouerrouge.bmp",NULL);
-    revanchered = load_bitmap("revancherouge.bmp",NULL);
-    quitterred = load_bitmap("quitterrouge.bmp",NULL);
+    image1 = load_bitmap("images/minecraft3.bmp",NULL);
+    jouer = load_bitmap("images/jouer.bmp",NULL);
+    revanche = load_bitmap("images/revanche.bmp",NULL);
+    quitter = load_bitmap("images/quitter.bmp",NULL);
+    viseur = load_bitmap("images/viseur.bmp",NULL);
+    jouerred = load_bitmap("images/jouerrouge.bmp",NULL);
+    revanchered = load_bitmap("images/revancherouge.bmp",NULL);
+    quitterred = load_bitmap("images/quitterrouge.bmp",NULL);
     ouverture = load_sample("ouverture.wav");
     combat = load_sample("combat.wav");
 
@@ -134,12 +134,12 @@ void menuDEBUT()
 
     int fin = 0;
     doubleBuffer = create_bitmap(SCREEN_W, SCREEN_H);
-    image1 = load_bitmap("minecraft3.bmp",NULL);
-    jouer = load_bitmap("jouer.bmp",NULL);
-    quitter = load_bitmap("quitter.bmp",NULL);
-    viseur = load_bitmap("viseur.bmp",NULL);
-    jouerred = load_bitmap("jouerrouge.bmp",NULL);
-    quitterred = load_bitmap("quitterrouge.bmp",NULL);
+    image1 = load_bitmap("images/minecraft3.bmp",NULL);
+    jouer = load_bitmap("images/jouer.bmp",NULL);
+    quitter = load_bitmap("images/quitter.bmp",NULL);
+    viseur = load_bitmap("images/viseur.bmp",NULL);
+    jouerred = load_bitmap("images/jouerrouge.bmp",NULL);
+    quitterred = load_bitmap("images/quitterrouge.bmp",NULL);
     ouverture = load_sample("ouverture.wav");
     combat = load_sample("combat.wav");
 
