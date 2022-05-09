@@ -7,11 +7,5 @@
 #include <allegro.h>
 #include <time.h>
 
-typedef struct Joueur
-{
-    char joueur[100];
-    int dernierENVIE;
-}t_joueur;
-
 void menuDEBUT();
-//void menuFIN();
+void menuFIN();
