@@ -57,6 +57,7 @@ int main()
 
     while (cliquer_zone(0,0,50, 50)!=1)
     {
+        clear_bitmap(buffer);
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
