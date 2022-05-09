@@ -54,6 +54,7 @@ void nbr_joueur(int i)
         {
 
             draw_sprite(page, sprite_transp, 117,344 );
+            draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
             blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
 
@@ -71,6 +72,7 @@ void nbr_joueur(int i)
         if (mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)
         {
             draw_sprite(page, sprite_transp, 531,346 );
+            draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
             blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)///boutton 3 joueurs
@@ -87,6 +89,7 @@ void nbr_joueur(int i)
         if (mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)
         {
             draw_sprite(page, sprite_transp, 938,346 );
+            draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
             blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)///boutton 4 joueurs
@@ -372,6 +375,7 @@ void classeJ(int choixJ)
         if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)/// coordonées du boutton
         {
             draw_sprite(bmp, suivant, 1011,594 );
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)
