@@ -11,12 +11,12 @@ void nbr_joueur(int i)
     BITMAP *viseur;
 
     page=create_bitmap(1300,700);
-    joueur=load_bitmap("image/joueur.bmp",NULL);
-    viseur=load_bitmap("image/viseur.bmp",NULL);
+    joueur=load_bitmap("images/joueur.bmp",NULL);
+    viseur=load_bitmap("images/viseur.bmp",NULL);
 
     //int choixJ=0; ///variable nombre de joueur
 
-    sprite_transp=load_bitmap("image/rectangle.bmp",NULL);
+    sprite_transp=load_bitmap("images/rectangle.bmp",NULL);
 
     if (!sprite_transp)
     {
