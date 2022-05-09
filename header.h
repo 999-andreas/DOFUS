@@ -34,6 +34,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge);
 void update_jauge(int pv, int pm, int pa, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
+
 ///Menu.c
 void nbr_joueur(int i);
 void classeJ(int choixJ);

@@ -103,16 +103,12 @@ void nbr_joueur(int i)
             }
         }
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-        rest(100);
     }
-    rest(50);
 }
 
 
 void classeJ(int choixJ)
 {
-
-    install_mouse();
 
     ///BITMAP///
 
@@ -223,7 +219,6 @@ void classeJ(int choixJ)
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    //show_mouse(screen);
 
     blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -250,27 +245,23 @@ void classeJ(int choixJ)
         {
             draw_sprite(bmp,J1, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
         if (tour == 1)
         {
             draw_sprite(bmp, J2, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
         if (tour == 2)
         {
             draw_sprite(bmp, J3, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
         if (tour == 3)
         {
             draw_sprite(bmp, J4, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
         ///CLASSE 1:  LA SORCIERE///
@@ -280,7 +271,6 @@ void classeJ(int choixJ)
             draw_sprite(bmp, rect, 125,160 );
             draw_sprite(bmp, carac1, 20,500 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
             {
@@ -302,7 +292,6 @@ void classeJ(int choixJ)
             draw_sprite(bmp, rect, 393,162 );
             draw_sprite(bmp, carac2, 20,500 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
             {
@@ -324,7 +313,6 @@ void classeJ(int choixJ)
             draw_sprite(bmp, rect, 670,162 );
             draw_sprite(bmp, carac3, 20,500 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
             {
@@ -345,7 +333,6 @@ void classeJ(int choixJ)
             draw_sprite(bmp, rect, 945,162 );
             draw_sprite(bmp, carac4, 20,500 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)
             {
@@ -362,7 +349,6 @@ void classeJ(int choixJ)
 
         }
         blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        rest(100);///pause sinon ca va trop vite
     }
 
     int termine;
@@ -390,7 +376,6 @@ void classeJ(int choixJ)
 
         }
         blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        rest(100);
     }
     jeux();
 }
@@ -399,24 +384,6 @@ void classeJ(int choixJ)
 void jeux()
 {
 
-    BITMAP* Classss;
-    Classss=create_bitmap(1300,700);
-    Classss=load_bitmap("image/paysage.bmp",NULL);
-
-    if (!Classss)// Vérification que l'image est bien chargée
-    {
-        allegro_message("pas pu trouver/charger mon_image.bmp");
-        allegro_exit();
-        exit(EXIT_FAILURE);
-    }
-    show_mouse(screen);
-
-    blit(Classss,screen,0,0,0,0, Classss->w, Classss->h); // Affichage de l'image sur l'écran
-    rectfill(screen,550,650,600,700,makecol(255,0,0 ));
-    while(!key[KEY_ESC])
-    {
-
-    }
 
 
 }

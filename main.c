@@ -36,7 +36,6 @@ int main()
 
 
     setup_allegro();
-    nbr_joueur(0);
 
     terrain = create_bitmap(1400, 600);
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
@@ -51,7 +50,7 @@ int main()
     lava = load_bitmap("images/lava.bmp", NULL);
     hotbar = load_bitmap("images/hotbar.bmp", NULL);
 
-
+    nbr_joueur(0);
 
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
