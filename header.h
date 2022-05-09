@@ -6,7 +6,7 @@
 #include <allegro.h>
 #include <time.h>
 
-//stockage des données du joueur
+//stockage des donnï¿½es du joueur
 typedef struct joueur
 {
     int PV; // points de vie
@@ -21,6 +21,8 @@ typedef struct joueur
 
 //inclure les nouveaux fichier .c ici
 
+
+
 ///utilitaire.c
 void setup_allegro();
 int cliquer_zone(int x, int y, int tx, int ty);
@@ -32,6 +34,11 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge);
 void update_jauge(int pv, int pm, int pa, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
+///Menu.c
+void nbr_joueur(int i);
+void classeJ(int choixJ);
+void jeux();
+//mettre les prototypes des nouveaux fichier ici
 
 
 #endif // HEADER_H_INCLUDED

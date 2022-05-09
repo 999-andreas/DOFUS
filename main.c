@@ -36,6 +36,7 @@ int main()
 
 
     setup_allegro();
+    nbr_joueur(0);
 
     terrain = create_bitmap(1400, 600);
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
@@ -84,6 +85,7 @@ int main()
     //destroy_font(grand);
     return 0;
 }
+
 END_OF_MAIN();
 
 //faire un giga tableau pour les infos de chaque classe
