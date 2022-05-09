@@ -380,10 +380,3 @@ void classeJ(int choixJ)
     jeux();
 }
 
-
-void jeux()
-{
-
-
-
-}

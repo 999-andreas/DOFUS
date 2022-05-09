@@ -41,5 +41,8 @@ void classeJ(int choixJ);
 void jeux();
 //mettre les prototypes des nouveaux fichier ici
 
+///Jeu.c
+void jeux();
+
 
 #endif // HEADER_H_INCLUDED
