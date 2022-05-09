@@ -34,8 +34,14 @@
 		<Linker>
 			<Add library="alleg44.dll" />
 		</Linker>
+		<Unit filename="Menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="header.h">
 			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="jeu.c">
+			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
@@ -43,6 +49,7 @@
 		<Unit filename="map.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="sous programme.h" />
 		<Unit filename="utilitaire.c">
 			<Option compilerVar="CC" />
 		</Unit>

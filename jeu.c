@@ -2,6 +2,7 @@
 
 void jeux()
 {
+
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     t_joueur* michel;
@@ -28,6 +29,7 @@ void jeux()
     BITMAP* bush; //utile
     BITMAP* bleu; //utile
     BITMAP* rouge; //utile
+    BITMAP* suivant;
 
     BITMAP* terrain;
     BITMAP* buffer;
@@ -35,6 +37,7 @@ void jeux()
     terrain = create_bitmap(1400, 600);
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
+    suivant  = load_bitmap("images/suivant2.bmp",NULL);
     rouge = load_bitmap("images/rouge.bmp",NULL);
     bleu = load_bitmap("images/bleu.bmp",NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
@@ -69,9 +72,12 @@ void jeux()
 
         update_jauge(pv, pm, pa, buffer); //affichage des jauge
 
+        draw_sprite(buffer, suivant,1100 ,625 );
+
         draw_sprite(buffer, viseur, mouse_x-10, mouse_y); //affichage de la souris
 
         blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);//affichage final sur l'ecran
 
     }
+    menuFIN();
 }

@@ -39,10 +39,14 @@ void update_coo(t_joueur* michel, int maps[26][12]);
 void nbr_joueur(int i);
 void classeJ(int choixJ);
 void jeux();
+void menuDEBUT();
+void menuFIN();
 //mettre les prototypes des nouveaux fichier ici
 
 ///Jeu.c
 void jeux();
+
+
 
 
 #endif // HEADER_H_INCLUDED

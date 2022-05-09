@@ -11,10 +11,10 @@
 	<allegro.h>
 	<time.h>
 
-1652105942 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\main.c
+1652108167 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\main.c
 	"header.h"
 
-1652105942 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\header.h
+1652108146 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\header.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
@@ -29,9 +29,9 @@
 1652103960 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\map.c
 	"header.h"
 
-1652105727 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\menu.c
+1652108600 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\menu.c
 	"header.h"
 
-1652106067 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\jeu.c
+1652109840 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\jeu.c
 	"header.h"
 
