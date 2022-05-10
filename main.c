@@ -1,4 +1,32 @@
 #include <allegro.h>
+#include "header.h"
+#include "utilitaire.c"
+void update_coo(t_joueur* michel, int maps[26][12])
+{
+    int i = 0;
+    int j = 0;
+
+    for (i = 0 ;i <26 ; i++)
+    {
+        for (j = 0 ;j<12 ;j++)
+        {
+            if(cliquer_zone((i*50), (j*50) , 50,50) == 1)
+            {
+                if(maps[i][j] == 2)
+                {}
+                else
+                {
+                    michel->posx = i*50;
+                    michel->posy = (j*50)-50;
+                    printf("%d,",michel->posx);
+                    printf("%d\n",michel->posy);
+                }
+
+            }
+        }
+    }
+}
+
 
 
 int main()
@@ -8,6 +36,10 @@ int main()
     BITMAP *buffer;
     BITMAP *image1;
     //int fin;
+    srand(time(NULL));
+
+    int maps[26][12];
+    t_joueur* michel;
 
     // paramètres de l'élément à animer
     int posx,posy;    // coordonnées
@@ -43,14 +75,14 @@ int main()
     image=load_bitmap("steve.bmp",NULL);
     if (!image)
     {
-        allegro_message("pas pu trouver/charger steve.bmp");
+        allegro_message("pas pu trouver/charger carotte.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
     image1=load_bitmap("stevedep.bmp",NULL);
     if (!image)
     {
-        allegro_message("pas pu trouver/charger stevedep.bmp");
+        allegro_message("pas pu trouver/charger carotte.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
@@ -70,67 +102,16 @@ int main()
     //posy =50;
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
     blit(image1,buffer,0,0,mouse_x,mouse_y,tx,ty);
-    //blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
-    /*if(mouse_x>0&&mouse_y>0&&mouse_x<50&&mouse_y<50)
-    {
-        posx=0;
-        posy=0;
-    }
-    if(mouse_x>0&&mouse_x<50&&mouse_y>50&&mouse_y<100)
-    {
-        posx=0;
-              posy=50;
-    }
-
-       if(mouse_b & 1)   {          // }
-        if (casse==1)
-            {
-              posx=0;
-              posy=0;
 
 
-            }
-
-        if (casse==2 )
-            {
-              posx=0;
-              posy=50;
-
-
-            }
-        }*/
-
-
-    // mouvements vers la droite et vers le bas
-    // on pourrait initialiser aléatoirement ici...
-    //depx=9;
-    //depy=5;
 
     // Boucle d'animation (pas d'interaction)
     while (!key[KEY_ESC])
     {
 
-        textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
+        //textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         // textprintf_ex(screen,font,60,500,makecol(0,255,0),makecol(0,0,0),"%4d %4d",posx,posy);
         // textprintf_ex(screen,font,60,100,makecol(0,255,0),makecol(0,0,0),"%4d %4d",tx,ty);
-
-
-        /*if(mouse_b & 1){
-         if(mouse_x>0&&mouse_y>0&&mouse_x<50&&mouse_y<50)
-         {
-             posx=0;
-             posy=0;
-         }
-         if(mouse_x>0&&mouse_x<50&&mouse_y>50&&mouse_y<100)
-         {
-             posx=0;
-             posy=50;
-         }
-         }
-             blit(image1,screen,0,0,posx,posy,tx,ty);*/
-
-
 
 
 
@@ -139,18 +120,14 @@ int main()
             //  blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             clear_bitmap(buffer);
-            blit(image1,buffer,0,0,mouse_x,mouse_y,tx,ty);
+            update_coo(michel, maps);
+            blit(image1,buffer,0,0,michel->posx,michel->posy,tx,ty);
         }
 
 
          blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-        //if (mouse_b&1){
 
-        //  blit(image1,screen,0,0,posx,posy,tx,ty);
-
-
-        // 4) ON FAIT UNE PETITE PAUSE à chaque fois sinon ça va trop vite...
         rest(20);
     }
 
