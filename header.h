@@ -13,10 +13,12 @@ typedef struct joueur
     int PA; // points d'attaque
     int PM; // points de mouvement
     int classe;// 1,2,3 ou 4
+    int nbJoueur;
                // la classe definit toute les caracteristiques du joueur (sorts et skin)
     int vivant; // 1 ou 0
     int posx;
     int posy;
+    BITMAP *sorti;
 }t_joueur;
 
 //inclure les nouveaux fichier .c ici
@@ -36,16 +38,12 @@ void update_jauge(int pv, int pm, int pa, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
 
 ///Menu.c
-void nbr_joueur(int i);
-void classeJ(int choixJ);
-void jeux();
+void nbr_joueur(BITMAP* son);
+void classeJ(int choixJ,BITMAP *son);
+void jeux(t_joueur *michel,BITMAP* son);
 void menuDEBUT();
 void menuFIN();
 //mettre les prototypes des nouveaux fichier ici
-
-///Jeu.c
-void jeux();
-
 
 
 

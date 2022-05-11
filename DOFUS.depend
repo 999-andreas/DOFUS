@@ -1,6 +1,6 @@
 # depslib dependency file v1.0
-1651966786 source:c:\users\jackq\documents\github\dofus\main.c
-	"sous programme.h"
+1652125875 source:c:\users\jackq\documents\github\dofus\main.c
+	"header.h"
 
 1652106670 source:c:\users\jackq\documents\github\dofus\menudebut.c
 	"sous programme.h"
@@ -33,5 +33,23 @@
 	"header.h"
 
 1652109840 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\jeu.c
+	"header.h"
+
+1652296653 source:c:\users\jackq\documents\github\dofus\jeu.c
+	"header.h"
+
+1652296639 c:\users\jackq\documents\github\dofus\header.h
+	<stdio.h>
+	<stdlib.h>
+	<allegro.h>
+	<time.h>
+
+1652296639 source:c:\users\jackq\documents\github\dofus\map.c
+	"header.h"
+
+1652263399 source:c:\users\jackq\documents\github\dofus\menu.c
+	"header.h"
+
+1652296278 source:c:\users\jackq\documents\github\dofus\utilitaire.c
 	"header.h"
 
