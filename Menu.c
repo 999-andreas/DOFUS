@@ -1,6 +1,6 @@
 #include "header.h"
 
-void nbr_joueur(int i)
+void nbr_joueur(BITMAP* son)
 {
 
     install_mouse();
@@ -14,7 +14,7 @@ void nbr_joueur(int i)
     joueur=load_bitmap("images/joueur.bmp",NULL);
     viseur=load_bitmap("images/viseur.bmp",NULL);
 
-    //int choixJ=0; ///variable nombre de joueur
+    int i=0;
 
     sprite_transp=load_bitmap("images/rectangle.bmp",NULL);
 
@@ -42,13 +42,10 @@ void nbr_joueur(int i)
     blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-    while (i!=2 || i!=3 || i!=4)// Boucle interactive
+    while (i!=2 || i!=3 || i!=4 )// Boucle interactive
     {
         blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
-
-
-        //textprintf_ex(screen,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
 
         if (mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)
         {
@@ -64,7 +61,8 @@ void nbr_joueur(int i)
                 clear(joueur);
                 clear(screen);
                 clear(page);
-                classeJ(i);
+                classeJ(i,son);
+
             }
         }
 
@@ -82,7 +80,7 @@ void nbr_joueur(int i)
                 clear(joueur);
                 clear(screen);
                 clear(page);
-                classeJ(i);
+                classeJ(i,son);
             }
         }
 
@@ -99,7 +97,7 @@ void nbr_joueur(int i)
                 clear(joueur);
                 clear(page);
                 clear(screen);
-                classeJ(i);
+                classeJ(i,son);
             }
         }
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -107,7 +105,7 @@ void nbr_joueur(int i)
 }
 
 
-void classeJ(int choixJ)
+void classeJ(int choixJ, BITMAP* son)
 {
 
     ///BITMAP///
@@ -207,7 +205,7 @@ void classeJ(int choixJ)
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-     if (!carac4)/// Vérification que l'image est bien chargée///
+    if (!carac4)/// Vérification que l'image est bien chargée///
     {
         allegro_message("pas pu trouver/charger carac4.bmp");
         allegro_exit();
@@ -225,13 +223,13 @@ void classeJ(int choixJ)
 
     t_joueur J[choixJ];
 
+    J[0].nbJoueur = choixJ;
     int classe1, classe2, classe3, classe4;
 
     while(tour != choixJ)
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-        //textprintf_ex(Classss,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         printf("nbrrrrr : %d\n", choixJ);
         printf ("c'est au joueur %d de jouer \n", tour+1);
 
@@ -277,7 +275,7 @@ void classeJ(int choixJ)
                 if (classe1!=1)
                 {
                     J[tour].classe=1;
-                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
+                    printf("la classe choisie par le joueur %d est : %d \n", tour+1, J[tour].classe);
                     tour=tour+1;
                     classe1=1;
                 }
@@ -361,7 +359,6 @@ void classeJ(int choixJ)
         if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)/// coordonées du boutton
         {
             draw_sprite(bmp, suivant, 1011,594 );
-            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
             if (mouse_b & 1 && mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)
@@ -377,7 +374,7 @@ void classeJ(int choixJ)
         }
         blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
-    jeux();
+    jeux(J,son);
 }
 
 
@@ -416,14 +413,13 @@ void menuFIN()
     ouverture = load_sample("ouverture.wav");
     combat = load_sample("combat.wav");
 
-
     while (!key[KEY_ESC] && fin != 1)
     {
         play_sample(ouverture,100,125,1000,10000);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-        //clear_bitmap(doubleBuffer);
+
         if( mouse_x > 440 && mouse_x < 868 && mouse_y > 312 && mouse_y < 355)
         {
             draw_sprite(image1,jouerred,390,250);
@@ -434,9 +430,9 @@ void menuFIN()
             if(mouse_b&1)
             {
                 stop_sample(ouverture);
-                play_sample(combat,100,125,1000,10000);
+                play_sample(combat,75,125,1000,10000);
                 clear_bitmap(screen);
-                // CONDITION POUR JOUER
+                nbr_joueur(combat);
             }
 
         }
@@ -454,11 +450,7 @@ void menuFIN()
 
             if(mouse_b&1)
             {
-
-                /* while(1)
-                {
-                   // CONDITION POUR REJOUER UNE PARTIE
-                }*/
+                // CONDITION POUR REJOUER
             }
 
         }
@@ -466,12 +458,10 @@ void menuFIN()
         {
             draw_sprite(image1,revanche,390,300);
         }
-             /*while(1)
-             {
-                  // CONDITION POUR LES TOP JOUEURS
-             }
-
-         }*/
+        /*while(1)
+        {
+             // CONDITION POUR RELANCER LA PARTIE
+        }*/
         if( mouse_x > 440 && mouse_x < 868 && mouse_y > 412 && mouse_y < 455)
         {
             draw_sprite(image1,quitterred,390,350);
@@ -480,6 +470,7 @@ void menuFIN()
             blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
             if(mouse_b&1)
             {
+                exit(1);
                 fin = 1;
             }
         }
@@ -543,10 +534,7 @@ void menuDEBUT()
                 stop_sample(ouverture);
                 play_sample(combat,75,125,1000,10000);
                 clear_bitmap(screen);
-
-                nbr_joueur(0);
-
-                // CONDITION POUR JOUER
+                nbr_joueur(combat);
             }
 
         }
