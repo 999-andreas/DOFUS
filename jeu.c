@@ -30,6 +30,7 @@ void jeux(t_joueur *michel,BITMAP *son)
 
     int joueurTour;
     int value;
+    int compteur=0;
 
     pv = 100;
     pm = 50;
@@ -148,8 +149,19 @@ void jeux(t_joueur *michel,BITMAP *son)
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
-
+        if(compteur==0)
+        {
         affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,joueurTour);    // AFFICHAGE DU JOUEUR
+        }
+        else if(compteur==1)
+        {
+        animstate(buffer,steve1,steve2,steve3,steve4,michel,joueurTour);
+        }
+        compteur++;
+        if(compteur==2)
+        {
+            compteur=0;
+        }
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 
