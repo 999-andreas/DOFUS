@@ -17,3 +17,4 @@ END_OF_MAIN();
 //pour que le code soit plus lisible
 //mettre des flammes comme obstacle, qui fond des degats
 //faire marcher l'ecriture en plus gros
+//faire en sorte que les perso ne se chevauche pas
