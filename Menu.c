@@ -1,9 +1,12 @@
 #include "header.h"
 
-void nbr_joueur(BITMAP* son)
+
+///SOUS PROGRAMME CHOIX DU NOMBRE DE JOUEUR///
+
+void nbr_joueur(BITMAP* son)//passage en parmètre la bitmap son pour la musique
 {
 
-    install_mouse();
+    install_mouse();//install souris
     BITMAP *joueur;
     BITMAP * page;
 
@@ -11,12 +14,15 @@ void nbr_joueur(BITMAP* son)
     BITMAP *viseur;
 
     page=create_bitmap(1300,700);
-    joueur=load_bitmap("images/joueur.bmp",NULL);
+    joueur=load_bitmap("images/joueur.bmp",NULL);///load image joueur.bmp
     viseur=load_bitmap("images/viseur.bmp",NULL);
 
-    int i=0;
+    int i=0;///variable du nombre de joueur
 
     sprite_transp=load_bitmap("images/rectangle.bmp",NULL);
+
+
+    ///verification que chaque image charge bien///
 
     if (!sprite_transp)
     {
@@ -39,41 +45,45 @@ void nbr_joueur(BITMAP* son)
 
     //show_mouse(screen);
 
-    blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///affihe l'image joueur sur le buffer
+    blit(joueur,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///affiche l'image joueur sur le screen
 
-    while (i!=2 || i!=3 || i!=4 )// Boucle interactive
-    {
+    while (i!=2 || i!=3 || i!=4 )
+    {// Boucle tanque i est différent de 2,3,4
         blit(joueur,page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
+        draw_sprite(page,viseur,mouse_x-15,mouse_y-5);///affiche le viseur de la souris sur la page
 
-        if (mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)
+
+ ///boutton 2 joueurs///
+
+        if (mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)///si la souris est entre ces coordonnées
         {
 
-            draw_sprite(page, sprite_transp, 117,344 );
-            draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
-            blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            draw_sprite(page, sprite_transp, 117,344 );///affiche le rectangle de selection sur la page
+            draw_sprite(page,viseur,mouse_x-15,mouse_y-5);///affiche le viseur
+            blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);///afficher tout sur le screen
 
 
-            if (mouse_b & 1 && mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)///boutton 2 joueurs
+            if (mouse_b & 1 && mouse_x>=152 && mouse_x<=305 && mouse_y>=373 && mouse_y<=485)///si on clic entre ces coordonnées
             {
-                i=2;
-                clear(joueur);
-                clear(screen);
-                clear(page);
-                classeJ(i,son);
+                i=2;///i (nombre de joueur) égal
+                clear(joueur);///afface la bitmap joueur
+                clear(screen);///afface la bitmap screen
+                clear(page);///afface la bitmap page
+                classeJ(i,son);///appel du sous prog classeJ
 
             }
         }
 
+     ///boutton 3 joueurs///
 
-        if (mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)
+        if (mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)///meme chose pour les 3 joueurs
         {
             draw_sprite(page, sprite_transp, 531,346 );
             draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
             blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
-            if (mouse_b & 1 && mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)///boutton 3 joueurs
+            if (mouse_b & 1 && mouse_x>=568 && mouse_x<=720 && mouse_y>=373 && mouse_y<=485)
             {
 
                 i=3;
@@ -84,13 +94,14 @@ void nbr_joueur(BITMAP* son)
             }
         }
 
-        if (mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)
+        ///boutton 4 joueurs///
+        if (mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)///meme chose pour les 4 joueurs
         {
             draw_sprite(page, sprite_transp, 938,346 );
             draw_sprite(page,viseur,mouse_x-15,mouse_y-5);
             blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
-            if (mouse_b & 1 && mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)///boutton 4 joueurs
+            if (mouse_b & 1 && mouse_x>=977 && mouse_x<=1128 && mouse_y>=373 && mouse_y<=485)
             {
 
                 i=4;
@@ -100,12 +111,14 @@ void nbr_joueur(BITMAP* son)
                 classeJ(i,son);
             }
         }
-        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);///afficher la page sur le screen
     }
 }
 
 
-void classeJ(int choixJ, BITMAP* son)
+///SOUS PROGRAMME CHOIX DES CLASSE ////
+
+void classeJ(int choixJ, BITMAP* son)//Passage en parametre le nombre de joueur choisie et la musique
 {
 
     ///BITMAP///
@@ -116,19 +129,31 @@ void classeJ(int choixJ, BITMAP* son)
     BITMAP* suivant;
 
 
+    ///bitmap affiche "joueur 1,2,3...
+
     BITMAP* J1;
     BITMAP* J2;
     BITMAP* J3;
     BITMAP* J4;
+
+    /// BITMAP caractéristique de chaque classe
 
     BITMAP* carac1;
     BITMAP* carac2;
     BITMAP* carac3;
     BITMAP* carac4;
 
+    ///Bitmap visieur de souris
+
     BITMAP*viseur;
 
+
+    ///variable nombre de tour
     int tour=0;
+
+
+
+    ///création ou chargement de chaque bitmap
 
     bmp=create_bitmap(1300,700); ///buffer
     Classss=load_bitmap("images/classes.bmp",NULL);
@@ -143,6 +168,9 @@ void classeJ(int choixJ, BITMAP* son)
     carac3=load_bitmap("images/carac3.bmp",NULL);
     carac4=load_bitmap("images/carac4.bmp",NULL);
     viseur=load_bitmap("images/viseur.bmp",NULL);
+
+
+    ///Verification que chaque image charge bien
 
     if (!Classss)/// Vérification que l'image est bien chargée///
     {
@@ -218,45 +246,46 @@ void classeJ(int choixJ, BITMAP* son)
         exit(EXIT_FAILURE);
     }
 
-    blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-    t_joueur J[choixJ];
+    blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///affichage de l'image des classss sur bmp
+    blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///affichage de la classe sur le screen
 
-    J[0].nbJoueur = choixJ;
-    int classe1, classe2, classe3, classe4;
+    t_joueur J[choixJ];///tableau de strcure t_joueur du choix joueur
 
-    while(tour != choixJ)
+    J[0].nbJoueur = choixJ;///stockage su nombre de joueur total
+    int classe1, classe2, classe3, classe4;///variable de chaque classe pour pas prendre la meme classe
+
+    while(tour != choixJ)///boucle tanque le nombre de tour est différent du nombre de joueur
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
         printf("nbrrrrr : %d\n", choixJ);
         printf ("c'est au joueur %d de jouer \n", tour+1);
 
-        if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)
+        if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)///bouton suivant
         {
             draw_sprite(bmp, suivant, 1011,594 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
-        if (tour == 0)
+        if (tour == 0)///affichage "joueur 1" quand tour = 0
         {
             draw_sprite(bmp,J1, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
         }
-        if (tour == 1)
+        if (tour == 1)///affichage "joueur 2" quand tour = 1
         {
             draw_sprite(bmp, J2, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
         }
 
-        if (tour == 2)
+        if (tour == 2)///affichage "joueur 3" quand tour = 2
         {
             draw_sprite(bmp, J3, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
         }
 
-        if (tour == 3)
+        if (tour == 3)///affichage "joueur 4" quand tour = 3
         {
             draw_sprite(bmp, J4, 500,100 );
             draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
@@ -264,20 +293,20 @@ void classeJ(int choixJ, BITMAP* son)
 
         ///CLASSE 1:  LA SORCIERE///
 
-        if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
+        if (mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)///si la souris est entre ces coordonées
         {
-            draw_sprite(bmp, rect, 125,160 );
-            draw_sprite(bmp, carac1, 20,500 );
-            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
+            draw_sprite(bmp, rect, 125,160 );//affiche carrer de selection
+            draw_sprite(bmp, carac1, 20,500 );//affiche les caractéristiques de la classe 1
+            draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);//affiche du viseur
 
-            if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)
+            if (mouse_b & 1 && mouse_x>=141 && mouse_x<=330 && mouse_y>=167 && mouse_y<=467)///si clic sur la classe 1
             {
-                if (classe1!=1)
+                if (classe1!=1)///condition pour dire que la classe 1 est deja prise
                 {
-                    J[tour].classe=1;
+                    J[tour].classe=1; //stockage de la classe dans le tableau de structure tour = 1
                     printf("la classe choisie par le joueur %d est : %d \n", tour+1, J[tour].classe);
-                    tour=tour+1;
-                    classe1=1;
+                    tour=tour+1;//incrémentation du tour
+                    classe1=1;//condition d'arret
                 }
 
             }
@@ -285,7 +314,7 @@ void classeJ(int choixJ, BITMAP* son)
 
         ///CLASSE 2: STEVE///
 
-        if(mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)
+        if(mouse_x>=409 && mouse_x<=600 && mouse_y>=168 && mouse_y<=472)///meme chose pour la classe 2
         {
             draw_sprite(bmp, rect, 393,162 );
             draw_sprite(bmp, carac2, 20,500 );
@@ -306,7 +335,7 @@ void classeJ(int choixJ, BITMAP* son)
 
         ///CLASSE 3 : LE SQUELETTE///
 
-        if(mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)
+        if(mouse_x>=687 && mouse_x<=876 && mouse_y>=168 && mouse_y<=472)///meme chose pour la classe 3
         {
             draw_sprite(bmp, rect, 670,162 );
             draw_sprite(bmp, carac3, 20,500 );
@@ -326,6 +355,7 @@ void classeJ(int choixJ, BITMAP* son)
         }
 
         ///CLASSE 4 : LE ZOMBIE ///
+        ///meme chose pour la classe 4
         if(mouse_x>=963 && mouse_x<=1160 && mouse_y>=168 && mouse_y<=472)///coordonées du bouttons de la classe4
         {
             draw_sprite(bmp, rect, 945,162 );
@@ -346,12 +376,12 @@ void classeJ(int choixJ, BITMAP* son)
             }
 
         }
-        blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    }
+        blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///afficher le bmp sur le screen
+    }///sort de la premier boucle while
 
-    int termine;
+    int termine;///variable pour la condition d'arret
 
-    while (termine!=1)///boucle pour le boutton suivant
+    while (termine!=1)///boucle tanque le boutton suivant n'a pas était cliquer
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
@@ -361,9 +391,9 @@ void classeJ(int choixJ, BITMAP* son)
             draw_sprite(bmp, suivant, 1011,594 );
             blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-            if (mouse_b & 1 && mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)
+            if (mouse_b & 1 && mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)///si clic sur le boutton suivant
             {
-                termine=1;
+                termine=1;///variable terminé = 1
                 clear(screen);///efface l'écran
 
                 ///efface les bitmaps///
@@ -372,9 +402,9 @@ void classeJ(int choixJ, BITMAP* son)
             }
 
         }
-        blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///afficher le bmp sur le screen
     }
-    jeux(J,son);
+    jeux(J,son);//appelle sur sous prog jeu pour arrivé sur le plateau
 }
 
 

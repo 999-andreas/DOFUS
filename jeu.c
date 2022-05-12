@@ -42,7 +42,7 @@ void jeux(t_joueur *michel,BITMAP *son)
     BITMAP* lava; //utile
     BITMAP* hotbar; //utile
 
-    BITMAP* steve1;
+    BITMAP* sorciere;
     BITMAP* steve2;
     BITMAP* steve3;
     BITMAP* steve4;
@@ -65,7 +65,7 @@ void jeux(t_joueur *michel,BITMAP *son)
     bleu = load_bitmap("images/bleu.bmp",NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
 
-    steve1 = load_bitmap("images/steve.bmp", NULL);
+    sorciere = load_bitmap("images/sorciere.bmp", NULL);
     steve2 = load_bitmap("images/steve.bmp", NULL);
     steve3 = load_bitmap("images/steve.bmp", NULL);
     steve4 = load_bitmap("images/steve.bmp", NULL);
@@ -149,7 +149,7 @@ void jeux(t_joueur *michel,BITMAP *son)
 
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
 
-        affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,joueurTour);    // AFFICHAGE DU JOUEUR
+        affichagePersonnage(buffer,sorciere,steve2,steve3,steve4,michel,joueurTour);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 

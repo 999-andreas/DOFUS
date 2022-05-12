@@ -23,7 +23,7 @@ void init_maps(int maps[26][12])
                 maps[i][j] = rand()%2;
         }
     }
-    for(i=0;i<26;i++)
+    for(i=0; i<26; i++)
     {
         maps[i][0] = 2;
     }
@@ -55,7 +55,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
         }
     }
 
-    for(i=0 ; i<26;i++)
+    for(i=0 ; i<26; i++)
     {
         blit(lava, terrain,0,0,(50*i),(0), 50, 50 );
 
@@ -150,18 +150,18 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int joueurTour) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int joueurTour) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
 {
     if(michel[0].nbJoueur == 2)
     {
         if(joueurTour == 0)
         {
-            draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
+            draw_sprite(buffer, sorciere, (michel[joueurTour].posx), (michel[joueurTour].posy-10));
             draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
         }
         else if(joueurTour == 1)
         {
-            draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
+            draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy-10));
             draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
         }
         else
@@ -176,19 +176,19 @@ void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *
 
             if(joueurTour == 0)
             {
-                draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
+                draw_sprite(buffer, sorciere, (michel[joueurTour].posx), (michel[joueurTour].posy));
                 draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
                 draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
             }
             else if(joueurTour == 1)
             {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
+                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
                 draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
                 draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
             }
             else if(joueurTour == 2)
             {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
+                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
                 draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
                 draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
             }
@@ -204,28 +204,28 @@ void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *
 
             if(joueurTour == 0)
             {
-                draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
+                draw_sprite(buffer, sorciere, (michel[joueurTour].posx), (michel[joueurTour].posy));
                 draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
                 draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
                 draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
             }
             else if(joueurTour == 1)
             {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
+                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
                 draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
                 draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
                 draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
             }
             else if(joueurTour == 2)
             {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
+                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
                 draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
                 draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
                 draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
             }
             else if(joueurTour == 3)
             {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
+                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
                 draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
                 draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
                 draw_sprite(buffer, steve4, (michel[joueurTour].posx), (michel[joueurTour].posy));
@@ -236,8 +236,6 @@ void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *
             }
 
         }
-
-
     else
     {
 
