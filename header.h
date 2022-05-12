@@ -34,17 +34,22 @@ int cliquer_zone(int x, int y, int tx, int ty);
 void init_maps(int maps[26][12]);
 void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* lava);
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge);
-void update_jauge(int pv, int pm, int pa, BITMAP* buffer);
+void update_jauge(t_joueur *michel, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
 
 ///Menu.c
-void nbr_joueur(BITMAP* son);
-void classeJ(int choixJ,BITMAP *son);
-void jeux(t_joueur *michel,BITMAP* son);
-void menuDEBUT();
-void menuFIN();
+void nbr_joueur(SAMPLE* son);
+void classeJ(int choixJ,SAMPLE *son);
+void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur);
 //mettre les prototypes des nouveaux fichier ici
 
+void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int nb_joueur);
+void menuDEBUT();
+void menuFIN(t_joueur *michel,int nb_joueur);
+
+void initialisation(t_joueur* michel,int nb_joueur);
+void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
+void choixEmplacement(BITMAP * buffer, BITMAP* steve1,BITMAP* steve2, BITMAP* steve3, BITMAP* steve4, int nb_joueur,t_joueur *michel,int maps[26][12]);
 
 
 #endif // HEADER_H_INCLUDED

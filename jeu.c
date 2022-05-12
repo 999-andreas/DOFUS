@@ -1,40 +1,11 @@
 #include "header.h"
 
-void jeux(t_joueur *michel,BITMAP *son)
+void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 {
 
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
-    //t_joueur* michel;
-
-    //initialisation des coo du joueur
-
-    michel[0].posx = 550;
-    michel[0].posy = 350;
-
-    michel[1].posx = 650;
-    michel[1].posy = 350;
-
-    michel[2].posx = 850;
-    michel[2].posy = 100;
-
-    michel[3].posx = 450;
-    michel[3].posy = 250;
-
-    michel[4].posx = 1000;
-    michel[4].posy = 500;
-
-    int pv;
-    int pa;
-    int pm;
-
     int joueurTour;
-    int value;
-
-    pv = 100;
-    pm = 50;
-    pa = 25;
-
 
     BITMAP* viseur; //utile
     BITMAP* dirt; //utile
@@ -78,11 +49,16 @@ void jeux(t_joueur *michel,BITMAP *son)
 
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
+    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+
+    choixEmplacement(buffer,steve1,steve2,steve3,steve4,nb_joueur,michel,maps);
+
+    initialisation(michel,nb_joueur);
 
     time_t temps = time(NULL);
 
 
-    while (cliquer_zone(0,0,50, 50)!=1 /*&& (time(NULL)-temps <=5)*/)
+    while (cliquer_zone(0,0,50, 50)!=1)
     {
         clear_bitmap(buffer);
 
@@ -108,7 +84,7 @@ void jeux(t_joueur *michel,BITMAP *son)
         ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(joueurTour % michel[0].nbJoueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+        if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
         {
             joueurTour = 0;
 
@@ -143,13 +119,11 @@ void jeux(t_joueur *michel,BITMAP *son)
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
 
-        affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,joueurTour);    // AFFICHAGE DU JOUEUR
+        affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 
@@ -160,7 +134,7 @@ void jeux(t_joueur *michel,BITMAP *son)
         textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: ");
         textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: ");;
 
-        update_jauge(pv, pm, pa, buffer); //affichage des jauge
+        update_jauge(&michel[joueurTour], buffer); //affichage des jauge
 
 
         draw_sprite(buffer, viseur, mouse_x-15, mouse_y-5); //affichage de la souris
@@ -169,5 +143,5 @@ void jeux(t_joueur *michel,BITMAP *son)
 
     }
     stop_sample(son);
-    menuFIN();
+    menuFIN(michel,nb_joueur);
 }

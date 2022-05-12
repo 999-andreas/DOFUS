@@ -23,7 +23,7 @@ void init_maps(int maps[26][12])
                 maps[i][j] = rand()%2;
         }
     }
-    for(i=0;i<26;i++)
+    for(i=0; i<26; i++)
     {
         maps[i][0] = 2;
     }
@@ -37,6 +37,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 
     for (i = 0 ; i <26 ; i++)
     {
+        blit(lava, terrain,0,0,(50*i),(0), 50, 50 );
         for (j = 0 ; j<12 ; j++)
         {
 
@@ -55,11 +56,6 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
         }
     }
 
-    for(i=0 ; i<26;i++)
-    {
-        blit(lava, terrain,0,0,(50*i),(0), 50, 50 );
-
-    }
 }
 
 //affichage des objets sur la map càd les element qui sont par dessus tout le reste
@@ -90,11 +86,11 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
 }
 
 //mise a jour des jauge de PV PM PA
-void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
+void update_jauge(t_joueur *michel, BITMAP* buffer)
 {
     int i;
 
-    for(i = 0; i<(pv); i++)
+    for(i = 0; i<(michel->PV); i++)
     {
 
         putpixel(buffer, i+100, 610, makecol(52,201,36));
@@ -104,7 +100,7 @@ void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
         putpixel(buffer, i+100, 614, makecol(52,201,36));
     }
 
-    for(i = 0; i<(pm); i++)
+    for(i = 0; i<(michel->PM); i++)
     {
 
         putpixel(buffer, i+100, 630, makecol(52,201,36));
@@ -114,7 +110,7 @@ void update_jauge(int pv, int pm, int pa, BITMAP* buffer)
         putpixel(buffer, i+100, 634, makecol(52,201,36));
     }
 
-    for(i = 0; i<(pa); i++)
+    for(i = 0; i<(michel->PA); i++)
     {
 
         putpixel(buffer, i+100, 650, makecol(52,201,36));
@@ -150,98 +146,99 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int joueurTour) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
 {
-    if(michel[0].nbJoueur == 2)
+    int i;
+
+    for(i = 0; i<nb_joueur; i++)
     {
-        if(joueurTour == 0)
-        {
-            draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-        }
-        else if(joueurTour == 1)
-        {
+        if(i==0)
             draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-            draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
+        if(i==1)
+            draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
+        if(i==2)
+            draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
+        if(i==3)
+            draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
+    }
+}
+
+void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
+{
+    int x=0;
+    int y=-50;
+    int i;
+    for(i=0; i<nb_joueur; i++)
+    {
+        do
+        {
+            x = rand()% 25;
+            michel[i].posx = x*50;
+            y = (rand()% (11-1)+1);
+            michel[i].posy = (y*50)-50;
+        }
+        while(maps[x][y] == 2);
+
+
+    }
+    printf("Joueur 1 : x->%d , y->%d\n",michel[0].posx,michel[0].posy);
+    printf("Joueur 2 : x->%d , y->%d\n",michel[1].posx,michel[1].posy);
+    printf("Joueur 3 : x->%d , y->%d\n",michel[2].posx,michel[2].posy);
+    printf("Joueur 4 : x->%d , y->%d\n",michel[3].posx,michel[3].posy);
+
+}
+
+void choixEmplacement(BITMAP * buffer, BITMAP* steve1,BITMAP* steve2, BITMAP* steve3, BITMAP* steve4, int nb_joueur,t_joueur *michel,int maps[26][12])
+{
+    int choixJoueur=0;
+    int enfoncer;
+    rest(50);
+    time_t choixTemp = time(NULL);
+    while ( (time(NULL)-choixTemp) < 10 && (choixJoueur != nb_joueur))
+    {
+        /*if(mouse_b &1)
+        {
+            enfoncer = 1;
+
+        }
+
+        if( (enfoncer && !mouse_b&1))
+        {
+            update_coo(&michel[choixJoueur], maps);
+            affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,choixJoueur+1);
+            choixJoueur++;
+            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+            enfoncer =0;
+            //rest(100);
+            /* update_coo(&michel[choixJoueur], maps);
+             affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,choixJoueur+1);
+             choixJoueur++;
+             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+             rest(100);
+        }*/
+        if(mouse_b &1)
+        {
+            update_coo(&michel[choixJoueur], maps);
+            affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,choixJoueur+1);
+            choixJoueur++;
+            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+            rest(100);
+
         }
         else
         {
+            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
 
         }
-
     }
 
-    else if(michel[0].nbJoueur == 3)
-        {
-
-            if(joueurTour == 0)
-            {
-                draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-            }
-            else if(joueurTour == 1)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-            }
-            else if(joueurTour == 2)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            }
-            else
-            {
-
-            }
-
-        }
-
-    else if (michel[0].nbJoueur == 4)
-        {
-
-            if(joueurTour == 0)
-            {
-                draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 1)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 2)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 3)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            }
-            else
-            {
-
-            }
-
-        }
-
-
+    if(choixJoueur == nb_joueur)
+    {}
     else
     {
-
+        aleatoirePersonnage(michel,nb_joueur,maps);
     }
+
 }
 
 
