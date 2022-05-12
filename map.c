@@ -150,96 +150,169 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int joueurTour) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere,BITMAP *steve2, BITMAP *squelette, BITMAP* zombie, t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
 {
-    if(michel[0].nbJoueur == 2)
-    {
-        if(joueurTour == 0)
-        {
-            draw_sprite(buffer, sorciere, (michel[joueurTour].posx), (michel[joueurTour].posy-10));
-            draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-        }
-        else if(joueurTour == 1)
-        {
-            draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy-10));
-            draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-        }
-        else
-        {
+    int i;
 
-        }
-
-    }
-
-    else if(michel[0].nbJoueur == 3)
-        {
-
-            if(joueurTour == 0)
-            {
-                draw_sprite(buffer, sorciere, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-            }
-            else if(joueurTour == 1)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-            }
-            else if(joueurTour == 2)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            }
-            else
-            {
-
-            }
-
-        }
-
-    else if (michel[0].nbJoueur == 4)
-        {
-
-            if(joueurTour == 0)
-            {
-                draw_sprite(buffer, sorciere, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 1)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 2)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 3)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            }
-            else
-            {
-
-            }
-
-        }
-    else
+    for(i = 0; i<nb_joueur; i++)
     {
 
+        if(i==0)
+        {
+            if (michel[0].classe==1)
+            {
+                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
+            }
+            if (michel[0].classe==2)
+            {
+                draw_sprite(buffer, steve2, (michel[0].posx), (michel[0].posy));
+
+            }
+            if (michel[0].classe==3)
+            {
+                draw_sprite(buffer, squelette, (michel[0].posx), (michel[0].posy));
+            }
+            if (michel[0].classe==4)
+            {
+                draw_sprite(buffer, zombie, (michel[0].posx), (michel[0].posy));
+            }
+        }
+
+        if(i==1)
+        {
+
+            if (michel[1].classe==1)
+            {
+                draw_sprite(buffer, sorciere, (michel[1].posx), (michel[1].posy));
+
+            }
+            if (michel[1].classe==2)
+            {
+                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
+
+            }
+            if (michel[1].classe==3)
+            {
+                draw_sprite(buffer, squelette, (michel[1].posx), (michel[1].posy));
+            }
+            if (michel[1].classe==4)
+            {
+                draw_sprite(buffer, zombie, (michel[1].posx), (michel[1].posy));
+            }
+        }
+
+        if(i==2)
+        {
+            if (michel[2].classe==1)
+            {
+                draw_sprite(buffer, sorciere, (michel[2].posx), (michel[2].posy));
+
+            }
+            if (michel[2].classe==2)
+            {
+                draw_sprite(buffer, steve2, (michel[2].posx), (michel[2].posy));
+            }
+            if (michel[2].classe==3)
+            {
+                draw_sprite(buffer, squelette, (michel[2].posx), (michel[2].posy));
+            }
+            if (michel[2].classe==4)
+            {
+                draw_sprite(buffer, zombie, (michel[2].posx), (michel[2].posy));
+            }
+        }
+        if(i==3)
+        {
+            if (michel[3].classe==1)
+            {
+                draw_sprite(buffer, sorciere, (michel[3].posx), (michel[3].posy));
+            }
+            if (michel[3].classe==2)
+            {
+
+                draw_sprite(buffer, steve2, (michel[3].posx), (michel[3].posy));
+            }
+            if (michel[3].classe==3)
+            {
+                draw_sprite(buffer, squelette, (michel[3].posx), (michel[3].posy));
+            }
+            if (michel[3].classe==4)
+            {
+                draw_sprite(buffer, zombie, (michel[3].posx), (michel[3].posy));
+            }
+        }
     }
 }
 
 
+void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4 )
+{
+    if (playeur[joueurTour].classe==1)
+    {
+        blit(bar1, buffer, 0,0,250,600,bar1->w, bar1->h);
+    }
+    if (playeur[joueurTour].classe==2)
+    {
+        blit(bar2, buffer, 0,0,250,600,bar1->w, bar2->h);
+    }
+    if (playeur[joueurTour].classe==3)
+    {
+        blit(bar3, buffer, 0,0,250,600,bar3->w, bar3->h);
+    }
+    if (playeur[joueurTour].classe==4)
+    {
+        blit(bar4, buffer, 0,0,250,600,bar4->w, bar4->h);
+    }
+}
+
+
+void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune)
+{
+
+    ///sort1///
+    if ( mouse_x > 250 && mouse_x < 340 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,255,605);
+    }
+
+    ///sort 2///
+    if ( mouse_x > 345 && mouse_x < 435 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,345,605);
+    }
+    ///sort 3 ///
+    if ( mouse_x > 440 && mouse_x < 525 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,430,605);
+    }
+    ///sort 4///
+    if ( mouse_x > 525 && mouse_x < 610 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,520,605);
+    }
+    ///case5//
+    if ( mouse_x > 613 && mouse_x < 697 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,605,605);
+    }
+    ///case attaque corps a coprs///
+    if ( mouse_x > 700 && mouse_x < 787 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,695,605);
+    }
+    ///case déplacer ///
+    if ( mouse_x > 787 && mouse_x < 873 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,783,605);
+    }
+    ///case 8///
+    if ( mouse_x > 877 && mouse_x < 963 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,870,605);
+    }
+    ///case9///
+    if ( mouse_x > 967 && mouse_x < 1053 && mouse_y > 600 && mouse_y < 700)
+    {
+        draw_sprite(buffer,jaune,957,605);
+    }
+}

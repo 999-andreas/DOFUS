@@ -404,7 +404,7 @@ void classeJ(int choixJ, BITMAP* son)//Passage en parametre le nombre de joueur 
         }
         blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///afficher le bmp sur le screen
     }
-    jeux(J,son);//appelle sur sous prog jeu pour arrivé sur le plateau
+    jeux(J,son, choixJ);//appelle sur sous prog jeu pour arrivé sur le plateau
 }
 
 

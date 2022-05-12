@@ -9,4 +9,4 @@
 
 void menuDEBUT();
 void menuFIN();
-void affichagePersonnage(BITMAP * buffer,BITMAP *steve1 ,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int joueurTour);
+void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere ,BITMAP *steve2, BITMAP *squelette, BITMAP* zombie, t_joueur *michel, int nb_joueur);
