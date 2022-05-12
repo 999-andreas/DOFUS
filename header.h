@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <allegro.h>
 #include <time.h>
+#include <math.h>
 
 //stockage des données du joueur
 typedef struct joueur
