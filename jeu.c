@@ -29,7 +29,6 @@ void jeux(t_joueur *michel,BITMAP *son, int nb_joueur)
     int pm;
 
     int joueurTour;
-    int value;
 
     pv = 100;
     pm = 50;

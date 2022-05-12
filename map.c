@@ -159,11 +159,11 @@ void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *
         if(i==0)
             draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
         if(i==1)
-            draw_sprite(buffer, steve1, (michel[1].posx), (michel[1].posy));
+            draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
         if(i==2)
-            draw_sprite(buffer, steve1, (michel[2].posx), (michel[2].posy));
+            draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
         if(i==3)
-            draw_sprite(buffer, steve1, (michel[3].posx), (michel[3].posy));
+            draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
     }
 }
 
