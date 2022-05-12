@@ -223,7 +223,6 @@ void classeJ(int choixJ, BITMAP* son)
 
     t_joueur J[choixJ];
 
-    J[0].nbJoueur = choixJ;
     int classe1, classe2, classe3, classe4;
 
     while(tour != choixJ)
@@ -374,7 +373,7 @@ void classeJ(int choixJ, BITMAP* son)
         }
         blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
-    jeux(J,son);
+    jeux(J,son, choixJ);
 }
 
 

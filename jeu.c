@@ -1,6 +1,6 @@
 #include "header.h"
 
-void jeux(t_joueur *michel,BITMAP *son)
+void jeux(t_joueur *michel,BITMAP *son, int nb_joueur)
 {
 
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
@@ -108,7 +108,7 @@ void jeux(t_joueur *michel,BITMAP *son)
         ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if(joueurTour % michel[0].nbJoueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+        if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
         {
             joueurTour = 0;
 
@@ -149,7 +149,7 @@ void jeux(t_joueur *michel,BITMAP *son)
 
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
 
-        affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,joueurTour);    // AFFICHAGE DU JOUEUR
+        affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 

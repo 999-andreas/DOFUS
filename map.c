@@ -150,97 +150,20 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int joueurTour) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *steve3, BITMAP* steve4, t_joueur *michel,int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
 {
-    if(michel[0].nbJoueur == 2)
+    int i;
+
+    for(i = 0; i<nb_joueur; i++)
     {
-        if(joueurTour == 0)
-        {
-            draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-        }
-        else if(joueurTour == 1)
-        {
+        if(i==0)
             draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-            draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-        }
-        else
-        {
-
-        }
-
-    }
-
-    else if(michel[0].nbJoueur == 3)
-        {
-
-            if(joueurTour == 0)
-            {
-                draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-            }
-            else if(joueurTour == 1)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-            }
-            else if(joueurTour == 2)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            }
-            else
-            {
-
-            }
-
-        }
-
-    else if (michel[0].nbJoueur == 4)
-        {
-
-            if(joueurTour == 0)
-            {
-                draw_sprite(buffer, steve1, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 1)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 2)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[joueurTour].posx), (michel[joueurTour].posy));
-                draw_sprite(buffer, steve4, (michel[3].posx), (michel[3].posy));
-            }
-            else if(joueurTour == 3)
-            {
-                draw_sprite(buffer, steve1, (michel[0].posx), (michel[0].posy));
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-                draw_sprite(buffer, steve3, (michel[2].posx), (michel[2].posy));
-                draw_sprite(buffer, steve4, (michel[joueurTour].posx), (michel[joueurTour].posy));
-            }
-            else
-            {
-
-            }
-
-        }
-
-
-    else
-    {
-
+        if(i==1)
+            draw_sprite(buffer, steve1, (michel[1].posx), (michel[1].posy));
+        if(i==2)
+            draw_sprite(buffer, steve1, (michel[2].posx), (michel[2].posy));
+        if(i==3)
+            draw_sprite(buffer, steve1, (michel[3].posx), (michel[3].posy));
     }
 }
 

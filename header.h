@@ -40,10 +40,12 @@ void update_coo(t_joueur* michel, int maps[26][12]);
 ///Menu.c
 void nbr_joueur(BITMAP* son);
 void classeJ(int choixJ,BITMAP *son);
-void jeux(t_joueur *michel,BITMAP* son);
 void menuDEBUT();
 void menuFIN();
-//mettre les prototypes des nouveaux fichier ici
+
+///Jeu.c
+void jeux(t_joueur *michel,BITMAP* son, int nb_joueur);
+
 
 
 
