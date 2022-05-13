@@ -151,96 +151,29 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere,BITMAP *steve2, BITMAP *squelette, BITMAP* zombie, t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
 {
     int i;
 
     for(i = 0; i<nb_joueur; i++)
     {
-
         if(i==0)
         {
-            if (michel[0].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-            }
-            if (michel[0].classe==2)
-            {
-                draw_sprite(buffer, steve2, (michel[0].posx), (michel[0].posy));
-
-            }
-            if (michel[0].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[0].posx), (michel[0].posy));
-            }
-            if (michel[0].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[0].posx), (michel[0].posy));
-            }
+            draw_sprite(buffer, skins[(michel[0].classe)-1], (michel[0].posx), (michel[0].posy));
         }
 
         if(i==1)
         {
-
-            if (michel[1].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[1].posx), (michel[1].posy));
-
-            }
-            if (michel[1].classe==2)
-            {
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-
-            }
-            if (michel[1].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[1].posx), (michel[1].posy));
-            }
-            if (michel[1].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[1].posx), (michel[1].posy));
-            }
+            draw_sprite(buffer, skins[(michel[1].classe)-1], (michel[1].posx), (michel[1].posy));
         }
 
         if(i==2)
         {
-            if (michel[2].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[2].posx), (michel[2].posy));
-
-            }
-            if (michel[2].classe==2)
-            {
-                draw_sprite(buffer, steve2, (michel[2].posx), (michel[2].posy));
-            }
-            if (michel[2].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[2].posx), (michel[2].posy));
-            }
-            if (michel[2].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[2].posx), (michel[2].posy));
-            }
+            draw_sprite(buffer, skins[(michel[2].classe)-1], (michel[2].posx), (michel[2].posy));
         }
         if(i==3)
         {
-            if (michel[3].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[3].posx), (michel[3].posy));
-            }
-            if (michel[3].classe==2)
-            {
-
-                draw_sprite(buffer, steve2, (michel[3].posx), (michel[3].posy));
-            }
-            if (michel[3].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[3].posx), (michel[3].posy));
-            }
-            if (michel[3].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[3].posx), (michel[3].posy));
-            }
+            draw_sprite(buffer, skins[(michel[3].classe)-1], (michel[3].posx), (michel[3].posy));
         }
     }
 }
@@ -270,7 +203,7 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
 
 }
 
-void choixEmplacement(BITMAP * buffer, BITMAP* steve1,BITMAP* steve2, BITMAP* steve3, BITMAP* steve4, int nb_joueur,t_joueur *michel,int maps[26][12])
+void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12])
 {
     int choixJoueur=0;
     int enfoncer;
@@ -301,7 +234,7 @@ void choixEmplacement(BITMAP * buffer, BITMAP* steve1,BITMAP* steve2, BITMAP* st
         if(mouse_b &1)
         {
             update_coo(&michel[choixJoueur], maps);
-            affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,choixJoueur+1);
+            affichagePersonnage(buffer,skins,michel,choixJoueur+1);
             choixJoueur++;
             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
             rest(100);

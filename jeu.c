@@ -7,6 +7,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     int joueurTour;
 
+    BITMAP* skins[4];
+
     BITMAP* viseur; //utile
     BITMAP* dirt; //utile
     BITMAP* grass; //utile
@@ -18,10 +20,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* hotbar4;
 
 
-    BITMAP* sorciere;
+    /*BITMAP* sorciere;
     BITMAP* steve2;
     BITMAP* squelette;
-    BITMAP* zombie;
+    BITMAP* zombie;*/
 
     BITMAP* bush; //utile
     BITMAP* bleu; //utile
@@ -39,14 +41,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     suivant  = load_bitmap("images/suivant2base.bmp",NULL);
     suivantRouge = load_bitmap("images/suivant2.bmp",NULL);
-    rouge = load_bitmap("images/rouge.bmp",NULL);
-    bleu = load_bitmap("images/bleu.bmp",NULL);
-    bush = load_bitmap("images/herbe.bmp", NULL);
 
-    sorciere = load_bitmap("images/sorciere.bmp", NULL);
-    steve2 = load_bitmap("images/steve.bmp", NULL);
-    squelette = load_bitmap("images/squelette.bmp", NULL);
-    zombie = load_bitmap("images/zombie.bmp", NULL);
+    skins[0] = load_bitmap("images/sorciere.bmp", NULL);
+    skins[1] = load_bitmap("images/steve.bmp", NULL);
+    skins[2] = load_bitmap("images/squelette.bmp", NULL);
+    skins[3] = load_bitmap("images/zombie.bmp", NULL);
 
     hotbar1 = load_bitmap("images/hotbar1.bmp", NULL);
     hotbar2 = load_bitmap("images/hotbar2.bmp", NULL);
@@ -54,18 +53,24 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     hotbar4 = load_bitmap("images/hotbar4.bmp", NULL);
 
     viseur = load_bitmap("images/viseur.bmp", NULL);
+    jaune = load_bitmap("images/jaune.bmp", NULL);
+    rouge = load_bitmap("images/rouge.bmp",NULL);
+    bleu = load_bitmap("images/bleu.bmp",NULL);
+
     dirt = load_bitmap("images/dirt.bmp", NULL);
     grass = load_bitmap("images/grass.bmp", NULL);
     lava = load_bitmap("images/lava.bmp", NULL);
+    bush = load_bitmap("images/herbe.bmp", NULL);
 
 
-    jaune = load_bitmap("images/jaune.bmp", NULL);
+
 
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
-    choixEmplacement(buffer,sorciere,steve2,squelette,zombie,nb_joueur,michel,maps);
+
+    choixEmplacement(buffer,skins,nb_joueur,michel,maps);
 
     initialisation(michel,nb_joueur);
 
@@ -141,7 +146,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune);
 
-        affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+        affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 
