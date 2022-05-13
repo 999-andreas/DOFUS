@@ -3,7 +3,7 @@
 
 ///SOUS PROGRAMME CHOIX DU NOMBRE DE JOUEUR///
 
-void nbr_joueur(BITMAP* son)//passage en parm�tre la bitmap son pour la musique
+void nbr_joueur(SAMPLE* son)//passage en parm�tre la bitmap son pour la musique
 {
 
     install_mouse();//install souris
@@ -118,7 +118,7 @@ void nbr_joueur(BITMAP* son)//passage en parm�tre la bitmap son pour la musiqu
 
 ///SOUS PROGRAMME CHOIX DES CLASSE ////
 
-void classeJ(int choixJ, BITMAP* son)//Passage en parametre le nombre de joueur choisie et la musique
+void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur choisie et la musique
 {
 
     ///BITMAP///
@@ -453,7 +453,7 @@ void menuFIN(t_joueur *michel,int nb_joueur)
     {
 
         // LANCEMENT DE LA MUSIQUE DU MENU ET AFFICHAGE DE LA SOURIS
-        play_sample(menu,100,125,1000,10000);
+        play_sample(menu,100,125,1003,10000);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -471,7 +471,7 @@ void menuFIN(t_joueur *michel,int nb_joueur)
             {
                 // ON ARRRETE LA MUSIQUE MENU ET ON LANCE CELUI DU JEUX
                 stop_sample(menu);
-                play_sample(combat,75,125,1000,10000);
+                play_sample(combat,75,125,1003,10000);
                 clear_bitmap(screen);
                 nbr_joueur(combat);
             }
@@ -499,7 +499,7 @@ void menuFIN(t_joueur *michel,int nb_joueur)
             {
                 // ALORS ON STOP LA MUSIQUE MENU ET ON LANCE CELUI DU JEUX
                 stop_sample(menu);
-                play_sample(combat,75,125,1000,10000);
+                play_sample(combat,75,125,1003,10000);
                 clear_bitmap(screen);
                 jeux(michel,combat,nb_joueur);
             }
@@ -579,7 +579,7 @@ void menuDEBUT()
     while (fin != 1)   // BOUCLE INFINIE TANT QUE ON NE CLICK PAS SUR FIN
     {
         // AFFICHAGE DU VISEUR DE LANCEMENT DE LA MUSIQUE DANS LE MENU
-        play_sample(menu,75,125,1000,100);
+        play_sample(menu,100,125,1003,100);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -595,7 +595,7 @@ void menuDEBUT()
             if(mouse_b&1) // SI ON CLICK SUR JOUER ALORS LANCEMENT DE LA PARTIE ET STOP MUSIQUE DU MENU
             {
                 stop_sample(menu);
-                play_sample(combat,75,125,1000,10000);
+                play_sample(combat,75,125,1003,10000);
                 clear_bitmap(screen);
                 nbr_joueur(combat);
             }

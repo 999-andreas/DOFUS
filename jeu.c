@@ -65,7 +65,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
-    choixEmplacement(buffer,steve1,steve2,steve3,steve4,nb_joueur,michel,maps);
+    choixEmplacement(buffer,sorciere,steve2,squelette,zombie,nb_joueur,michel,maps);
 
     initialisation(michel,nb_joueur);
 
@@ -137,8 +137,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune);
+
         affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets

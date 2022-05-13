@@ -274,7 +274,7 @@ void choixEmplacement(BITMAP * buffer, BITMAP* steve1,BITMAP* steve2, BITMAP* st
 {
     int choixJoueur=0;
     int enfoncer;
-    rest(50);
+    rest(100);
     time_t choixTemp = time(NULL);
     while ( (time(NULL)-choixTemp) < 10 && (choixJoueur != nb_joueur))
     {
