@@ -147,14 +147,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
 
 
-
-
-
-
         //affichage des PV PA PM
         textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");
         textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: ");
-        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: ");;
+        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: ");
 
         update_jauge(&michel[joueurTour], buffer); //affichage des jauge
 

@@ -215,31 +215,10 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12])
 {
     int choixJoueur=0;
-    int enfoncer;
     rest(100);
     time_t choixTemp = time(NULL);
     while ( (time(NULL)-choixTemp) < 10 && (choixJoueur != nb_joueur))
     {
-        /*if(mouse_b &1)
-        {
-            enfoncer = 1;
-
-        }
-
-        if( (enfoncer && !mouse_b&1))
-        {
-            update_coo(&michel[choixJoueur], maps);
-            affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,choixJoueur+1);
-            choixJoueur++;
-            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-            enfoncer =0;
-            //rest(100);
-            /* update_coo(&michel[choixJoueur], maps);
-             affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,choixJoueur+1);
-             choixJoueur++;
-             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-             rest(100);
-        }*/
         if(mouse_b &1)
         {
             update_coo(&michel[choixJoueur], maps);
