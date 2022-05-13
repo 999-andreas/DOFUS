@@ -36,6 +36,9 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge);
 void update_jauge(t_joueur *michel, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
+void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4);
+void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune);
+void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere ,BITMAP *steve2, BITMAP *squelette, BITMAP* zombie, t_joueur *michel, int nb_joueur);
 
 ///Menu.c
 void nbr_joueur(SAMPLE* son);

@@ -11,12 +11,17 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* dirt; //utile
     BITMAP* grass; //utile
     BITMAP* lava; //utile
-    BITMAP* hotbar; //utile
 
-    BITMAP* steve1;
+    BITMAP* hotbar1;
+    BITMAP* hotbar2;
+    BITMAP* hotbar3;
+    BITMAP* hotbar4;
+
+
+    BITMAP* sorciere;
     BITMAP* steve2;
-    BITMAP* steve3;
-    BITMAP* steve4;
+    BITMAP* squelette;
+    BITMAP* zombie;
 
     BITMAP* bush; //utile
     BITMAP* bleu; //utile
@@ -27,6 +32,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* terrain;
     BITMAP* buffer;
 
+    BITMAP* jaune;
+
     terrain = create_bitmap(1400, 600);
     buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
@@ -36,16 +43,23 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     bleu = load_bitmap("images/bleu.bmp",NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
 
-    steve1 = load_bitmap("images/steve.bmp", NULL);
+    sorciere = load_bitmap("images/sorciere.bmp", NULL);
     steve2 = load_bitmap("images/steve.bmp", NULL);
-    steve3 = load_bitmap("images/steve.bmp", NULL);
-    steve4 = load_bitmap("images/steve.bmp", NULL);
+    squelette = load_bitmap("images/squelette.bmp", NULL);
+    zombie = load_bitmap("images/zombie.bmp", NULL);
+
+    hotbar1 = load_bitmap("images/hotbar1.bmp", NULL);
+    hotbar2 = load_bitmap("images/hotbar2.bmp", NULL);
+    hotbar3 = load_bitmap("images/hotbar3.bmp", NULL);
+    hotbar4 = load_bitmap("images/hotbar4.bmp", NULL);
 
     viseur = load_bitmap("images/viseur.bmp", NULL);
     dirt = load_bitmap("images/dirt.bmp", NULL);
     grass = load_bitmap("images/grass.bmp", NULL);
     lava = load_bitmap("images/lava.bmp", NULL);
-    hotbar = load_bitmap("images/hotbar.bmp", NULL);
+
+
+    jaune = load_bitmap("images/jaune.bmp", NULL);
 
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
@@ -62,7 +76,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     {
         clear_bitmap(buffer);
 
-        // printf("Durée : %d seconde \n",(int) (time(NULL)-temps))
+        // printf("Durï¿½e : %d seconde \n",(int) (time(NULL)-temps))
 
         textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d",15-(time(NULL)-temps));
 
@@ -106,6 +120,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             if(mouse_b&1)
             {
                 joueurTour++;
+
                 temps = time(NULL);
                 rest(200);
             }
@@ -122,12 +137,18 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
-
-        affichagePersonnage(buffer,steve1,steve2,steve3,steve4,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
+        affiche_selectSORT(buffer,jaune);
+        affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 
-        blit(hotbar, buffer, 0,0,250,600,hotbar->w, hotbar->h);// affichage de la hotbar
+
+
+
+
+
+
 
         //affichage des PV PA PM
         textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");
