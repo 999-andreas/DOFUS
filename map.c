@@ -270,6 +270,7 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
 {
     int i;
     int case_actu = 0;
+    int case_prec = 0;
 
     for(i = 255; i<966; i +=88)
     {
