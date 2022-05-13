@@ -167,4 +167,9 @@ void affichagePersonnage(BITMAP * buffer,BITMAP *steve1,BITMAP *steve2, BITMAP *
     }
 }
 
+void mouvement(t_joueur *michel)
+{
+
+}
+
 

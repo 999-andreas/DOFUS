@@ -152,6 +152,11 @@ void jeux(t_joueur *michel,BITMAP *son, int nb_joueur)
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
 
+        if(mouvement)
+        {
+            mouvement(michel[joueurTour]);
+        }
+
         blit(hotbar, buffer, 0,0,250,600,hotbar->w, hotbar->h);// affichage de la hotbar
 
         //affichage des PV PA PM
