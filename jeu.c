@@ -5,6 +5,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
+    int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
     int joueurTour;
 
     BITMAP* skins[4];
@@ -18,12 +19,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* hotbar2;
     BITMAP* hotbar3;
     BITMAP* hotbar4;
-
-
-    /*BITMAP* sorciere;
-    BITMAP* steve2;
-    BITMAP* squelette;
-    BITMAP* zombie;*/
 
     BITMAP* bush; //utile
     BITMAP* bleu; //utile
@@ -63,8 +58,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     bush = load_bitmap("images/herbe.bmp", NULL);
 
 
-
-
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
@@ -91,6 +84,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if(time(NULL)-temps > 15 )    // SYTSTEME DE COMPTAGE DE TEMPS
         {
+            mise_a_zero(etat_hotbar);
             joueurTour++;
             temps = time(NULL);
 
@@ -124,8 +118,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             draw_sprite(buffer,suivantRouge,1030,630);
             if(mouse_b&1)
             {
+                mise_a_zero(etat_hotbar);
                 joueurTour++;
-
                 temps = time(NULL);
                 rest(200);
             }
@@ -144,11 +138,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
-        affiche_selectSORT(buffer,jaune);
+        affiche_selectSORT(buffer,jaune, etat_hotbar);
 
         affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
-        refresh_objets(buffer, maps, lava, bush, bleu, rouge);//affichage des objets
+        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
 
 

@@ -64,7 +64,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 }
 
 //affichage des objets sur la map c�d les element qui sont par dessus tout le reste
-void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge)
+void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[9])
 {
     int i = 0;
     int j = 0;
@@ -84,10 +84,19 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
                     blit(rouge, buffer,0,0,(50*i),(50*j), 50, 50 );
                 else
                     blit(bleu, buffer,0,0,(50*i),(50*j), 50, 50 );
-                //rajoute que la couleur est rouge quand c'est un obstacle
+
             }
         }
     }
+
+    for(i = 0; i<9; i++)
+    {
+        if(etat_hotbar[i])
+        {
+            draw_sprite(buffer,jaune,255+(i*88),605);
+        }
+    }
+
 }
 
 //mise a jour des jauge de PV PM PA
@@ -278,53 +287,22 @@ void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,B
 }
 
 
-void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune)
+void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
 {
+    int i;
+    int case_actu = 0;
 
-    ///sort1///
-    if ( mouse_x > 250 && mouse_x < 340 && mouse_y > 600 && mouse_y < 700)
+    for(i = 255; i<966; i +=88)
     {
-        draw_sprite(buffer,jaune,255,605);
-    }
+        if(cliquer_zone(i, 600, 88,100) == 2)
+        {
+            draw_sprite(buffer,jaune,i,605);
+        }
 
-    ///sort 2///
-    if ( mouse_x > 345 && mouse_x < 435 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,345,605);
-    }
-    ///sort 3 ///
-    if ( mouse_x > 440 && mouse_x < 525 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,430,605);
-    }
-    ///sort 4///
-    if ( mouse_x > 525 && mouse_x < 610 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,520,605);
-    }
-    ///case5//
-    if ( mouse_x > 613 && mouse_x < 697 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,605,605);
-    }
-    ///case attaque corps a coprs///
-    if ( mouse_x > 700 && mouse_x < 787 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,695,605);
-    }
-    ///case d�placer ///
-    if ( mouse_x > 787 && mouse_x < 873 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,783,605);
-    }
-    ///case 8///
-    if ( mouse_x > 877 && mouse_x < 963 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,870,605);
-    }
-    ///case9///
-    if ( mouse_x > 967 && mouse_x < 1053 && mouse_y > 600 && mouse_y < 700)
-    {
-        draw_sprite(buffer,jaune,957,605);
+        if(cliquer_zone(i, 600, 88,100) == 1)
+        {
+            etat_hotbar[case_actu] = 1;
+        }
+        case_actu++;
     }
 }

@@ -26,15 +26,16 @@ typedef struct joueur
 void setup_allegro();
 int cliquer_zone(int x, int y, int tx, int ty);
 void initialisation(t_joueur* michel,int nb_joueur);
+void mise_a_zero(int etat_hotbar[9]);
 
 ///map.c
 void init_maps(int maps[26][12]);
 void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* lava);
-void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge);
+void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[9]);
 void update_jauge(t_joueur *michel, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4);
-void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune);
+void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9]);
 
 void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur);
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);

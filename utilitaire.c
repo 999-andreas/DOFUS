@@ -45,3 +45,13 @@ void initialisation(t_joueur* michel,int nb_joueur)
     michel[2].PV = 40;
     michel[3].PV = 10;
 }
+
+void mise_a_zero(int etat_hotbar[9])
+{
+    int i;
+
+    for(i = 0; i<9; i++)
+    {
+        etat_hotbar[i] = 0;
+    }
+}
