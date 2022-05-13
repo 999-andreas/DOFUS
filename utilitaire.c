@@ -30,3 +30,18 @@ int cliquer_zone(int x, int y, int tx, int ty)
     }
     return 0;
 }
+
+void initialisation(t_joueur* michel,int nb_joueur)
+{
+    int i;
+    for(i=0; i<nb_joueur; i++)
+    {
+        michel[i].PV = 100;
+        michel[i].PM = 50;
+        michel[i].PA = 25;
+    }
+    michel[0].PV = 100;
+    michel[1].PV = 70;
+    michel[2].PV = 40;
+    michel[3].PV = 10;
+}

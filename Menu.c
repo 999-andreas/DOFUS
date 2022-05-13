@@ -1,6 +1,6 @@
 #include "header.h"
 
-void nbr_joueur(BITMAP* son)
+void nbr_joueur(SAMPLE* son)
 {
 
     install_mouse();
@@ -105,7 +105,7 @@ void nbr_joueur(BITMAP* son)
 }
 
 
-void classeJ(int choixJ, BITMAP* son)
+void classeJ(int choixJ,SAMPLE* son)
 {
 
     ///BITMAP///
@@ -223,7 +223,6 @@ void classeJ(int choixJ, BITMAP* son)
 
     t_joueur J[choixJ];
 
-    J[0].nbJoueur = choixJ;
     int classe1, classe2, classe3, classe4;
 
     while(tour != choixJ)
@@ -374,12 +373,13 @@ void classeJ(int choixJ, BITMAP* son)
         }
         blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
-    jeux(J,son);
+    jeux(J,son,choixJ);
 }
 
 
-void menuFIN()
+void menuFIN(t_joueur *michel,int nb_joueur)
 {
+    // DECLARATION DE TOUT LES BITMAP
     BITMAP *jouer;
     BITMAP *doubleBuffer;
     BITMAP *revanche;
@@ -389,7 +389,9 @@ void menuFIN()
     BITMAP *jouerred;
     BITMAP *revanchered;
     BITMAP *quitterred;
-    SAMPLE *ouverture;
+
+    // DECLARATIOIN DES SAMPLE POUR LA MUSIQUE
+    SAMPLE *menu;
     SAMPLE *combat;
 
     install_keyboard();
@@ -401,6 +403,7 @@ void menuFIN()
 
     int fin = 0;
 
+    // CHARGEMENT DES BITMAP
     doubleBuffer = create_bitmap(SCREEN_W, SCREEN_H);
     image1 = load_bitmap("images/minecraft3.bmp",NULL);
     jouer = load_bitmap("images/jouer.bmp",NULL);
@@ -410,16 +413,21 @@ void menuFIN()
     jouerred = load_bitmap("images/jouerrouge.bmp",NULL);
     revanchered = load_bitmap("images/revancherouge.bmp",NULL);
     quitterred = load_bitmap("images/quitterrouge.bmp",NULL);
-    ouverture = load_sample("ouverture.wav");
+
+    // CHARGEMENT DES MUSIQUES
+    menu = load_sample("menu.wav");
     combat = load_sample("combat.wav");
 
-    while (!key[KEY_ESC] && fin != 1)
+    while (fin != 1) // CONDITION DE BOUCLE INFINIE
     {
-        play_sample(ouverture,100,125,1000,10000);
+
+        // LANCEMENT DE LA MUSIQUE DU MENU ET AFFICHAGE DE LA SOURIS
+        play_sample(menu,100,125,1000,10000);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
+        // SI ON PASSE PAR DESSUS LA CASE JOUER ALORS ON LE MET EN SURBRILLANCE
         if( mouse_x > 440 && mouse_x < 868 && mouse_y > 312 && mouse_y < 355)
         {
             draw_sprite(image1,jouerred,390,250);
@@ -427,20 +435,26 @@ void menuFIN()
             draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
             blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
+            // SI ON CLICK SUR LA CASE JOUER
             if(mouse_b&1)
             {
-                stop_sample(ouverture);
+                // ON ARRRETE LA MUSIQUE MENU ET ON LANCE CELUI DU JEUX
+                stop_sample(menu);
                 play_sample(combat,75,125,1000,10000);
                 clear_bitmap(screen);
                 nbr_joueur(combat);
             }
 
         }
+
+        // SINON ON L'AFFICHE L'IMAGE QUI N'EST PAS EN SURBRILLANCE
         else
         {
             draw_sprite(image1,jouer,390,250);
         }
 
+
+        // SI ON PASSE PAR DESSUS REJOUER ALORS ON L'AFFICHE EN SURBRILLANCE
         if( mouse_x > 440 && mouse_x <868  && mouse_y > 362 && mouse_y < 405)
         {
             draw_sprite(image1,revanchered,390,300);
@@ -448,46 +462,58 @@ void menuFIN()
             draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
             blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
+
+            // SI ON CLICK SUR JOUER
             if(mouse_b&1)
             {
-                // CONDITION POUR REJOUER
+                // ALORS ON STOP LA MUSIQUE MENU ET ON LANCE CELUI DU JEUX
+                stop_sample(menu);
+                play_sample(combat,75,125,1000,10000);
+                clear_bitmap(screen);
+                jeux(michel,combat,nb_joueur);
             }
 
         }
+
+        // SINON ON AFFICHE L'IMAGE QUI N'EST PAS EN SURBRILLANCE
         else
         {
             draw_sprite(image1,revanche,390,300);
         }
-        /*while(1)
-        {
-             // CONDITION POUR RELANCER LA PARTIE
-        }*/
+
+        // SI ON PASSE PAR DESSUS QUITTER ALORS ON L'AFFICHE EN SURBRILLANCE
         if( mouse_x > 440 && mouse_x < 868 && mouse_y > 412 && mouse_y < 455)
         {
+            // ON AFFICHE L'IMAGE ET LA SOURIS
             draw_sprite(image1,quitterred,390,350);
             blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
             draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
             blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+
+            // SI ON CLICK SUR QUITTER ALORS ON QUITTE TOUT LE PROGRAMME ET FIN DU JEUX
             if(mouse_b&1)
             {
                 exit(1);
                 fin = 1;
             }
         }
+
+        // ON AFFICHE L'IMAGE QUITTER QUI N'EST PAS EN SURBRILLANCE
         else
         {
             draw_sprite(image1,quitter,390,350);
         }
 
     }
-    remove_sound();
+
+    remove_sound(); // ON ARRETE TOUT LES MUSIQUES
 
 }
 
 
 void menuDEBUT()
 {
-
+    // DECLARATION DE TOUTE LES BITMAP ET SAMPLE
     BITMAP *jouer;
     BITMAP *doubleBuffer;
     BITMAP *quitter;
@@ -495,7 +521,7 @@ void menuDEBUT()
     BITMAP *image1;
     BITMAP *jouerred;
     BITMAP *quitterred;
-    SAMPLE *ouverture;
+    SAMPLE *menu;
     SAMPLE *combat;
     install_keyboard();
     install_mouse();
@@ -505,6 +531,8 @@ void menuDEBUT()
     }
 
     int fin = 0;
+
+    // CHARGEMENT DES BITMAP
     doubleBuffer = create_bitmap(SCREEN_W, SCREEN_H);
     image1 = load_bitmap("images/minecraft3.bmp",NULL);
     jouer = load_bitmap("images/jouer.bmp",NULL);
@@ -512,16 +540,20 @@ void menuDEBUT()
     viseur = load_bitmap("images/viseur.bmp",NULL);
     jouerred = load_bitmap("images/jouerrouge.bmp",NULL);
     quitterred = load_bitmap("images/quitterrouge.bmp",NULL);
-    ouverture = load_sample("ouverture.wav");
+
+    // CHARGEMENT DES MUSIQUES
+    menu = load_sample("menu.wav");
     combat = load_sample("combat.wav");
 
-    while (fin != 1)
+    while (fin != 1)   // BOUCLE INFINIE TANT QUE ON NE CLICK PAS SUR FIN
     {
-        play_sample(ouverture,75,125,1000,100);
-        draw_sprite(doubleBuffer,viseur,mouse_x,mouse_y);
+        // AFFICHAGE DU VISEUR DE LANCEMENT DE LA MUSIQUE DANS LE MENU
+        play_sample(menu,75,125,1000,100);
         blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
         draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
         blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+
+        // SI ON PASSE PAR DESSUS LA CASE JOUER ALORS ON MET EN SURBRILLANCE
         if( mouse_x > 440 && mouse_x < 868 && mouse_y > 312 && mouse_y < 355)
         {
             draw_sprite(image1,jouerred,390,250);
@@ -529,37 +561,41 @@ void menuDEBUT()
             draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
             blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
 
-            if(mouse_b&1) // JOUER
+            if(mouse_b&1) // SI ON CLICK SUR JOUER ALORS LANCEMENT DE LA PARTIE ET STOP MUSIQUE DU MENU
             {
-                stop_sample(ouverture);
+                stop_sample(menu);
                 play_sample(combat,75,125,1000,10000);
                 clear_bitmap(screen);
                 nbr_joueur(combat);
             }
 
+        // SINON ON AFFICHE L'IMAGE QUI N'EST PAS EN SURBRILLANCE
         }
         else
         {
             draw_sprite(image1,jouer,390,250);
         }
 
+
+        // SI ON PASSE PAR DESSUS LA CASE QUUTTER ALORS ON MET EN SURBRILLANCE
         if( mouse_x > 440 && mouse_x <868  && mouse_y > 362 && mouse_y < 405)
         {
             draw_sprite(image1,quitterred,390,300);
             blit(image1,doubleBuffer,0,0,0,0,SCREEN_W,SCREEN_H);
             draw_sprite(doubleBuffer,viseur,mouse_x-15,mouse_y-5);
             blit(doubleBuffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            if(mouse_b&1)
+            if(mouse_b&1)  // SI ON CLICK SUR QUITTER ALORS FIN DU JEUX ALORS LA BOUCLE INFINIE
             {
-                fin = 1;
+                fin = 1;  // PERMET D'ARRETER LA BOUCLE INFINIE
             }
         }
+        // SINON ON AFFICHE IMAGE QUI N'EST PAS EN SURBRILLANCE
         else
         {
             draw_sprite(image1,quitter,390,300);
         }
 
     }
-    remove_sound();
+    remove_sound();  // ON ARRETE TOUT LES MUSIQUES
 }
 
