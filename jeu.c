@@ -136,7 +136,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
-        update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+        //update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+        update_coo2(michel,maps,joueurTour,buffer,sorciere,steve2,squelette,zombie,terrain);
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune);

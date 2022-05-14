@@ -151,96 +151,29 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-void affichagePersonnage(BITMAP * buffer,BITMAP *sorciere,BITMAP *steve2, BITMAP *squelette, BITMAP* zombie, t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
 {
     int i;
 
     for(i = 0; i<nb_joueur; i++)
     {
-
         if(i==0)
         {
-            if (michel[0].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[0].posx), (michel[0].posy));
-            }
-            if (michel[0].classe==2)
-            {
-                draw_sprite(buffer, steve2, (michel[0].posx), (michel[0].posy));
-
-            }
-            if (michel[0].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[0].posx), (michel[0].posy));
-            }
-            if (michel[0].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[0].posx), (michel[0].posy));
-            }
+            draw_sprite(buffer, skins[(michel[0].classe)-1], (michel[0].posx), (michel[0].posy));
         }
 
         if(i==1)
         {
-
-            if (michel[1].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[1].posx), (michel[1].posy));
-
-            }
-            if (michel[1].classe==2)
-            {
-                draw_sprite(buffer, steve2, (michel[1].posx), (michel[1].posy));
-
-            }
-            if (michel[1].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[1].posx), (michel[1].posy));
-            }
-            if (michel[1].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[1].posx), (michel[1].posy));
-            }
+            draw_sprite(buffer, skins[(michel[1].classe)-1], (michel[1].posx), (michel[1].posy));
         }
 
         if(i==2)
         {
-            if (michel[2].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[2].posx), (michel[2].posy));
-
-            }
-            if (michel[2].classe==2)
-            {
-                draw_sprite(buffer, steve2, (michel[2].posx), (michel[2].posy));
-            }
-            if (michel[2].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[2].posx), (michel[2].posy));
-            }
-            if (michel[2].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[2].posx), (michel[2].posy));
-            }
+            draw_sprite(buffer, skins[(michel[2].classe)-1], (michel[2].posx), (michel[2].posy));
         }
         if(i==3)
         {
-            if (michel[3].classe==1)
-            {
-                draw_sprite(buffer, sorciere, (michel[3].posx), (michel[3].posy));
-            }
-            if (michel[3].classe==2)
-            {
-
-                draw_sprite(buffer, steve2, (michel[3].posx), (michel[3].posy));
-            }
-            if (michel[3].classe==3)
-            {
-                draw_sprite(buffer, squelette, (michel[3].posx), (michel[3].posy));
-            }
-            if (michel[3].classe==4)
-            {
-                draw_sprite(buffer, zombie, (michel[3].posx), (michel[3].posy));
-            }
+            draw_sprite(buffer, skins[(michel[3].classe)-1], (michel[3].posx), (michel[3].posy));
         }
     }
 }
@@ -395,3 +328,394 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune)
         draw_sprite(buffer,jaune,957,605);
     }
 }
+
+
+void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP* buffer, BITMAP* sorciere, BITMAP * steve2, BITMAP * squelette,BITMAP * zombie,BITMAP *terrain)
+{
+    int i = 0;
+    int j = 0;
+
+    int newI;
+    int newJ;
+
+    int ancienI;
+    int ancienJ;
+
+    ancienI = (michel[nb_joueur].posx)/50;
+    ancienJ = ((michel[nb_joueur].posy)/50)+1;
+
+    newI = ancienI;
+    newJ = ancienJ;
+
+    for (i = 0 ; i <26 ; i++)
+    {
+        for (j = 0 ; j<12 ; j++)
+        {
+            if(cliquer_zone((i*50), (j*50), 50,50) == 1)
+            {
+                if(maps[i][j] == 2)
+                {}
+                else
+                {
+                    newI = i;
+                    newJ = j;
+                    michel->posx = i*50;
+                    michel->posy = (j*50)-50;
+                }
+
+            }
+        }
+    }
+    //printf("Ancien I : %d et Ancien J: %d \n",ancienI,ancienJ);
+    //printf("Nouveau I: %d et Nouveau J: %d\n",newI,newJ);
+
+
+    while(ancienI!=newI) //&& ancienJ != newJ)
+    {
+        if(ancienI < newI)
+        {
+            if(maps[ancienI+1][ancienJ] == 2 && maps[ancienI][ancienJ-1]==2)
+            {
+                ancienJ++;
+                clear_bitmap(buffer);
+                michel->posx = ancienI*50;
+                michel->posy = (ancienJ*50)-50;
+                blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                rest(100);
+                printf("1:J++\n");
+            }
+            else if(maps[ancienI-1][ancienJ] == 2)
+            {
+                ancienJ++;
+                clear_bitmap(buffer);
+                michel->posx = ancienI*50;
+                michel->posy = (ancienJ*50)-50;
+                blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                rest(100);
+                printf("2:J++\n");
+            }
+            else
+            {
+                ancienI++;
+                clear_bitmap(buffer);
+                michel->posx = ancienI*50;
+                michel->posy = (ancienJ*50)-50;
+                blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                rest(100);
+                printf("3:I++\n");
+            }
+        }
+        else if (ancienI > newI)
+        {
+            if(maps[ancienI-1][ancienJ] == 2)
+            {
+                ancienJ--;
+                clear_bitmap(buffer);
+                michel->posx = ancienI*50;
+                michel->posy = (ancienJ*50)-50;
+                blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                rest(100);
+                printf("4:J--\n");
+            }
+            else if(maps[ancienI+1][ancienJ] == 2)
+            {
+                ancienJ++;
+                clear_bitmap(buffer);
+                michel->posx = ancienI*50;
+                michel->posy = (ancienJ*50)-50;
+                blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                rest(100);
+                printf("5:J--\n");
+            }
+            else
+            {
+                ancienI--;
+                clear_bitmap(buffer);
+                michel->posx = ancienI*50;
+                michel->posy = (ancienJ*50)-50;
+                blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                rest(100);
+                printf("6:I--\n");
+            }
+
+        }
+        else {}
+
+
+
+
+
+        while(ancienJ!=newJ) //&& ancienJ != newJ)
+        {
+            if (ancienJ < newJ)
+            {
+                if(maps[ancienI][ancienJ+1] == 2)
+                {
+                    ancienI++;
+                    clear_bitmap(buffer);
+                    michel->posx = ancienI*50;
+                    michel->posy = (ancienJ*50)-50;
+                    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                    affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
+                    printf("7:I++\n");
+
+                }
+
+                else if(maps[ancienI][ancienJ-1] == 2)
+                {
+                    ancienI++;
+                    clear_bitmap(buffer);
+                    michel->posx = ancienI*50;
+                    michel->posy = (ancienJ*50)-50;
+                    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                    affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
+                    printf("8:I++\n");
+                }
+
+                else
+                {
+                    ancienJ++;
+                    clear_bitmap(buffer);
+                    michel->posx = ancienI*50;
+                    michel->posy = (ancienJ*50)-50;
+                    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                    affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
+                    printf("9:J++\n");
+                }
+            }
+            else if (ancienJ > newJ)
+            {
+                if( maps[ancienI][ancienJ+1] == 2)
+                {
+                    ancienI--;
+                    clear_bitmap(buffer);
+                    michel->posx = ancienI*50;
+                    michel->posy = (ancienJ*50)-50;
+                    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                    affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
+                    printf("10:I--\n");
+                }
+                else if(maps[ancienI][ancienJ-1] == 2)
+                {
+                    ancienI++;
+                    clear_bitmap(buffer);
+                    michel->posx = ancienI*50;
+                    michel->posy = (ancienJ*50)-50;
+                    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                    affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
+                    printf("11:I++\n");
+                }
+                else
+                {
+                    ancienJ--;
+                    clear_bitmap(buffer);
+                    michel->posx = ancienI*50;
+                    michel->posy = (ancienJ*50)-50;
+                    blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+                    affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
+                    printf("12:J--\n");
+                }
+
+            }
+            else
+            {
+            }
+
+            printf("Ancien I : %d et Ancien J: %d  2         \n",ancienI,ancienJ);
+            printf("Nouveau I: %d et Nouveau J: %d  2      \n",newI,newJ);
+        }
+
+    }
+
+
+}
+
+
+
+/*  while(ancienJ!=newJ) //&& ancienJ != newJ)
+  {
+      if (ancienJ < newJ)
+      {
+          if(maps[ancienI][ancienJ+1] == 2)
+          {
+              ancienI--;
+              clear_bitmap(buffer);
+              michel->posx = ancienI*50;
+              michel->posy = (ancienJ*50)-50;
+              blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+
+          /*else if(maps[ancienI][ancienJ-1] == 2)
+          {
+              ancienI--;
+              clear_bitmap(buffer);
+              michel->posx = ancienI*50;
+              michel->posy = (ancienJ*50)-50;
+              blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+
+          else
+          {
+              ancienJ++;
+              clear_bitmap(buffer);
+              michel->posx = ancienI*50;
+              michel->posy = (ancienJ*50)-50;
+              blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+      }
+      else if (ancienJ > newJ)
+      {
+          if(maps[ancienI][ancienJ+1] == 2)
+          {
+              ancienI++;
+              clear_bitmap(buffer);
+              michel->posx = ancienI*50;
+              michel->posy = (ancienJ*50)-50;
+              blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+         /* else if(maps[ancienI][ancienJ-1] == 2)
+          {
+              ancienI--;
+              clear_bitmap(buffer);
+              michel->posx = ancienI*50;
+              michel->posy = (ancienJ*50)-50;
+              blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+          else
+          {
+              ancienJ--;
+              clear_bitmap(buffer);
+              michel->posx = ancienI*50;
+              michel->posy = (ancienJ*50)-50;
+              blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+
+      }
+      else{
+      }
+
+      printf("Ancien I : %d et Ancien J: %d  2         \n",ancienI,ancienJ);
+      printf("Nouveau I: %d et Nouveau J: %d  2      \n",newI,newJ);
+  }
+
+ /* while(ancienJ != newJ && ancienI != newI)
+  {
+      if(ancienI < newI)
+      {
+          if(maps[ancienI+1][ancienJ] == 2)
+          {
+              ancienJ++;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+          else
+          {
+              ancienI++;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+      }
+      else if (ancienI > newI)
+      {
+          if(maps[ancienI-1][ancienJ] == 2)
+          {
+              ancienJ++;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+          else
+          {
+              ancienI--;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+
+      }
+      else{}
+
+      if (ancienJ < newJ)
+      {
+          if(maps[ancienI][ancienJ+1] == 2)
+          {
+              ancienI++;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+          else
+          {
+              ancienJ--;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+      }
+      else if (ancienJ > newJ)
+      {
+          if(maps[ancienI][ancienJ+1] == 2)
+          {
+              ancienI--;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+          else
+          {
+              ancienJ++;
+              affichagePersonnage(buffer,sorciere,steve2,squelette,zombie,michel,nb_joueur);
+              blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+              rest(100);
+          }
+
+      }
+      else{
+      }
+          printf("Ancien I : %d et Ancien J: %d \n",ancienI,ancienJ);
+  printf("Nouveau I: %d et Nouveau J: %d\n",newI,newJ);
+  }*/
