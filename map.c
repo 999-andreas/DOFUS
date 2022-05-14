@@ -286,3 +286,113 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
         case_actu++;
     }
 }
+
+void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour)
+{
+    int i = 0;
+    int j = 0;
+
+    int newI;
+    int newJ;
+
+    int ancienI;
+    int ancienJ;
+
+    ancienI = (michel[joueurTour].posx)/50;
+    ancienJ = ((michel[joueurTour].posy)/50)+1;
+
+    newI = ancienI;
+    newJ = ancienJ;
+
+    for (i = 0 ; i <26 ; i++)
+    {
+        for (j = 0 ; j<12 ; j++)
+        {
+            if(cliquer_zone((i*50), (j*50), 50,50) == 1)
+            {
+                if(maps[i][j] == 2)
+                {}
+                else
+                {
+                    newI = i;
+                    newJ = j;
+                    //michel->posx = i*50;
+                    //michel->posy = (j*50)-50;
+                }
+
+            }
+        }
+    }
+
+    while(ancienI!=newI|| ancienJ!=newJ)
+    {
+        if(ancienI<newI)
+        {
+            ancienI++;
+            clear_bitmap(buffer);
+            michel[joueurTour].posx = ancienI*50;
+            michel[joueurTour].posy = (ancienJ*50)-50;
+            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+            affichagePersonnage(buffer,skin,michel,nb_joueur);
+            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            rest(100);
+            printf("1:I++\n");
+        }
+        else if (ancienI>newI)
+        {
+            ancienI--;
+            clear_bitmap(buffer);
+            michel[joueurTour].posx = ancienI*50;
+            michel[joueurTour].posy = (ancienJ*50)-50;
+            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+            affichagePersonnage(buffer,skin,michel,nb_joueur);
+            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            rest(100);
+            printf("2:I--\n");
+
+        }
+        else {}
+
+        if(ancienJ<newJ)
+        {
+            ancienJ++;
+            clear_bitmap(buffer);
+            michel[joueurTour].posx = ancienI*50;
+            michel[joueurTour].posy = (ancienJ*50)-50;
+            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+            affichagePersonnage(buffer,skin,michel,nb_joueur);
+            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            rest(100);
+            printf("3:J++\n");
+        }
+        else if (ancienJ>newJ)
+        {
+            if(maps[ancienI][ancienJ-1]==2)
+            {
+                if(maps[ancienI][ancienJ+1]==2)
+                ancienJ++;
+                clear_bitmap(buffer);
+                michel[joueurTour].posx = ancienI*50;
+                michel[joueurTour].posy = (ancienJ*50)-50;
+                blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+                affichagePersonnage(buffer,skin,michel,nb_joueur);
+                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                rest(100);
+                printf("4:J++\n");
+            }
+            else
+            {
+                ancienJ--;
+                clear_bitmap(buffer);
+                michel[joueurTour].posx = ancienI*50;
+                michel[joueurTour].posy = (ancienJ*50)-50;
+                blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+                affichagePersonnage(buffer,skin,michel,nb_joueur);
+                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                rest(100);
+                printf("5:J--\n");
+            }
+
+        }
+    }
+}
