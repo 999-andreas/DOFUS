@@ -68,6 +68,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     initialisation(michel,nb_joueur);
 
     time_t temps = time(NULL);
+    int compteur=0;
 
 
     while (cliquer_zone(0,0,50, 50)!=1)
@@ -139,9 +140,20 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune, etat_hotbar);
-
-        affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
-
+        affichagePersonnage(buffer,skins,michel,nb_joueur);
+        if (compteur==0)
+        {
+        animmms(buffer,skins,michel,nb_joueur);
+        }
+        if(compteur==1)
+        {
+        animm(buffer,skins,michel,nb_joueur);   // AFFICHAGE DU JOUEUR
+        }
+        compteur++;
+        if (compteur==2)
+        {
+            compteur=0;
+        }
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
 

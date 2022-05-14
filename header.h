@@ -38,6 +38,8 @@ void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,B
 void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9]);
 
 void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur);
+void animm(BITMAP * buffer,BITMAP *skins[4], t_joueur *michel, int nb_joueur);
+void animmms(BITMAP * buffer,BITMAP *skins[4], t_joueur *michel, int nb_joueur);
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12]);
 
