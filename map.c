@@ -290,7 +290,6 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
             {
                 etat_hotbar[a]=0;
             }
-
         }
         case_actu++;
     }
