@@ -270,10 +270,10 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
 {
     int i;
     int case_actu = 0;
-    int case_prec = 0;
-
+    int b,a;
     for(i = 255; i<966; i +=88)
     {
+
         if(cliquer_zone(i, 600, 88,100) == 2)
         {
             draw_sprite(buffer,jaune,i,605);
@@ -282,6 +282,15 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
         if(cliquer_zone(i, 600, 88,100) == 1)
         {
             etat_hotbar[case_actu] = 1;
+            for(b=0;b<case_actu;b++)
+            {
+                etat_hotbar[b]=0;
+            }
+            for(a=9;a>case_actu;a--)
+            {
+                etat_hotbar[a]=0;
+            }
+
         }
         case_actu++;
     }
