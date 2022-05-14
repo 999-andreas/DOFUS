@@ -34,6 +34,9 @@
 		<Linker>
 			<Add library="alleg44.dll" />
 		</Linker>
+		<Unit filename="A.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="header.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
