@@ -245,52 +245,69 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
 }
 
 
+///SOUS PROGRAMME POUR AFFICHER LA BAR DES SORT DANS LE JEU///
+
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4 )
 {
-    if (playeur[joueurTour].classe==1)
+    if (playeur[joueurTour].classe==1)///si le joueur a choisie la classe 1
     {
-        blit(bar1, buffer, 0,0,250,600,bar1->w, bar1->h);
+        blit(bar1, buffer, 0,0,250,600,bar1->w, bar1->h);//affichage de la bar de sort pour la classe1;
     }
-    if (playeur[joueurTour].classe==2)
+    if (playeur[joueurTour].classe==2)///si le joueur a choisie la classe 2
     {
-        blit(bar2, buffer, 0,0,250,600,bar1->w, bar2->h);
+        blit(bar2, buffer, 0,0,250,600,bar1->w, bar2->h);//affichage de la bar de sort pour la classe2;
     }
-    if (playeur[joueurTour].classe==3)
+    if (playeur[joueurTour].classe==3)///si le joueur a choisie la classe 3
     {
-        blit(bar3, buffer, 0,0,250,600,bar3->w, bar3->h);
+        blit(bar3, buffer, 0,0,250,600,bar3->w, bar3->h);//affichage de la bar de sort pour la classe3;
     }
-    if (playeur[joueurTour].classe==4)
+    if (playeur[joueurTour].classe==4)///si le joueur a choisie la classe 4
     {
-        blit(bar4, buffer, 0,0,250,600,bar4->w, bar4->h);
+        blit(bar4, buffer, 0,0,250,600,bar4->w, bar4->h);//affichage de la bar de sort pour la classe4;
     }
 }
 
 
+///SOUS PROGRAMME AFFICHER CARRER DE SELECTION DES SORT
+
 void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
 {
     int i;
-    int case_actu = 0;
+    int case_actu = 0;///case actuellement choisie
     int b,a;
-    for(i = 255; i<966; i +=88)
+    for(i = 255; i<966; i +=88)//pour i < au cordonnée , incrémentaion de 88 = taille de chaque cases
     {
-
-        if(cliquer_zone(i, 600, 88,100) == 2)
+        if(cliquer_zone(i, 600, 88,100) == 2)//si on passe la souris sur la case
         {
-            draw_sprite(buffer,jaune,i,605);
+            draw_sprite(buffer,jaune,i,605);//affiche le carré
         }
-
-        if(cliquer_zone(i, 600, 88,100) == 1)
+        if(cliquer_zone(i, 600, 88,100) == 1)//si on clic que la case
         {
-            etat_hotbar[case_actu] = 1;
-            for(b=0;b<case_actu;b++)
+
+            etat_hotbar[case_actu] = 1;//afficher le carré autour de la casse
+
+            for(b=0; b<case_actu; b++)//effacer les carré après la case selectionné
             {
                 etat_hotbar[b]=0;
             }
-            for(a=9;a>case_actu;a--)
+            for(a=9; a>case_actu; a--)//effacer les carré avant la case selectionné
             {
                 etat_hotbar[a]=0;
             }
+
         }
-        case_actu++;
+       case_actu++;//incrémentation
+    }
+}
+
+void sorts_lancement(t_joueur *michel, int joueurTour, int etat_hotbar[9])
+{
+    t_sorts S[4][4];
+    if (michel[joueurTour].classe==1)
+    {
+        if (etat_hotbar[5]==1)
+        {
+
+        }
     }
 }

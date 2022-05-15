@@ -21,6 +21,16 @@ typedef struct joueur
 
 }t_joueur;
 
+typedef struct sorts
+{
+    int degat;
+    int porte_min;
+    int porte_max;
+    int proba;
+}t_sorts;
+
+
+
 
 ///utilitaire.c
 void setup_allegro();
@@ -40,6 +50,8 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9]);
 void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur);
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12]);
+
+void sorts_lancement(t_joueur *michel, int joueurTour, int etat_hotbar[9]);
 
 ///Menu.c
 void nbr_joueur(SAMPLE* son);

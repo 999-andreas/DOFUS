@@ -76,7 +76,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         // printf("Dur�e : %d seconde \n",(int) (time(NULL)-temps))
 
-        textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d",15-(time(NULL)-temps));
+        textprintf_ex(buffer,font,1080,630,makecol(0,150,255),makecol(2,2,2),"C'est au joueur %d de JOUER",joueurTour+1);
+        textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
@@ -135,12 +136,19 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
-        update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+        if (etat_hotbar[6]==1)
+        {
+            update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+        }
+        if (etat_hotbar[5]==1)
+        {
+          sorts_lancement(michel,joueurTour,etat_hotbar);
+        }
 
-        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
+        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);
-
         affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
