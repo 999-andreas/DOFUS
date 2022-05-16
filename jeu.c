@@ -23,6 +23,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* bush; //utile
     BITMAP* bleu; //utile
     BITMAP* rouge; //utile
+    BITMAP* orange;
     BITMAP* suivant;
     BITMAP* suivantRouge;
 
@@ -51,6 +52,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     jaune = load_bitmap("images/jaune.bmp", NULL);
     rouge = load_bitmap("images/rouge.bmp",NULL);
     bleu = load_bitmap("images/bleu.bmp",NULL);
+    orange = load_bitmap("images/orange.bmp",NULL);
 
     dirt = load_bitmap("images/dirt.bmp", NULL);
     grass = load_bitmap("images/grass.bmp", NULL);
@@ -142,7 +144,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-          sorts_lancement(michel,joueurTour,etat_hotbar);
+          attaque_CAC(michel,joueurTour,orange,buffer);
         }
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map

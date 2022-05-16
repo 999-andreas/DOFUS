@@ -75,7 +75,7 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
         {
             if(maps[i][j] == 3)
             {
-                draw_sprite(buffer, bush, (i*50), (j*50));
+                //draw_sprite(buffer, bush, (i*50), (j*50));
             }
 
             if(cliquer_zone((i*50), (j*50), 50,50) == 2)
@@ -296,18 +296,38 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
             }
 
         }
-       case_actu++;//incrémentation
+        case_actu++;//incrémentation
     }
 }
 
-void sorts_lancement(t_joueur *michel, int joueurTour, int etat_hotbar[9])
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer)
 {
-    t_sorts S[4][4];
-    if (michel[joueurTour].classe==1)
+    int i,j,nbjoueur;
+
+    for (i = 0 ; i <26 ; i++)
     {
-        if (etat_hotbar[5]==1)
+        for (j = 0 ; j<12 ; j++)
         {
 
+            for (nbjoueur=0; nbjoueur<3; nbjoueur++)
+            {
+                if (michel[nbjoueur].classe != michel[joueurTour].classe)
+                {
+                    if ((michel[nbjoueur].posx >= michel[joueurTour].posx -50) && (michel[nbjoueur].posx <= michel[joueurTour].posx+50))
+                    {
+                        blit(orange, buffer,0,0,michel[joueurTour].posx -50,michel[joueurTour].posy+50, 50, 50 );
+                        blit(orange, buffer,0,0,michel[joueurTour].posx +50,michel[joueurTour].posy+50, 50, 50 );
+                        blit(orange, buffer,0,0,michel[joueurTour].posx,michel[joueurTour].posy, 50, 50 );
+                        blit(orange, buffer,0,0,michel[joueurTour].posx,michel[joueurTour].posy+100, 50, 50 );
+
+                        printf("je suis sur une case du joueur tour: x: %d y: %d\n", michel[joueurTour].posx,michel[joueurTour].posy);
+                        printf("je suis sur une case d'un autre joueur a cote: x: %d \n", michel[nbjoueur].posx);
+
+                    }
+                }
+
+
+            }
         }
     }
 }

@@ -40,10 +40,6 @@ void initialisation(t_joueur* michel,int nb_joueur)
         michel[i].PM = 50;
         michel[i].PA = 25;
     }
-    michel[0].PV = 100;
-    michel[1].PV = 70;
-    michel[2].PV = 40;
-    michel[3].PV = 10;
 }
 
 void mise_a_zero(int etat_hotbar[9])
