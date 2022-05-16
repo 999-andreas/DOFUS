@@ -144,7 +144,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-          attaque_CAC(michel,joueurTour,orange,buffer);
+          attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur);
         }
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map

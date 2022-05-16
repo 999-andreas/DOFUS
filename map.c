@@ -300,34 +300,38 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
     }
 }
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur)
 {
-    int i,j,nbjoueur;
+    int i;
+    int j;
+    int k;
 
-    for (i = 0 ; i <26 ; i++)
+
+    for (i=0; i<nb_joueur; i++)
     {
-        for (j = 0 ; j<12 ; j++)
+        for(j = ((michel[joueurTour].posx)-50); j <((michel[joueurTour].posx)+50); j+=50)
         {
+            printf("test1 %d\n", j);
 
-            for (nbjoueur=0; nbjoueur<3; nbjoueur++)
+            for(k = ((michel[joueurTour].posy)+50); k <((michel[joueurTour].posy)+100); k+=50)
             {
-                if (michel[nbjoueur].classe != michel[joueurTour].classe)
+                printf("test2\n");
+                if(michel[i].posx == j && michel[i].posy == k)
                 {
-                    if ((michel[nbjoueur].posx >= michel[joueurTour].posx -50) && (michel[nbjoueur].posx <= michel[joueurTour].posx+50))
-                    {
-                        blit(orange, buffer,0,0,michel[joueurTour].posx -50,michel[joueurTour].posy+50, 50, 50 );
-                        blit(orange, buffer,0,0,michel[joueurTour].posx +50,michel[joueurTour].posy+50, 50, 50 );
-                        blit(orange, buffer,0,0,michel[joueurTour].posx,michel[joueurTour].posy, 50, 50 );
-                        blit(orange, buffer,0,0,michel[joueurTour].posx,michel[joueurTour].posy+100, 50, 50 );
-
-                        printf("je suis sur une case du joueur tour: x: %d y: %d\n", michel[joueurTour].posx,michel[joueurTour].posy);
-                        printf("je suis sur une case d'un autre joueur a cote: x: %d \n", michel[nbjoueur].posx);
-
-                    }
+                    printf("test3\n");
+                    blit(orange, buffer, 0,0 ,i,j, 50,50);
                 }
-
-
             }
         }
+
+
+        /*if (michel[i].classe != michel[joueurTour].classe)
+        {
+            if ((michel[i].posx >= michel[joueurTour].posx-50) && (michel[i].posx <= michel[joueurTour].posx+50) && (michel[i].posy >= michel[joueurTour].posy-50) && (michel[i].posy <= michel[joueurTour].posy+100))
+            {
+                blit(orange, buffer,0,0,michel[i].posx,michel[i].posy, 50, 50 );
+            }
+        }*/
     }
+
 }

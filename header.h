@@ -51,7 +51,7 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12]);
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer);
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur);
 
 ///Menu.c
 void nbr_joueur(SAMPLE* son);
