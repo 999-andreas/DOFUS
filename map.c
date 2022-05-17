@@ -300,38 +300,83 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
     }
 }
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat)
 {
     int i;
-    int j;
-    int k;
+    int j=0;
+    int k=0;
 
+    int debutx = ((michel[joueurTour].posx)-50)/50;
+    int finx = ((michel[joueurTour].posx)+100)/50;
+
+    int debuty = ((michel[joueurTour].posy)-50)/50;
+    int finy = ((michel[joueurTour].posy)+150)/50;
 
     for (i=0; i<nb_joueur; i++)
     {
-        for(j = ((michel[joueurTour].posx)-50); j <((michel[joueurTour].posx)+50); j+=50)
+        for(j = (debutx); j <(finx); j++)
         {
-            printf("test1 %d\n", j);
 
-            for(k = ((michel[joueurTour].posy)+50); k <((michel[joueurTour].posy)+100); k+=50)
+            for(k = (debuty); k <(finy); k++)
             {
-                printf("test2\n");
-                if(michel[i].posx == j && michel[i].posy == k)
+
+                if(michel[i].posx == j*50 && michel[i].posy == k*50)
                 {
-                    printf("test3\n");
-                    blit(orange, buffer, 0,0 ,i,j, 50,50);
+                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
+                        continue;
+
+                    blit(orange, buffer, 0,0 ,j*50,k*50, 50,50);
+
+                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
+                    {
+                        michel[joueurTour].PA -= 2;
+
+                        *etat = 1;
+
+                        if(rand()%100 >=10)
+                        {
+                            michel[i].PV -=5;
+                            //affichage rouge + rests
+                        }
+
+                    }
                 }
             }
         }
-
-
-        /*if (michel[i].classe != michel[joueurTour].classe)
-        {
-            if ((michel[i].posx >= michel[joueurTour].posx-50) && (michel[i].posx <= michel[joueurTour].posx+50) && (michel[i].posy >= michel[joueurTour].posy-50) && (michel[i].posy <= michel[joueurTour].posy+100))
-            {
-                blit(orange, buffer,0,0,michel[i].posx,michel[i].posy, 50, 50 );
-            }
-        }*/
     }
 
+}
+
+
+void controle_points(t_joueur *michel, int nb_joueur)
+{
+    int i ;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+        if(michel[i].PA>100)
+        {
+            michel[i].PA = 100;
+        }
+        if(michel[i].PA<0)
+        {
+            michel[i].PA = 0;
+        }
+        if(michel[i].PM>100)
+        {
+            michel[i].PM = 100;
+        }
+        if(michel[i].PM<0)
+        {
+            michel[i].PM = 0;
+        }
+        if(michel[i].PV>100)
+        {
+            michel[i].PV = 100;
+        }
+        if(michel[i].PV<0)
+        {
+            michel[i].PV = 0;
+        }
+    }
 }
