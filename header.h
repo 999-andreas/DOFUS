@@ -34,7 +34,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[9]);
 void update_jauge(t_joueur *michel, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
-void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour);
+void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge);
 
 
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4);
@@ -53,7 +53,8 @@ void menuFIN(t_joueur *michel,int nb_joueur);
 
 //mettre les prototypes des nouveaux fichier ici
 
-
+void update_coo2x(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
+void update_coo2y(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge);
 
 
 #endif // HEADER_H_INCLUDED

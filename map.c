@@ -16,7 +16,7 @@ void init_maps(int maps[26][12])
             if(proba<20 && i>1 && i<24 && j>1 )
                 maps[i][j] = 3;
 
-            else if(proba <30 && i>1 && i<24 && j>1 )
+            else if(proba <23 && i>1 && i<24 && j>1 )
                 maps[i][j] = 2;
 
             else
@@ -138,6 +138,7 @@ void update_jauge(t_joueur *michel, BITMAP* buffer)
 //mise � jour des coo d'un joueur si clique sur une case
 void update_coo(t_joueur* michel, int maps[26][12])
 {
+
     int i = 0;
     int j = 0;
 
@@ -287,7 +288,7 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
     }
 }
 
-void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour)
+void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge)
 {
     int i = 0;
     int j = 0;
@@ -328,33 +329,36 @@ void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4
     {
         if(ancienI<newI)
         {
-            ancienI++;
-            clear_bitmap(buffer);
-            michel[joueurTour].posx = ancienI*50;
-            michel[joueurTour].posy = (ancienJ*50)-50;
-            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-            affichagePersonnage(buffer,skin,michel,nb_joueur);
-            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            rest(100);
-            printf("1:I++\n");
+                ancienI++;
+                clear_bitmap(buffer);
+                michel[joueurTour].posx = ancienI*50;
+                michel[joueurTour].posy = (ancienJ*50)-50;
+                blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+                affichagePersonnage(buffer,skin,michel,nb_joueur);
+                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                rest(100);
+                printf("1.1:I++\n");
+
         }
         else if (ancienI>newI)
         {
-            ancienI--;
-            clear_bitmap(buffer);
-            michel[joueurTour].posx = ancienI*50;
-            michel[joueurTour].posy = (ancienJ*50)-50;
-            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-            affichagePersonnage(buffer,skin,michel,nb_joueur);
-            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            rest(100);
-            printf("2:I--\n");
+
+                ancienI--;
+                clear_bitmap(buffer);
+                michel[joueurTour].posx = ancienI*50;
+                michel[joueurTour].posy = (ancienJ*50)-50;
+                blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+                affichagePersonnage(buffer,skin,michel,nb_joueur);
+                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                rest(100);
+                printf("2.1:I--\n");
+
 
         }
-        else {}
 
-        if(ancienJ<newJ)
+        else if(ancienJ<newJ)
         {
+
             ancienJ++;
             clear_bitmap(buffer);
             michel[joueurTour].posx = ancienI*50;
@@ -363,36 +367,102 @@ void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4
             affichagePersonnage(buffer,skin,michel,nb_joueur);
             blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
             rest(100);
-            printf("3:J++\n");
+            printf("3.1:J++\n");
+
         }
         else if (ancienJ>newJ)
         {
-            if(maps[ancienI][ancienJ-1]==2)
-            {
-                if(maps[ancienI][ancienJ+1]==2)
-                ancienJ++;
-                clear_bitmap(buffer);
-                michel[joueurTour].posx = ancienI*50;
-                michel[joueurTour].posy = (ancienJ*50)-50;
-                blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-                affichagePersonnage(buffer,skin,michel,nb_joueur);
-                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-                rest(100);
-                printf("4:J++\n");
-            }
-            else
-            {
-                ancienJ--;
-                clear_bitmap(buffer);
-                michel[joueurTour].posx = ancienI*50;
-                michel[joueurTour].posy = (ancienJ*50)-50;
-                blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-                affichagePersonnage(buffer,skin,michel,nb_joueur);
-                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-                rest(100);
-                printf("5:J--\n");
-            }
+            ancienJ--;
+            clear_bitmap(buffer);
+            michel[joueurTour].posx = ancienI*50;
+            michel[joueurTour].posy = (ancienJ*50)-50;
+            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+            affichagePersonnage(buffer,skin,michel,nb_joueur);
+            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            rest(100);
+            printf("5:J--\n");
+
 
         }
+
+        else {}
     }
+}
+
+void update_coo2y(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge)
+{
+    int i = 0;
+    int j = 0;
+
+    int newI;
+    int newJ;
+
+    int ancienI;
+    int ancienJ;
+
+    ancienI = (michel[joueurTour].posx)/50;
+    ancienJ = ((michel[joueurTour].posy)/50)+1;
+
+    newI = ancienI;
+    newJ = ancienJ;
+
+    for (i = 0 ; i <26 ; i++)
+    {
+        for (j = 0 ; j<12 ; j++)
+        {
+            if(cliquer_zone((i*50), (j*50), 50,50) == 1)
+            {
+                if(maps[i][j] == 2)
+                {}
+                else if ( (i*50 <= michel[joueurTour].posx-50) && (michel[joueurTour].posx <= i*50+50) && ((j-1)*50 == michel[joueurTour].posy) && (michel[joueurTour].PM) >= 0)
+                {
+                    michel[joueurTour].posx = i*50;
+                    (michel[joueurTour].PM)--;
+                    printf("Gauche\n");
+                }
+                else if ( (i*50 <= michel[joueurTour].posx+50) && (michel[joueurTour].posx <= i*50-50) && ((j-1)*50 == michel[joueurTour].posy) && (michel[joueurTour].PM) >= 0)
+                {
+                    michel[joueurTour].posx = i*50;
+                    (michel[joueurTour].PM)--;
+                    printf("Droite\n");
+                }
+                else if ( (j*50-50 <= michel[joueurTour].posy-50) && (michel[joueurTour].posy <= j*50) && (i*50 == michel[joueurTour].posx) && (michel[joueurTour].PM) >= 0)
+                {
+                    michel[joueurTour].posy = j*50-50;
+                    (michel[joueurTour].PM)--;
+                    printf("Monter\n");
+                }
+                else if ( ( j*50 <= michel[joueurTour].posy+100) && (michel[joueurTour].posy <= j*50-100) && (i*50 == michel[joueurTour].posx) && (michel[joueurTour].PM) >= 0)
+                {
+                    michel[joueurTour].posy = j*50-50;
+                    (michel[joueurTour].PM)--;
+                    printf("Descendre\n");
+                }
+                else {}
+
+            }
+        }
+    }
+   /* if( newI*50 <= (michel[joueurTour].posx)+50 && newI*50 >= michel[joueurTour].posx && michel[joueurTour].PM != 0)
+    {
+        michel[joueurTour].posx = newI*50;
+        michel[joueurTour].PA = (michel[joueurTour].PA)-1;
+        blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+                affichagePersonnage(buffer,skin,michel,nb_joueur);
+                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                rest(100);
+                printf("X:++\n");
+    }
+    else if (newI*50 )
+    else if (newJ*50 <= (michel[joueurTour].posy)+50 && newJ*50 >= (michel[joueurTour].posy)-50 && michel[joueurTour].PM != 0)
+    {
+        michel[joueurTour].posy = newJ*50;
+        michel[joueurTour].PA = (michel[joueurTour].PA)-1;
+        blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
+                affichagePersonnage(buffer,skin,michel,nb_joueur);
+                blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                rest(100);
+                printf("2:J--\n");
+    }
+    else {}*/
 }

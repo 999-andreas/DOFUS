@@ -38,7 +38,7 @@ void initialisation(t_joueur* michel,int nb_joueur)
     {
         michel[i].PV = 100;
         michel[i].PM = 50;
-        michel[i].PA = 25;
+        michel[i].PA = 10;
     }
     michel[0].PV = 100;
     michel[1].PV = 70;

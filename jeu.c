@@ -136,7 +136,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
 
         //update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
-        update_coo2(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour);
+        //update_coo2(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
+        update_coo2y(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
@@ -145,12 +146,14 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
 
+        //printf("Joueur : %d\n",joueurTour);
+        //printf("Joueur classe : %d\n",michel[joueurTour].classe);
 
 
         //affichage des PV PA PM
         textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");
-        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: ");
-        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: ");
+        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: ");
+        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: ");
 
         update_jauge(&michel[joueurTour], buffer); //affichage des jauge
 
