@@ -300,7 +300,7 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
     }
 }
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat)
 {
     int i;
     int j=0;
@@ -326,18 +326,57 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                         continue;
 
                     blit(orange, buffer, 0,0 ,j*50,k*50, 50,50);
+
+                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
+                    {
+                        michel[joueurTour].PA -= 2;
+
+                        *etat = 1;
+
+                        if(rand()%100 >=10)
+                        {
+                            michel[i].PV -=5;
+                            //affichage rouge + rests
+                        }
+
+                    }
                 }
             }
         }
-
-
-        /*if (michel[i].classe != michel[joueurTour].classe)
-        {
-            if ((michel[i].posx >= michel[joueurTour].posx-50) && (michel[i].posx <= michel[joueurTour].posx+50) && (michel[i].posy >= michel[joueurTour].posy-50) && (michel[i].posy <= michel[joueurTour].posy+100))
-            {
-                blit(orange, buffer,0,0,michel[i].posx,michel[i].posy, 50, 50 );
-            }
-        }*/
     }
 
+}
+
+
+void controle_points(t_joueur *michel, int nb_joueur)
+{
+    int i ;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+        if(michel[i].PA>100)
+        {
+            michel[i].PA = 100;
+        }
+        if(michel[i].PA<0)
+        {
+            michel[i].PA = 0;
+        }
+        if(michel[i].PM>100)
+        {
+            michel[i].PM = 100;
+        }
+        if(michel[i].PM<0)
+        {
+            michel[i].PM = 0;
+        }
+        if(michel[i].PV>100)
+        {
+            michel[i].PV = 100;
+        }
+        if(michel[i].PV<0)
+        {
+            michel[i].PV = 0;
+        }
+    }
 }

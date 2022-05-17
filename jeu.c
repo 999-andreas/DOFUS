@@ -6,7 +6,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
-    int joueurTour;
+    int joueurTour; // indique l'indice du jour a qui c'est le tour
+    int etat; // indique si le joueur a deja attaquer
 
     BITMAP* skins[4];
 
@@ -122,6 +123,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             if(mouse_b&1)
             {
                 mise_a_zero(etat_hotbar);
+                etat = 0;
                 joueurTour++;
                 temps = time(NULL);
                 rest(200);
@@ -144,7 +146,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-          attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur);
+          attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat);
         }
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
@@ -155,12 +157,12 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
 
-
+        controle_points(michel, nb_joueur);
 
         //affichage des PV PA PM
-        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");
-        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PA: ");
-        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PM: ");
+        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
 
         update_jauge(&michel[joueurTour], buffer); //affichage des jauge
 
