@@ -53,8 +53,8 @@ void menuFIN(t_joueur *michel,int nb_joueur);
 
 //mettre les prototypes des nouveaux fichier ici
 
-void update_coo2x(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
-void update_coo2y(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge);
+//void update_coo2x(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
+void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge);
 
 
 #endif // HEADER_H_INCLUDED

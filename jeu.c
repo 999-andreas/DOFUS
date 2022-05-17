@@ -137,7 +137,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         //update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
         //update_coo2(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
-        update_coo2y(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
+        deplacement_case(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
