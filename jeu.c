@@ -28,6 +28,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* suivant;
     BITMAP* suivantRouge;
 
+
+    BITMAP*steveROUGE;
+
     BITMAP* terrain;
     BITMAP* buffer;
 
@@ -60,13 +63,12 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     lava = load_bitmap("images/lava.bmp", NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
 
-
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
 
-    choixEmplacement(buffer,skins,nb_joueur,michel,maps);
+    choixEmplacement(buffer,skins,nb_joueur,michel,maps, joueurTour);
 
     initialisation(michel,nb_joueur);
 

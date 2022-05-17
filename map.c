@@ -107,31 +107,31 @@ void update_jauge(t_joueur *michel, BITMAP* buffer)
     for(i = 0; i<(michel->PV); i++)
     {
 
-        putpixel(buffer, i+100, 610, makecol(52,201,36));
-        putpixel(buffer, i+100, 611, makecol(52,201,36));
-        putpixel(buffer, i+100, 612, makecol(52,201,36));
-        putpixel(buffer, i+100, 613, makecol(52,201,36));
-        putpixel(buffer, i+100, 614, makecol(52,201,36));
+        putpixel(buffer, i+110, 610, makecol(52,201,36));
+        putpixel(buffer, i+110, 611, makecol(52,201,36));
+        putpixel(buffer, i+110, 612, makecol(52,201,36));
+        putpixel(buffer, i+110, 613, makecol(52,201,36));
+        putpixel(buffer, i+110, 614, makecol(52,201,36));
     }
 
     for(i = 0; i<(michel->PM); i++)
     {
 
-        putpixel(buffer, i+100, 630, makecol(52,201,36));
-        putpixel(buffer, i+100, 631, makecol(52,201,36));
-        putpixel(buffer, i+100, 632, makecol(52,201,36));
-        putpixel(buffer, i+100, 633, makecol(52,201,36));
-        putpixel(buffer, i+100, 634, makecol(52,201,36));
+        putpixel(buffer, i+110, 630, makecol(52,201,36));
+        putpixel(buffer, i+110, 631, makecol(52,201,36));
+        putpixel(buffer, i+110, 632, makecol(52,201,36));
+        putpixel(buffer, i+110, 633, makecol(52,201,36));
+        putpixel(buffer, i+110, 634, makecol(52,201,36));
     }
 
     for(i = 0; i<(michel->PA); i++)
     {
 
-        putpixel(buffer, i+100, 650, makecol(52,201,36));
-        putpixel(buffer, i+100, 651, makecol(52,201,36));
-        putpixel(buffer, i+100, 652, makecol(52,201,36));
-        putpixel(buffer, i+100, 653, makecol(52,201,36));
-        putpixel(buffer, i+100, 654, makecol(52,201,36));
+        putpixel(buffer, i+110, 650, makecol(52,201,36));
+        putpixel(buffer, i+110, 651, makecol(52,201,36));
+        putpixel(buffer, i+110, 652, makecol(52,201,36));
+        putpixel(buffer, i+110, 653, makecol(52,201,36));
+        putpixel(buffer, i+110, 654, makecol(52,201,36));
     }
 }
 
@@ -212,20 +212,26 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
 
 }
 
-void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12])
+void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour)
 {
     int choixJoueur=0;
     rest(100);
     time_t choixTemp = time(NULL);
     while ( (time(NULL)-choixTemp) < 10 && (choixJoueur != nb_joueur))
     {
+        textprintf_ex(buffer,font,600,610,makecol(0,150,255),makecol(2,2,2),"Placer vos joueur !");
+        textprintf_ex(buffer,font,650,630,makecol(255,255,0),makecol(2,2,2),"JOUEUR %d", joueurTour+1);
+        textprintf_ex(buffer,font,1200,650,makecol(255,0,0),makecol(2,2,2),"CHRONO: %d ",10-(time(NULL)-choixTemp));
+
+
         if(mouse_b &1)
         {
+            joueurTour++;
             update_coo(&michel[choixJoueur], maps);
             affichagePersonnage(buffer,skins,michel,choixJoueur+1);
             choixJoueur++;
             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-            rest(100);
+            rest(200);
 
         }
         else
@@ -312,6 +318,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
     int debuty = ((michel[joueurTour].posy)-50)/50;
     int finy = ((michel[joueurTour].posy)+150)/50;
 
+
     for (i=0; i<nb_joueur; i++)
     {
         for(j = (debutx); j <(finx); j++)
@@ -325,11 +332,14 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                     if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
                         continue;
 
-                    blit(orange, buffer, 0,0 ,j*50,k*50, 50,50);
+                    blit(orange, buffer, 0,0,j*50,k*50, 50,50);
+
+
 
                     if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
                     {
                         michel[joueurTour].PA -= 2;
+                        //affiche le carré
 
                         *etat = 1;
 
@@ -338,7 +348,6 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             michel[i].PV -=5;
                             //affichage rouge + rests
                         }
-
                     }
                 }
             }
