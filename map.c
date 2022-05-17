@@ -187,6 +187,196 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
     }
 }
 
+void animm(BITMAP * buffer,BITMAP *skins[4], t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+{
+    int i;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+
+        if(i==0)
+        {
+            if (michel[0].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[0].posx+1), (michel[0].posy));
+            }
+            if (michel[0].classe==2)
+            {
+                draw_sprite(buffer, skins[1], (michel[0].posx+1), (michel[0].posy));
+
+            }
+            if (michel[0].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[0].posx+1), (michel[0].posy));
+            }
+            if (michel[0].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[0].posx+1), (michel[0].posy));
+            }
+        }
+
+        if(i==1)
+        {
+
+            if (michel[1].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[1].posx+1), (michel[1].posy));
+
+            }
+            if (michel[1].classe==2)
+            {
+                draw_sprite(buffer, skins[1], (michel[1].posx+1), (michel[1].posy));
+
+            }
+            if (michel[1].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[1].posx+1), (michel[1].posy));
+            }
+            if (michel[1].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[1].posx+1), (michel[1].posy));
+            }
+        }
+
+        if(i==2)
+        {
+            if (michel[2].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[2].posx+1), (michel[2].posy));
+
+            }
+            if (michel[2].classe==2)
+            {
+                draw_sprite(buffer, skins[1], (michel[2].posx+1), (michel[2].posy));
+            }
+            if (michel[2].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[2].posx+1), (michel[2].posy));
+            }
+            if (michel[2].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[2].posx+1), (michel[2].posy));
+            }
+        }
+        if(i==3)
+        {
+            if (michel[3].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[3].posx+1), (michel[3].posy));
+            }
+            if (michel[3].classe==2)
+            {
+
+                draw_sprite(buffer, skins[1], (michel[3].posx+1), (michel[3].posy));
+            }
+            if (michel[3].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[3].posx+1), (michel[3].posy));
+            }
+            if (michel[3].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[3].posx+1), (michel[3].posy));
+            }
+        }
+    }
+}
+
+
+void animmms(BITMAP * buffer,BITMAP *skins[4], t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+{
+    int i;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+
+        if(i==0)
+        {
+            if (michel[0].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[0].posx-1), (michel[0].posy));
+            }
+            if (michel[0].classe==2)
+            {
+                draw_sprite(buffer, skins[1], (michel[0].posx-1), (michel[0].posy));
+
+            }
+            if (michel[0].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[0].posx-1), (michel[0].posy));
+            }
+            if (michel[0].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[0].posx-1), (michel[0].posy));
+            }
+        }
+
+        if(i==1)
+        {
+
+            if (michel[1].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[1].posx-1), (michel[1].posy));
+
+            }
+            if (michel[1].classe==2)
+            {
+                draw_sprite(buffer, skins[1], (michel[1].posx-1), (michel[1].posy));
+
+            }
+            if (michel[1].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[1].posx-1), (michel[1].posy));
+            }
+            if (michel[1].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[1].posx-1), (michel[1].posy));
+            }
+        }
+
+        if(i==2)
+        {
+            if (michel[2].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[2].posx-1), (michel[2].posy));
+
+            }
+            if (michel[2].classe==2)
+            {
+                draw_sprite(buffer, skins[1], (michel[2].posx-1), (michel[2].posy));
+            }
+            if (michel[2].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[2].posx-1), (michel[2].posy));
+            }
+            if (michel[2].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[2].posx-1), (michel[2].posy));
+            }
+        }
+        if(i==3)
+        {
+            if (michel[3].classe==1)
+            {
+                draw_sprite(buffer, skins[0], (michel[3].posx-1), (michel[3].posy));
+            }
+            if (michel[3].classe==2)
+            {
+
+                draw_sprite(buffer, skins[1], (michel[3].posx-1), (michel[3].posy));
+            }
+            if (michel[3].classe==3)
+            {
+                draw_sprite(buffer, skins[2], (michel[3].posx-1), (michel[3].posy));
+            }
+            if (michel[3].classe==4)
+            {
+                draw_sprite(buffer, skins[3], (michel[3].posx-1), (michel[3].posy));
+            }
+        }
+    }
+}
+
+
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
 {
     int x=0;

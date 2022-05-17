@@ -8,6 +8,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
     int joueurTour;
 
+
     BITMAP* skins[4];
 
     BITMAP* viseur; //utile
@@ -66,6 +67,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     choixEmplacement(buffer,skins,nb_joueur,michel,maps);
 
     initialisation(michel,nb_joueur);
+    int c = 0;
 
     time_t temps = time(NULL);
 
@@ -140,8 +142,21 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
-        affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+        affichagePersonnage(buffer,skins,michel,nb_joueur);
+        if(c==0)
+        {
+        animm(buffer,skins,michel,nb_joueur);
+        }
+        else if (c==1)
+        {
+        animmms(buffer,skins,michel,nb_joueur);
 
+        }
+        c=c+1;
+        if (c==2)
+        {
+            c=0;
+        }
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
 

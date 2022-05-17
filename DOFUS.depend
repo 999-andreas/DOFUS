@@ -74,3 +74,24 @@
 1652480586 source:c:\users\james\documents\github\dofus\utilitaire.c
 	"header.h"
 
+1652707505 source:c:\users\valen\onedrive\documents\github\dofus\jeu.c
+	"header.h"
+
+1652706842 c:\users\valen\onedrive\documents\github\dofus\header.h
+	<stdio.h>
+	<stdlib.h>
+	<allegro.h>
+	<time.h>
+
+1652373600 source:c:\users\valen\onedrive\documents\github\dofus\main.c
+	"header.h"
+
+1652706772 source:c:\users\valen\onedrive\documents\github\dofus\map.c
+	"header.h"
+
+1652544927 source:c:\users\valen\onedrive\documents\github\dofus\menu.c
+	"header.h"
+
+1652545012 source:c:\users\valen\onedrive\documents\github\dofus\utilitaire.c
+	"header.h"
+
