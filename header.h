@@ -36,6 +36,7 @@ void update_jauge(t_joueur *michel, BITMAP* buffer);
 void update_coo(t_joueur* michel, int maps[26][12]);
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4);
 void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9]);
+void animsort(BITMAP *buffer, BITMAP *fleche,t_joueur *michel, int joueurTour);
 
 void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur);
 void animm(BITMAP * buffer,BITMAP *skins[4], t_joueur *michel, int nb_joueur);

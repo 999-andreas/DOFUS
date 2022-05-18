@@ -476,3 +476,20 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
         case_actu++;
     }
 }
+void animsort(BITMAP *buffer, BITMAP *fleche,t_joueur *michel,int joueurTour)
+{
+   if (joueurTour==1)
+   {
+
+
+    if(cliquer_zone(350, 600, 88,100) == 1)
+    {
+
+
+         draw_sprite(buffer, fleche, michel->posx, michel->posy);
+         michel->posy++;
+
+
+    }
+   }
+}

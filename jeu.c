@@ -10,6 +10,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
 
     BITMAP* skins[4];
+    BITMAP* fleche;
 
     BITMAP* viseur; //utile
     BITMAP* dirt; //utile
@@ -42,6 +43,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     skins[1] = load_bitmap("images/steve.bmp", NULL);
     skins[2] = load_bitmap("images/squelette.bmp", NULL);
     skins[3] = load_bitmap("images/zombie.bmp", NULL);
+    fleche = load_bitmap("images/fleche.bmp", NULL);
 
     hotbar1 = load_bitmap("images/hotbar1.bmp", NULL);
     hotbar2 = load_bitmap("images/hotbar2.bmp", NULL);
@@ -171,6 +173,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
 
         draw_sprite(buffer, viseur, mouse_x-15, mouse_y-5); //affichage de la souris
+        animsort(buffer,fleche,michel,joueurTour);
 
         blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);//affichage final sur l'ecran
 
