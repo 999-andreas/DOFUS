@@ -321,6 +321,8 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
     for (i=0; i<nb_joueur; i++)
     {
+        blit(orange, buffer, 0,0,michel[joueurTour].posx+50,michel[joueurTour].posy, 50,50);
+        blit(orange, buffer, 0,0,michel[joueurTour].posx-50,michel[joueurTour].posy, 50,50);
         for(j = (debutx); j <(finx); j++)
         {
 
@@ -336,11 +338,10 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
 
 
+
                     if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
                     {
                         michel[joueurTour].PA -= 2;
-                        //affiche le carré
-
                         *etat = 1;
 
                         if(rand()%100 >=10)
@@ -388,4 +389,34 @@ void controle_points(t_joueur *michel, int nb_joueur)
             michel[i].PV = 0;
         }
     }
+}
+
+
+void attaqueSort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
+{
+    t_sorts potion[4][4];
+    int i,j,k,b;
+
+
+    if (michel[joueurTour].classe==1)
+    {
+
+        for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
+        {
+            blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
+        }
+        for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
+        {
+            blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+        }
+        for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
+        {
+            blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
+        }
+        for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
+        {
+            blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+        }
+    }
+
 }

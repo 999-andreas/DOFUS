@@ -29,8 +29,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* suivantRouge;
 
 
-    BITMAP*steveROUGE;
-
     BITMAP* terrain;
     BITMAP* buffer;
 
@@ -149,6 +147,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         if (etat_hotbar[5]==1)
         {
           attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat);
+        }
+
+        if (etat_hotbar[0]==1)///sort 1
+        {
+            attaqueSort(michel,joueurTour, nb_joueur, orange, buffer);
         }
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
