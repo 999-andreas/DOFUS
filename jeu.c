@@ -147,11 +147,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
-        deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1);
 
         if (etat_hotbar[6]==1)
         {
-            update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+          deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1); //si clique sur une case changement des coo du joueur
         }
         if (etat_hotbar[5]==1)
         {
@@ -162,6 +161,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer);
         }
+
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);

@@ -35,22 +35,22 @@
 1652793423 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\jeu.c
 	"header.h"
 
-1652966100 source:c:\users\jackq\documents\github\dofus\jeu.c
+1652967527 source:c:\users\jackq\documents\github\dofus\jeu.c
 	"header.h"
 
-1652906963 c:\users\jackq\documents\github\dofus\header.h
+1652966630 c:\users\jackq\documents\github\dofus\header.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
 	<time.h>
 
-1652966118 source:c:\users\jackq\documents\github\dofus\map.c
+1652967234 source:c:\users\jackq\documents\github\dofus\map.c
 	"header.h"
 
-1652446653 source:c:\users\jackq\documents\github\dofus\menu.c
+1652966630 source:c:\users\jackq\documents\github\dofus\menu.c
 	"header.h"
 
-1652716510 source:c:\users\jackq\documents\github\dofus\utilitaire.c
+1652967093 source:c:\users\jackq\documents\github\dofus\utilitaire.c
 	"header.h"
 
 1652963961 source:c:\users\james\documents\github\dofus\jeu.c

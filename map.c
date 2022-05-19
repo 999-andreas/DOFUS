@@ -231,15 +231,14 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
                 }
             }
         }
-        textprintf_ex(buffer,font,600,610,makecol(0,150,255),makecol(2,2,2),"Placer vos joueur !");
-        textprintf_ex(buffer,font,650,630,makecol(255,255,0),makecol(2,2,2),"JOUEUR %d", joueurTour+1);
-        textprintf_ex(buffer,font,1200,650,makecol(255,0,0),makecol(2,2,2),"CHRONO: %d ",10-(time(NULL)-choixTemp));
-
         else
         {
             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H); // ENSUITE ON AFFICHE L'EMPLACEMENT DU JOUEUR OU IL A CLICKER
 
         }
+        textprintf_ex(buffer,font,600,610,makecol(0,150,255),makecol(2,2,2),"Placer vos joueur !");
+        textprintf_ex(buffer,font,650,630,makecol(255,255,0),makecol(2,2,2),"JOUEUR %d", joueurTour+1);
+        textprintf_ex(buffer,font,1200,650,makecol(255,0,0),makecol(2,2,2),"CHRONO: %d ",10-(time(NULL)-choixTemp));
     }
 
     if(choixJoueur == nb_joueur)
@@ -357,6 +356,8 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
         }
     }
     *bouger = *bouger+deplace; // ON INCREMENTE CE POINTEUR AFIN DE POUVOIR QU'IL NE FASSE QUE DE 3 CASE MAX
+}
+
 void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat)
 {
     int i;
