@@ -52,3 +52,18 @@ void mise_a_zero(int etat_hotbar[9])
         etat_hotbar[i] = 0;
     }
 }
+
+
+int joueur_la(t_joueur* michel, int nb_joueur, int x, int y)
+{
+    int i;
+    for(i= 0; i<nb_joueur; i++)
+    {
+        if(michel[i].posx == x && michel[i].posy == y)
+        {
+            printf("test\n");
+            return 1;
+        }
+    }
+    return 0;
+}

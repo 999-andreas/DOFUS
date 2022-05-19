@@ -37,6 +37,8 @@ void setup_allegro();
 int cliquer_zone(int x, int y, int tx, int ty);
 void initialisation(t_joueur* michel,int nb_joueur);
 void mise_a_zero(int etat_hotbar[9]);
+int joueur_la(t_joueur* michel, int nb_joueur, int x, int y);
+
 
 ///map.c
 void init_maps(int maps[26][12]);
@@ -71,7 +73,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
 //mettre les prototypes des nouveaux fichier ici
 
-//void update_coo2x(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
+//void update_coo2(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
 void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour, int *bouger);
 
 

@@ -63,6 +63,32 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
     }
 }
 
+//mise a jour des coo
+void update_coo(t_joueur* michel, int maps[26][12])
+{
+
+    int i = 0;
+    int j = 0;
+
+    for (i = 0 ; i <26 ; i++)
+    {
+        for (j = 0 ; j<12 ; j++)
+        {
+            if(cliquer_zone((i*50), (j*50), 50,50) == 1)
+            {
+                if(maps[i][j] == 2)
+                {}
+                else
+                {
+                    michel->posx = i*50;
+                    michel->posy = (j*50)-50;
+                }
+
+            }
+        }
+    }
+}
+
 //affichage des objets sur la map c�d les element qui sont par dessus tout le reste
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[9])
 {
@@ -132,32 +158,6 @@ void update_jauge(t_joueur *michel, BITMAP* buffer)
         putpixel(buffer, i+110, 652, makecol(52,201,36));
         putpixel(buffer, i+110, 653, makecol(52,201,36));
         putpixel(buffer, i+110, 654, makecol(52,201,36));
-    }
-}
-
-//mise � jour des coo d'un joueur si clique sur une case
-void update_coo(t_joueur* michel, int maps[26][12])
-{
-
-    int i = 0;
-    int j = 0;
-
-    for (i = 0 ; i <26 ; i++)
-    {
-        for (j = 0 ; j<12 ; j++)
-        {
-            if(cliquer_zone((i*50), (j*50), 50,50) == 1)
-            {
-                if(maps[i][j] == 2)
-                {}
-                else
-                {
-                    michel->posx = i*50;
-                    michel->posy = (j*50)-50;
-                }
-
-            }
-        }
     }
 }
 
@@ -322,6 +322,9 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
                 if(maps[i][j] == 2) // SI ON CLICK SUR LA LAVE
                 {}
 
+                else if(joueur_la(michel,nb_joueur,i,j)==1)
+                {}
+
                 // SI ON CLICK SUR LA CASE DE GAUCHE
                 else if ( (i*50 <= michel[joueurTour].posx-50) && (michel[joueurTour].posx <= i*50+50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
@@ -361,51 +364,4 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 
 ///sous programme premier sort des classes///
 
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
-{
-    t_sorts potion[4][4];
-    int i,j,k,b;
-    int nb;
 
-
-    ////Sort coup d'epee///
-
-    if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
-    {
-        for (nb=0; nb<nbjoueur; nb++)
-        {
-
-            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
-            {
-                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
-            }
-            for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
-            {
-                blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
-            }
-            for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
-            {
-                blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
-
-                if (michel[joueurTour].posx==k)
-                    continue;
-
-                if (michel[nb].posx==k)
-                {
-                    printf("il y a qlq1 \n");
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
-                    {
-                        printf("toucherrrrr\n");
-                    }
-                }
-
-
-            }
-            for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
-            {
-                blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
-            }
-        }
-    }
-
-}

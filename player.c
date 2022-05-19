@@ -81,3 +81,52 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
     }
 
 }
+
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
+{
+    t_sorts potion[4][4];
+    int i,j,k,b;
+    int nb;
+
+
+    ////Sort coup d'epee///
+
+    if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
+    {
+        for (nb=0; nb<nbjoueur; nb++)
+        {
+
+            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
+            {
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
+            }
+            for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
+            {
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+            }
+            for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
+            {
+                blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
+
+                if (michel[joueurTour].posx==k)
+                    continue;
+
+                if (michel[nb].posx==k)
+                {
+                    printf("il y a qlq1 \n");
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
+                    {
+                        printf("toucherrrrr\n");
+                    }
+                }
+
+
+            }
+            for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
+            {
+                blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+            }
+        }
+    }
+
+}
