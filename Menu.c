@@ -247,7 +247,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
     }
 
 
-    blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///affichage de l'image des classss sur bmp
     blit(Classss,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);///affichage de la classe sur le screen
 
     t_joueur J[choixJ];///tableau de strcure t_joueur du choix joueur
@@ -263,7 +262,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
         if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)///bouton suivant
         {
             draw_sprite(bmp, suivant, 1011,594 );
-            blit(bmp,screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         }
 
         if (tour == 0)///affichage "joueur 1" quand tour = 0
