@@ -7,8 +7,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
     int deplacement=0;
-    int joueurTour; // indique l'indice du jour a qui c'est le tour
+    int joueurTour=0; // indique l'indice du jour a qui c'est le tour
     int etat; // indique si le joueur a deja attaquer
+    int premsTour=0;
 
     BITMAP* skins[4];
 
@@ -85,6 +86,18 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /* if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+         {
+             joueurTour = 0;
+             premsTour = 1;
+             printf("sqqdqsd\n");
+
+         }*/
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -92,24 +105,25 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             mise_a_zero(etat_hotbar);
             joueurTour++;
-            michel[joueurTour].PA = michel[joueurTour].PA + 3;
-            michel[joueurTour].PM = michel[joueurTour].PM + 1;
+            if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+            {
+                joueurTour = 0;
+                premsTour = 1;
+
+            }
+            if(premsTour == 1)
+            {
+                michel[joueurTour].PA = michel[joueurTour].PA + 3;
+                michel[joueurTour].PM = michel[joueurTour].PM + 1;
+            }
+            else
+            {
+            }
             deplacement = 0;
             temps = time(NULL);
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
-        {
-            joueurTour = 0;
-
-        }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -129,8 +143,21 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
                 mise_a_zero(etat_hotbar);
                 etat = 0;
                 joueurTour++;
-                michel[joueurTour].PA = michel[joueurTour].PA + 3;
-                michel[joueurTour].PM = michel[joueurTour].PM + 1;
+                if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+                {
+                    joueurTour = 0;
+                    premsTour = 1;
+
+                }
+
+                if(premsTour == 1)
+                {
+                    michel[joueurTour].PA = michel[joueurTour].PA + 3;
+                    michel[joueurTour].PM = michel[joueurTour].PM + 1;
+                }
+                else
+                {
+                }
                 deplacement = 0;
                 temps = time(NULL);
 
@@ -150,11 +177,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[6]==1)
         {
-          deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1); //si clique sur une case changement des coo du joueur
+            deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1); //si clique sur une case changement des coo du joueur
         }
         if (etat_hotbar[5]==1)
         {
-          attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat);
         }
 
         if (etat_hotbar[0]==1 )///sort 1
