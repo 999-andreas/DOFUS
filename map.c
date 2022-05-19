@@ -75,7 +75,7 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
         {
             if(maps[i][j] == 3)
             {
-                draw_sprite(buffer, bush, (i*50), (j*50));
+                //draw_sprite(buffer, bush, (i*50), (j*50));
             }
 
             if(cliquer_zone((i*50), (j*50), 50,50) == 2)
@@ -107,31 +107,31 @@ void update_jauge(t_joueur *michel, BITMAP* buffer)
     for(i = 0; i<(michel->PV); i++)
     {
 
-        putpixel(buffer, i+100, 610, makecol(52,201,36));
-        putpixel(buffer, i+100, 611, makecol(52,201,36));
-        putpixel(buffer, i+100, 612, makecol(52,201,36));
-        putpixel(buffer, i+100, 613, makecol(52,201,36));
-        putpixel(buffer, i+100, 614, makecol(52,201,36));
+        putpixel(buffer, i+110, 610, makecol(52,201,36));
+        putpixel(buffer, i+110, 611, makecol(52,201,36));
+        putpixel(buffer, i+110, 612, makecol(52,201,36));
+        putpixel(buffer, i+110, 613, makecol(52,201,36));
+        putpixel(buffer, i+110, 614, makecol(52,201,36));
     }
 
     for(i = 0; i<(michel->PM); i++)
     {
 
-        putpixel(buffer, i+100, 630, makecol(52,201,36));
-        putpixel(buffer, i+100, 631, makecol(52,201,36));
-        putpixel(buffer, i+100, 632, makecol(52,201,36));
-        putpixel(buffer, i+100, 633, makecol(52,201,36));
-        putpixel(buffer, i+100, 634, makecol(52,201,36));
+        putpixel(buffer, i+110, 630, makecol(52,201,36));
+        putpixel(buffer, i+110, 631, makecol(52,201,36));
+        putpixel(buffer, i+110, 632, makecol(52,201,36));
+        putpixel(buffer, i+110, 633, makecol(52,201,36));
+        putpixel(buffer, i+110, 634, makecol(52,201,36));
     }
 
     for(i = 0; i<(michel->PA); i++)
     {
 
-        putpixel(buffer, i+100, 650, makecol(52,201,36));
-        putpixel(buffer, i+100, 651, makecol(52,201,36));
-        putpixel(buffer, i+100, 652, makecol(52,201,36));
-        putpixel(buffer, i+100, 653, makecol(52,201,36));
-        putpixel(buffer, i+100, 654, makecol(52,201,36));
+        putpixel(buffer, i+110, 650, makecol(52,201,36));
+        putpixel(buffer, i+110, 651, makecol(52,201,36));
+        putpixel(buffer, i+110, 652, makecol(52,201,36));
+        putpixel(buffer, i+110, 653, makecol(52,201,36));
+        putpixel(buffer, i+110, 654, makecol(52,201,36));
     }
 }
 
@@ -206,7 +206,7 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
     }
 }
 
-void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12])
+void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour)
 {
     int choixJoueur=0;
     rest(200);
@@ -222,6 +222,7 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
                 }
                 else // SINON ON MET LE JOUEUR SUR L'EMPLACEMENT D'OU IL A CLICKER
                 {
+                    joueurTour++;
                     update_coo(&michel[choixJoueur], maps);
                     affichagePersonnage(buffer,skins,michel,choixJoueur+1);
                     choixJoueur++;
@@ -229,8 +230,11 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
                     rest(100);
                 }
             }
-
         }
+        textprintf_ex(buffer,font,600,610,makecol(0,150,255),makecol(2,2,2),"Placer vos joueur !");
+        textprintf_ex(buffer,font,650,630,makecol(255,255,0),makecol(2,2,2),"JOUEUR %d", joueurTour+1);
+        textprintf_ex(buffer,font,1200,650,makecol(255,0,0),makecol(2,2,2),"CHRONO: %d ",10-(time(NULL)-choixTemp));
+
         else
         {
             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H); // ENSUITE ON AFFICHE L'EMPLACEMENT DU JOUEUR OU IL A CLICKER
@@ -248,44 +252,58 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
 }
 
 
+///SOUS PROGRAMME POUR AFFICHER LA BAR DES SORT DANS LE JEU///
+
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4 )
 {
-    if (playeur[joueurTour].classe==1)
+    if (playeur[joueurTour].classe==1)///si le joueur a choisie la classe 1
     {
-        blit(bar1, buffer, 0,0,250,600,bar1->w, bar1->h);
+        blit(bar1, buffer, 0,0,250,600,bar1->w, bar1->h);//affichage de la bar de sort pour la classe1;
     }
-    if (playeur[joueurTour].classe==2)
+    if (playeur[joueurTour].classe==2)///si le joueur a choisie la classe 2
     {
-        blit(bar2, buffer, 0,0,250,600,bar1->w, bar2->h);
+        blit(bar2, buffer, 0,0,250,600,bar1->w, bar2->h);//affichage de la bar de sort pour la classe2;
     }
-    if (playeur[joueurTour].classe==3)
+    if (playeur[joueurTour].classe==3)///si le joueur a choisie la classe 3
     {
-        blit(bar3, buffer, 0,0,250,600,bar3->w, bar3->h);
+        blit(bar3, buffer, 0,0,250,600,bar3->w, bar3->h);//affichage de la bar de sort pour la classe3;
     }
-    if (playeur[joueurTour].classe==4)
+    if (playeur[joueurTour].classe==4)///si le joueur a choisie la classe 4
     {
-        blit(bar4, buffer, 0,0,250,600,bar4->w, bar4->h);
+        blit(bar4, buffer, 0,0,250,600,bar4->w, bar4->h);//affichage de la bar de sort pour la classe4;
     }
 }
 
 
+///SOUS PROGRAMME AFFICHER CARRER DE SELECTION DES SORT
+
 void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
 {
     int i;
-    int case_actu = 0;
-
-    for(i = 255; i<966; i +=88)
+    int case_actu = 0;///case actuellement choisie
+    int b,a;
+    for(i = 255; i<966; i +=88)//pour i < au cordonnée , incrémentaion de 88 = taille de chaque cases
     {
-        if(cliquer_zone(i, 600, 88,100) == 2)
+        if(cliquer_zone(i, 600, 88,100) == 2)//si on passe la souris sur la case
         {
-            draw_sprite(buffer,jaune,i,605);
+            draw_sprite(buffer,jaune,i,605);//affiche le carré
         }
+        if(cliquer_zone(i, 600, 88,100) == 1)//si on clic que la case
+        {
 
-        if(cliquer_zone(i, 600, 88,100) == 1)
-        {
-            etat_hotbar[case_actu] = 1;
+            etat_hotbar[case_actu] = 1;//afficher le carré autour de la casse
+
+            for(b=0; b<case_actu; b++)//effacer les carré après la case selectionné
+            {
+                etat_hotbar[b]=0;
+            }
+            for(a=9; a>case_actu; a--)//effacer les carré avant la case selectionné
+            {
+                etat_hotbar[a]=0;
+            }
+
         }
-        case_actu++;
+        case_actu++;//incrémentation
     }
 }
 
@@ -339,4 +357,133 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
         }
     }
     *bouger = *bouger+deplace; // ON INCREMENTE CE POINTEUR AFIN DE POUVOIR QU'IL NE FASSE QUE DE 3 CASE MAX
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat)
+{
+    int i;
+    int j=0;
+    int k=0;
+
+    int debutx = ((michel[joueurTour].posx)-50)/50;
+    int finx = ((michel[joueurTour].posx)+100)/50;
+
+    int debuty = ((michel[joueurTour].posy)-50)/50;
+    int finy = ((michel[joueurTour].posy)+150)/50;
+
+
+    for (i=0; i<nb_joueur; i++)
+    {
+        for(j = (debutx); j <(finx); j++)
+        {
+
+            for(k = (debuty); k <(finy); k++)
+            {
+
+                if(michel[i].posx == j*50 && michel[i].posy == k*50)
+                {
+                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
+                        continue;
+
+                    blit(orange, buffer, 0,0,j*50,k*50, 50,50);
+
+
+
+
+                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
+                    {
+                        michel[joueurTour].PA -= 2;
+                        *etat = 1;
+
+                        if(rand()%100 >=10)
+                        {
+                            michel[i].PV -=5;
+                            //affichage rouge + rests
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+void controle_points(t_joueur *michel, int nb_joueur)
+{
+    int i ;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+        if(michel[i].PA>100)
+        {
+            michel[i].PA = 100;
+        }
+        if(michel[i].PA<0)
+        {
+            michel[i].PA = 0;
+        }
+        if(michel[i].PM>100)
+        {
+            michel[i].PM = 100;
+        }
+        if(michel[i].PM<0)
+        {
+            michel[i].PM = 0;
+        }
+        if(michel[i].PV>100)
+        {
+            michel[i].PV = 100;
+        }
+        if(michel[i].PV<0)
+        {
+            michel[i].PV = 0;
+        }
+    }
+}
+
+
+
+///sous programme premier sort des classes///
+
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
+{
+    t_sorts potion[4][4];
+    int i,j,k,b;
+    int nb;
+
+
+    ////Sort coup d'epee///
+
+    if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
+    {
+        for (nb=0; nb<nbjoueur; nb++)
+        {
+
+            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
+            {
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
+            }
+            for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
+            {
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+            }
+            for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
+            {
+                blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
+                if (michel[nb].posx==k)
+                    continue;
+
+                printf("il y a qlq1 \n");
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
+                {
+                    printf("toucherrrrr\n");
+                }
+
+            }
+            for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
+            {
+                blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+            }
+        }
+    }
+
 }

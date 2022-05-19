@@ -6,8 +6,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
-    int joueurTour;
     int deplacement=0;
+    int joueurTour; // indique l'indice du jour a qui c'est le tour
+    int etat; // indique si le joueur a deja attaquer
 
     BITMAP* skins[4];
 
@@ -24,8 +25,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* bush; //utile
     BITMAP* bleu; //utile
     BITMAP* rouge; //utile
+    BITMAP* orange;
     BITMAP* suivant;
     BITMAP* suivantRouge;
+
 
     BITMAP* terrain;
     BITMAP* buffer;
@@ -52,19 +55,19 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     jaune = load_bitmap("images/jaune.bmp", NULL);
     rouge = load_bitmap("images/rouge.bmp",NULL);
     bleu = load_bitmap("images/bleu.bmp",NULL);
+    orange = load_bitmap("images/orange.bmp",NULL);
 
     dirt = load_bitmap("images/dirt.bmp", NULL);
     grass = load_bitmap("images/grass.bmp", NULL);
     lava = load_bitmap("images/lava.bmp", NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
 
-
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
 
-    choixEmplacement(buffer,skins,nb_joueur,michel,maps);
+    choixEmplacement(buffer,skins,nb_joueur,michel,maps, joueurTour);
 
     initialisation(michel,nb_joueur);
 
@@ -78,7 +81,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         // printf("Dur�e : %d seconde \n",(int) (time(NULL)-temps))
 
-        textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d",15-(time(NULL)-temps));
+        textprintf_ex(buffer,font,1080,630,makecol(0,150,255),makecol(2,2,2),"C'est au joueur %d de JOUER",joueurTour+1);
+        textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
@@ -123,6 +127,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             if(mouse_b&1)
             {
                 mise_a_zero(etat_hotbar);
+                etat = 0;
                 joueurTour++;
                 michel[joueurTour].PA = michel[joueurTour].PA + 3;
                 michel[joueurTour].PM = michel[joueurTour].PM + 1;
@@ -143,17 +148,35 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
         deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1);
-        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
-        affiche_selectSORT(buffer,jaune, etat_hotbar);
 
+        if (etat_hotbar[6]==1)
+        {
+            update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
+        }
+        if (etat_hotbar[5]==1)
+        {
+          attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat);
+        }
+
+        if (etat_hotbar[0]==1 )///sort 1
+        {
+            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer);
+        }
+
+        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+        affiche_selectSORT(buffer,jaune, etat_hotbar);
         affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
+
+        controle_points(michel, nb_joueur);
+
         //affichage des PV PA PM
-        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");
-        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: ");
-        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: ");
+        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
 
         update_jauge(&michel[joueurTour], buffer); //affichage des jauge
 

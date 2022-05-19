@@ -259,8 +259,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
     {
         blit(Classss,bmp, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         draw_sprite(bmp,viseur,mouse_x-15,mouse_y-5);
-        printf("nbrrrrr : %d\n", choixJ);
-        printf ("c'est au joueur %d de jouer \n", tour+1);
 
         if(mouse_x>=1014 && mouse_x<=1222 && mouse_y>=595 && mouse_y<=655)///bouton suivant
         {
@@ -304,7 +302,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
                 if (classe1!=1)///condition pour dire que la classe 1 est deja prise
                 {
                     J[tour].classe=1; //stockage de la classe dans le tableau de structure tour = 1
-                    printf("la classe choisie par le joueur %d est : %d \n", tour+1, J[tour].classe);
                     tour=tour+1;//incr�mentation du tour
                     classe1=1;//condition d'arret
                 }
@@ -325,7 +322,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
                 if (classe2!=1)
                 {
                     J[tour].classe=2;
-                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
                     tour=tour+1;
                     classe2=1;
                 }
@@ -346,7 +342,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
                 if (classe3!=1)
                 {
                     J[tour].classe=3;
-                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
                     tour=tour+1;
                     classe3=1;
                 }
@@ -367,7 +362,6 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
                 if (classe4!=1)///condition pour que la classe sois prise par un seul joueur
                 {
                     J[tour].classe=4;///classe 4 pour le joueur tour
-                    printf("la classe choisie pas le joueur %d est : %d \n", tour+1, J[tour].classe);
                     tour=tour+1; ///incr�menation du joueur
                     classe4 = 1;
 
