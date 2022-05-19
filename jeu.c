@@ -7,6 +7,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
     int joueurTour;
+    int deplacement=0;
 
     BITMAP* skins[4];
 
@@ -72,6 +73,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     while (cliquer_zone(0,0,50, 50)!=1)
     {
+        int *deplacement1 = &deplacement;
         clear_bitmap(buffer);
 
         // printf("Dur�e : %d seconde \n",(int) (time(NULL)-temps))
@@ -86,8 +88,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             mise_a_zero(etat_hotbar);
             joueurTour++;
+            michel[joueurTour].PA = michel[joueurTour].PA + 3;
+            michel[joueurTour].PM = michel[joueurTour].PM + 1;
+            deplacement = 0;
             temps = time(NULL);
-
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -120,7 +124,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             {
                 mise_a_zero(etat_hotbar);
                 joueurTour++;
+                michel[joueurTour].PA = michel[joueurTour].PA + 3;
+                michel[joueurTour].PM = michel[joueurTour].PM + 1;
+                deplacement = 0;
                 temps = time(NULL);
+
                 rest(200);
             }
             else
@@ -134,21 +142,13 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
-
-        //update_coo(&michel[joueurTour], maps);//si clique sur une case changement des coo du joueur
-        //update_coo2(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
-        deplacement_case(michel,maps,nb_joueur,skins,buffer,terrain,joueurTour,jaune,etat_hotbar,lava,bush,bleu,rouge);
+        deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1);
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
         affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
-
-
-        //printf("Joueur : %d\n",joueurTour);
-        //printf("Joueur classe : %d\n",michel[joueurTour].classe);
-
 
         //affichage des PV PA PM
         textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: ");

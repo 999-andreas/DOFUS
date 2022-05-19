@@ -195,7 +195,7 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
     int i;
     for(i=0; i<nb_joueur; i++)
     {
-        do
+        do // boucle si on spawn aléatoirement sur une case de lave
         {
             x = rand()% 25;
             michel[i].posx = x*50;
@@ -203,50 +203,37 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
             michel[i].posy = (y*50)-50;
         }
         while(maps[x][y] == 2);
-        printf("Joueur %d: x->%d, y->%d\n",i+1,michel[i].posx,michel[i].posy);
-
-
     }
-    // printf("Joueur 1 : x->%d , y->%d\n",michel[0].posx,michel[0].posy);
-    //printf("Joueur 2 : x->%d , y->%d\n",michel[1].posx,michel[1].posy);
-    //printf("Joueur 3 : x->%d , y->%d\n",michel[2].posx,michel[2].posy);
-    // printf("Joueur 4 : x->%d , y->%d\n",michel[3].posx,michel[3].posy);
-
 }
 
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12])
 {
-    int choixJoueur=0,i=0,j=0;
-    printf("nb joueur: %d\n",nb_joueur);
+    int choixJoueur=0;
     rest(200);
     time_t choixTemp = time(NULL);
-    while ( (time(NULL)-choixTemp) < 10 && (choixJoueur != nb_joueur))
+    while ( (time(NULL)-choixTemp) < 10 && (choixJoueur != nb_joueur)) // boucle avec un temps de 10 secondes si le choix de l'emplacement choisis n'est pas égale au nombre de joueur
     {
-        if(mouse_b &1)
+        if(mouse_b &1) // SI CLICK DETECTER
         {
-            if(mouse_x <= 1300 && mouse_x >= 0 && mouse_y <=600 && mouse_y >= 50)
+            if(mouse_x <= 1300 && mouse_x >= 0 && mouse_y <=600 && mouse_y >= 50) // SI MOUSE SE TROUVE DANS LA MAP
             {
-                if( maps[mouse_x/50][mouse_y/50] == 2)
+                if( maps[mouse_x/50][mouse_y/50] == 2) // on convertie la valeur recu par le click et si c'est sur une salle
                 {
-                    printf("LAVE\n");
                 }
-                else
+                else // SINON ON MET LE JOUEUR SUR L'EMPLACEMENT D'OU IL A CLICKER
                 {
-
-                update_coo(&michel[choixJoueur], maps);
-                affichagePersonnage(buffer,skins,michel,choixJoueur+1);
-                choixJoueur++;
-                blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-                printf("Mouse_x : %d\n",mouse_x/50);
-                printf("Mouse_y : %d\n",mouse_y/50);
-                rest(100);
+                    update_coo(&michel[choixJoueur], maps);
+                    affichagePersonnage(buffer,skins,michel,choixJoueur+1);
+                    choixJoueur++;
+                    blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+                    rest(100);
                 }
             }
 
         }
         else
         {
-            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H); // ENSUITE ON AFFICHE L'EMPLACEMENT DU JOUEUR OU IL A CLICKER
 
         }
     }
@@ -255,7 +242,7 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
     {}
     else
     {
-        aleatoirePersonnage(michel,nb_joueur,maps);
+        aleatoirePersonnage(michel,nb_joueur,maps); // ON SPAWN LES JOUEURS ALEATOIREMENT SUR LA MAP
     }
 
 }
@@ -286,7 +273,6 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
 {
     int i;
     int case_actu = 0;
-    int case_prec = 0;
 
     for(i = 255; i<966; i +=88)
     {
@@ -303,146 +289,54 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
     }
 }
 
-void update_coo2(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge)
+
+void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger)
 {
     int i = 0;
     int j = 0;
 
-    int newI;
-    int newJ;
-
-    int ancienI;
-    int ancienJ;
-
-    ancienI = (michel[joueurTour].posx)/50;
-    ancienJ = ((michel[joueurTour].posy)/50)+1;
-
-    newI = ancienI;
-    newJ = ancienJ;
-
+    int deplace=0;
     for (i = 0 ; i <26 ; i++)
     {
         for (j = 0 ; j<12 ; j++)
         {
             if(cliquer_zone((i*50), (j*50), 50,50) == 1)
             {
-                if(maps[i][j] == 2)
+                if(maps[i][j] == 2) // SI ON CLICK SUR LA LAVE
                 {}
-                else
-                {
-                    newI = i;
-                    newJ = j;
-                    //michel->posx = i*50;
-                    //michel->posy = (j*50)-50;
-                }
 
-            }
-        }
-    }
-
-    while(ancienI!=newI|| ancienJ!=newJ)
-    {
-        if(ancienI<newI)
-        {
-            ancienI++;
-            clear_bitmap(buffer);
-            michel[joueurTour].posx = ancienI*50;
-            michel[joueurTour].posy = (ancienJ*50)-50;
-            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-            affichagePersonnage(buffer,skin,michel,nb_joueur);
-            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            rest(100);
-            printf("1.1:I++\n");
-
-        }
-        else if (ancienI>newI)
-        {
-
-            ancienI--;
-            clear_bitmap(buffer);
-            michel[joueurTour].posx = ancienI*50;
-            michel[joueurTour].posy = (ancienJ*50)-50;
-            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-            affichagePersonnage(buffer,skin,michel,nb_joueur);
-            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            rest(100);
-            printf("2.1:I--\n");
-
-
-        }
-
-        else if(ancienJ<newJ)
-        {
-
-            ancienJ++;
-            clear_bitmap(buffer);
-            michel[joueurTour].posx = ancienI*50;
-            michel[joueurTour].posy = (ancienJ*50)-50;
-            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-            affichagePersonnage(buffer,skin,michel,nb_joueur);
-            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            rest(100);
-            printf("3.1:J++\n");
-
-        }
-        else if (ancienJ>newJ)
-        {
-            ancienJ--;
-            clear_bitmap(buffer);
-            michel[joueurTour].posx = ancienI*50;
-            michel[joueurTour].posy = (ancienJ*50)-50;
-            blit(terrain,buffer,0,0,0,0,terrain->w,terrain->h);
-            affichagePersonnage(buffer,skin,michel,nb_joueur);
-            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-            rest(100);
-            printf("5:J--\n");
-
-
-        }
-
-        else {}
-    }
-}
-
-void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,BITMAP *skin[4],BITMAP*buffer,BITMAP* terrain,int joueurTour,BITMAP*jaune,BITMAP*etat_hotbar,BITMAP*lava,BITMAP*bush,BITMAP*bleu,BITMAP*rouge)
-{
-    int i = 0;
-    int j = 0;
-
-    for (i = 0 ; i <26 ; i++)
-    {
-        for (j = 0 ; j<12 ; j++)
-        {
-            if(cliquer_zone((i*50), (j*50), 50,50) == 1)
-            {
-                if(maps[i][j] == 2)
-                {}
-                else if ( (i*50 <= michel[joueurTour].posx-50) && (michel[joueurTour].posx <= i*50+50) && ((j-1)*50 == michel[joueurTour].posy) && (michel[joueurTour].PM) >= 0)
+                // SI ON CLICK SUR LA CASE DE GAUCHE
+                else if ( (i*50 <= michel[joueurTour].posx-50) && (michel[joueurTour].posx <= i*50+50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
                     michel[joueurTour].posx = i*50;
                     (michel[joueurTour].PM)--;
-                    printf("Gauche\n");
+                    deplace++;
                 }
-                else if ( (i*50 <= michel[joueurTour].posx+50) && (michel[joueurTour].posx <= i*50-50) && ((j-1)*50 == michel[joueurTour].posy) && (michel[joueurTour].PM) >= 0)
+                // SI ON CLICK SUR LA CASE DE DROITE
+                else if ( (i*50 <= michel[joueurTour].posx+50) && (michel[joueurTour].posx <= i*50-50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
                     michel[joueurTour].posx = i*50;
                     (michel[joueurTour].PM)--;
-                    printf("Droite\n");
+                    deplace++;
                 }
-                else if ( (j*50-50 <= michel[joueurTour].posy-50) && (michel[joueurTour].posy <= j*50) && (i*50 == michel[joueurTour].posx) && (michel[joueurTour].PM) >= 0)
+                // SI ON CLICK SUR LA CASE AU DESSUS
+                else if ( (j*50-50 <= michel[joueurTour].posy-50) && (michel[joueurTour].posy <= j*50) && (i*50 == michel[joueurTour].posx) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
                     michel[joueurTour].posy = j*50-50;
                     (michel[joueurTour].PM)--;
-                    printf("Monter\n");
+                    deplace++;
                 }
-                else if ( ( j*50 <= michel[joueurTour].posy+100) && (michel[joueurTour].posy <= j*50-100) && (i*50 == michel[joueurTour].posx) && (michel[joueurTour].PM) >= 0)
+                // SI ON CLICK SUR LA CASE D'EN BAS
+                else if ( ( j*50 <= michel[joueurTour].posy+100) && (michel[joueurTour].posy <= j*50-100) && (i*50 == michel[joueurTour].posx) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
                     michel[joueurTour].posy = j*50-50;
                     (michel[joueurTour].PM)--;
-                    printf("Descendre\n");
+                    deplace++;
                 }
+                // SINON ON FAIT RIEN
                 else {}
             }
         }
     }
+    *bouger = *bouger+deplace; // ON INCREMENTE CE POINTEUR AFIN DE POUVOIR QU'IL NE FASSE QUE DE 3 CASE MAX
 }
