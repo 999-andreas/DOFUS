@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Menu.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="jeu.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="15363" topLine="308" />
+			<Cursor1 position="7156" topLine="182" />
 		</Cursor>
 	</File>
 	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,14 +12,14 @@
 			<Cursor1 position="360" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="header.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="map.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2036" topLine="17" />
+			<Cursor1 position="13004" topLine="461" />
 		</Cursor>
 	</File>
-	<File name="map.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="utilitaire.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="14754" topLine="459" />
+			<Cursor1 position="977" topLine="22" />
 		</Cursor>
 	</File>
 	<File name="sous programme.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,14 +27,14 @@
 			<Cursor1 position="367" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="jeu.c" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="header.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7617" topLine="0" />
+			<Cursor1 position="1904" topLine="43" />
 		</Cursor>
 	</File>
-	<File name="utilitaire.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Menu.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="977" topLine="22" />
+			<Cursor1 position="15363" topLine="308" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

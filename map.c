@@ -64,7 +64,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
 }
 
 //affichage des objets sur la map c�d les element qui sont par dessus tout le reste
-void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[9])
+void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[7])
 {
     int i = 0;
     int j = 0;
@@ -89,7 +89,7 @@ void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush,
         }
     }
 
-    for(i = 0; i<9; i++)
+    for(i = 0; i<7; i++)
     {
         if(etat_hotbar[i])
         {
@@ -193,6 +193,7 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
     int x=0;
     int y=-50;
     int i;
+
     for(i=0; i<nb_joueur; i++)
     {
         do // boucle si on spawn aléatoirement sur une case de lave
@@ -206,7 +207,7 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
     }
 }
 
-void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour)
+void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour, char nom[4][20])
 {
     int choixJoueur=0;
     rest(200);
@@ -237,7 +238,7 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
 
         }
         textprintf_ex(buffer,font,600,610,makecol(0,150,255),makecol(2,2,2),"Placer vos joueur !");
-        textprintf_ex(buffer,font,650,630,makecol(255,255,0),makecol(2,2,2),"JOUEUR %d", joueurTour+1);
+        textprintf_ex(buffer,font,650,630,makecol(255,255,0),makecol(2,2,2),"A %s                    ", nom[michel[joueurTour].classe-1]);
         textprintf_ex(buffer,font,1200,650,makecol(255,0,0),makecol(2,2,2),"CHRONO: %d ",10-(time(NULL)-choixTemp));
     }
 
@@ -276,12 +277,12 @@ void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,B
 
 ///SOUS PROGRAMME AFFICHER CARRER DE SELECTION DES SORT
 
-void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
+void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[7])
 {
     int i;
     int case_actu = 0;///case actuellement choisie
     int b,a;
-    for(i = 255; i<966; i +=88)//pour i < au cordonnée , incrémentaion de 88 = taille de chaque cases
+    for(i = 255; i<801; i +=88)//pour i < au cordonnée , incrémentaion de 88 = taille de chaque cases
     {
         if(cliquer_zone(i, 600, 88,100) == 2)//si on passe la souris sur la case
         {
@@ -296,7 +297,7 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9])
             {
                 etat_hotbar[b]=0;
             }
-            for(a=9; a>case_actu; a--)//effacer les carré avant la case selectionné
+            for(a=7; a>case_actu; a--)//effacer les carré avant la case selectionné
             {
                 etat_hotbar[a]=0;
             }
@@ -358,7 +359,7 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
     *bouger = *bouger+deplace; // ON INCREMENTE CE POINTEUR AFIN DE POUVOIR QU'IL NE FASSE QUE DE 3 CASE MAX
 }
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, char nom[4][20])
 {
     int i;
     int j=0;
@@ -392,13 +393,21 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                     if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
                     {
                         michel[joueurTour].PA -= 2;
+
                         *etat = 1;
 
                         if(rand()%100 >=10)
                         {
                             michel[i].PV -=5;
+
                             //affichage rouge + rests
                         }
+                    }
+                    if (*etat==1)
+                    {
+                      textprintf_ex(buffer,font,890,630,makecol(100,255,0),makecol(2,2,2),"%s perd 2 PA", nom[michel[joueurTour].classe-1]);
+                      textprintf_ex(buffer,font,890,650,makecol(100,255,0),makecol(2,2,2),"%s perd 5 PV", nom[michel[i].classe-1]);
+
                     }
                 }
             }
