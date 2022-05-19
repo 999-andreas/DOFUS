@@ -321,8 +321,6 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
     for (i=0; i<nb_joueur; i++)
     {
-        blit(orange, buffer, 0,0,michel[joueurTour].posx+50,michel[joueurTour].posy, 50,50);
-        blit(orange, buffer, 0,0,michel[joueurTour].posx-50,michel[joueurTour].posy, 50,50);
         for(j = (debutx); j <(finx); j++)
         {
 
@@ -392,30 +390,48 @@ void controle_points(t_joueur *michel, int nb_joueur)
 }
 
 
-void attaqueSort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
+
+///sous programme premier sort des classes///
+
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
 {
     t_sorts potion[4][4];
     int i,j,k,b;
+    int nb;
 
 
-    if (michel[joueurTour].classe==1)
+    ////Sort coup d'epee///
+
+    if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
     {
+        for (nb=0; nb<nbjoueur; nb++)
+        {
 
-        for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
-        {
-            blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
-        }
-        for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
-        {
-            blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
-        }
-        for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
-        {
-            blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
-        }
-        for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
-        {
-            blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
+            {
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
+            }
+            for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
+            {
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+            }
+            for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
+            {
+                blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
+                if (michel[nb].posx==k)
+                    continue;
+
+                printf("il y a qlq1 \n");
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
+                {
+                    printf("toucherrrrr\n");
+                }
+
+            }
+            for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
+            {
+                blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+            }
         }
     }
 

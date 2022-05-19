@@ -7,16 +7,6 @@
 			<Cursor1 position="35" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="jeu.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="732" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="header.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1963" topLine="42" />
-		</Cursor>
-	</File>
 	<File name="Menu.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="17860" topLine="598" />
@@ -27,14 +17,24 @@
 			<Cursor1 position="978" topLine="37" />
 		</Cursor>
 	</File>
-	<File name="map.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11047" topLine="393" />
-		</Cursor>
-	</File>
 	<File name="sous programme.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="367" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="map.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9201" topLine="317" />
+		</Cursor>
+	</File>
+	<File name="jeu.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2081" topLine="55" />
+		</Cursor>
+	</File>
+	<File name="header.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1974" topLine="43" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
