@@ -37,8 +37,9 @@ void initialisation(t_joueur* michel,int nb_joueur)
     for(i=0; i<nb_joueur; i++)
     {
         michel[i].PV = 100;
-        michel[i].PM = 100;
-        michel[i].PA = 100;
+        michel[i].PM = 50;
+        michel[i].PA = 20;
+        printf("Joueur %d : %d PV %d PM %d PA\n",i,michel[i].PV,michel[i].PM,michel[i].PA);
     }
 }
 
