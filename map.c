@@ -470,14 +470,19 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
             {
                 blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
-                if (michel[nb].posx==k)
+
+                if (michel[joueurTour].posx==k)
                     continue;
 
-                printf("il y a qlq1 \n");
-                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
+                if (michel[nb].posx==k)
                 {
-                    printf("toucherrrrr\n");
+                    printf("il y a qlq1 \n");
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
+                    {
+                        printf("toucherrrrr\n");
+                    }
                 }
+
 
             }
             for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
