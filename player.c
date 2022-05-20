@@ -15,8 +15,8 @@ void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* mi
             draw_sprite(buffer, skins_rouge[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
             michel[i].toucher -=1;
         }
-
-        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx+1), (michel[i].posy));
+        else
+            draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx+1), (michel[i].posy));
     }
 }
 
@@ -27,12 +27,13 @@ void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur*
 
     for(i = 0; i<nb_joueur; i++)
     {
-        if(michel[i].toucher!=0)
+        if(michel[i].toucher!=0) // on affiche l'anime de degats pendant 30 tours de l   boucle while principale
         {
             draw_sprite(buffer, skins_rouge[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
             michel[i].toucher -=1;
         }
-        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx-1), (michel[i].posy));
+        else
+            draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx-1), (michel[i].posy));
 
     }
 }

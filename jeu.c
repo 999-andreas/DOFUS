@@ -10,6 +10,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     printf("Classement : %d\n",classement[nb_joueur]);
     int joueur = nb_joueur-1;
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
+    int sorts[4][3][4];
 
     int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
     int deplacement=0;
@@ -232,7 +233,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
+        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
 
+        //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUr
         if(c==0)
         {
         animm(buffer,skins,skins_rouge,michel,nb_joueur);
@@ -248,12 +251,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             c=0;
         }
-
-        //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUr
-
-
-        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
-
 
         controle_points(michel, nb_joueur);
 

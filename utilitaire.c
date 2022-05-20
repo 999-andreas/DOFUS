@@ -39,6 +39,7 @@ void initialisation(t_joueur* michel,int nb_joueur)
         michel[i].PV = 100;
         michel[i].PM = 50;
         michel[i].PA = 20;
+        michel[i].toucher = 0;
         printf("Joueur %d : %d PV %d PM %d PA\n",i,michel[i].PV,michel[i].PM,michel[i].PA);
     }
 }
