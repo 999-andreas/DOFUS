@@ -396,9 +396,13 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
                         if(rand()%100 >=10)
                         {
+                            michel[i].toucher = 30;
+
                             printf("avant: %d\n",michel[i].PV);
                             michel[i].PV -=5;
                             printf("apres: %d\n",michel[i].PV);
+
+                            //sons des degats
                             if(michel[i].classe == 1 && michel[i].PV > 0)
                             {
                                 play_sample(degatSorciere,200,125,1003,0);
@@ -415,6 +419,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             {
                                 play_sample(degatZombie,1000,125,1003,0);
                             }
+
 
                             if(michel[i].PV < 0)
                             {
@@ -435,12 +440,6 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                         {
                             play_sample(esquive,200,125,1003,0);
                         }
-                    }
-                    if (*etat==1)
-                    {
-                        textprintf_ex(buffer,font,880,650,makecol(100,255,0),makecol(2,2,2),"%s perd 2 PA   ", nom[michel[joueurTour].classe-1]);
-                        textprintf_ex(buffer,font,880,660,makecol(100,255,0),makecol(2,2,2),"%s perd 5 PV   ", nom[michel[i].classe-1]);
-
                     }
                 }
             }
@@ -522,7 +521,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                     {
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-10;
-                        etatEPEE=1;
+                        *etatEPEE=1;
                     }
                 }
 
@@ -541,16 +540,16 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
         for (compt=0; compt<nbjoueur; compt++)
         {
            if (compt==joueurTour)
-            continue;
+           {
+               continue;
+           }
 
             blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);
             if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )
             {
                 *etatPOS=1;
-               inverse_pos(michel,compt,joueurTour);
+                inverse_pos(michel,compt,joueurTour);
             }
-
-
         }
     }
 
