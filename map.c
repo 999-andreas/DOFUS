@@ -487,7 +487,7 @@ void controle_points(t_joueur *michel, int nb_joueur)
 
 ///sous programme premier sort des classes///
 
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etat)
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE)
 {
     t_sorts potion[4][4];
     int i,j,k,b;
@@ -518,9 +518,11 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posx==k)
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
                     {
-                        printf("toucherrrrr\n");
+                        michel[nb].PV=michel[nb].PV-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        etatEPEE=1;
                     }
                 }
 
@@ -542,9 +544,9 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             continue;
 
             blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);
-            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etat!=1 )
+            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )
             {
-                *etat=1;
+                *etatPOS=1;
                inverse_pos(michel,compt,joueurTour);
             }
 

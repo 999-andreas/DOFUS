@@ -15,7 +15,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
     int deplacement=0;
     int joueurTour=0; // indique l'indice du jour a qui c'est le tour
+
     int etat=0; // indique si le joueur a deja attaquer
+    int etatPOS=0;
+    int etatEPEE=0;
     int premsTour=0;
 
     char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
@@ -138,6 +141,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             mise_a_zero(etat_hotbar);
             joueurTour++;
             etat=0;
+            etatPOS=0;
+            etatEPEE=0;
 
             if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
             {
@@ -222,7 +227,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[0]==1 )///sort 1
         {
-            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etat);
+            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
         }
 
         if(premsTour == 1)
