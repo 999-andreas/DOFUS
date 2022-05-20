@@ -54,8 +54,10 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour);
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
+//void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer);
+void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
 
 
 
@@ -66,10 +68,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur);
 void menuDEBUT();
 void menuFIN(t_joueur *michel,int nb_joueur);
 
+
 //mettre les prototypes des nouveaux fichier ici
 
 //void update_coo2x(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
 void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour, int *bouger);
-
 
 #endif // HEADER_H_INCLUDED
