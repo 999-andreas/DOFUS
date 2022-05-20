@@ -2,7 +2,7 @@
 
 void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 {
-    int c;
+    int c=0;
     int classement[nb_joueur+1];
     printf("nb_joueur  debut : %d\n",nb_joueur);
     classement[nb_joueur] = nb_joueur;
@@ -242,6 +242,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         animmms(buffer,skins,skins_rouge, michel,nb_joueur);
 
         }
+
         c=c+1;
         if (c==2)
         {

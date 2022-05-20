@@ -587,3 +587,5 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     rest(5000);
 
 }
+
+
