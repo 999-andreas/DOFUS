@@ -345,12 +345,17 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 
 ///sous programme premier sort des classes///
 
-
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, char nom[4][20])
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie)
 {
     int i;
     int j=0;
     int k=0;
+    SAMPLE *degatSteve;
+    SAMPLE *degatZombie;
+    SAMPLE *degatSkeleton;
+    SAMPLE *degatSorciere;
+    SAMPLE *esquive;
+    SAMPLE *mort;
 
     int debutx = ((michel[joueurTour].posx)-50)/50;
     int finx = ((michel[joueurTour].posx)+100)/50;
@@ -358,6 +363,12 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
     int debuty = ((michel[joueurTour].posy)-50)/50;
     int finy = ((michel[joueurTour].posy)+150)/50;
 
+    degatSteve = load_sample("degat_steve.wav");
+    degatZombie = load_sample("degat_zombie.wav");
+    degatSkeleton = load_sample("degat_skeleton.wav");
+    degatSorciere = load_sample("degat_villagoie.wav");
+    esquive = load_sample("esquive.wav");
+    mort = load_sample("MORT.wav");
 
     for (i=0; i<nb_joueur; i++)
     {
@@ -367,7 +378,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
             for(k = (debuty); k <(finy); k++)
             {
 
-                if(michel[i].posx == j*50 && michel[i].posy == k*50)
+                if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0)
                 {
                     if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
                         continue;
@@ -385,9 +396,44 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
                         if(rand()%100 >=10)
                         {
+                            printf("avant: %d\n",michel[i].PV);
                             michel[i].PV -=5;
+                            printf("apres: %d\n",michel[i].PV);
+                            if(michel[i].classe == 1 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSorciere,200,125,1003,0);
+                            }
+                            else if(michel[i].classe == 2 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSteve,200,125,1003,0);
+                            }
+                            else if (michel[i].classe == 3 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSkeleton,200,125,1003,0);
+                            }
+                            else if (michel[i].classe == 4 && michel[i].PV > 0)
+                            {
+                                play_sample(degatZombie,1000,125,1003,0);
+                            }
 
+                            if(michel[i].PV < 0)
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nb_joueur] = (classement[nb_joueur])-1;
+
+                                //printf("JoueurEnvie %d et Classe MORTTTTTTTTTTTTT: %d\n",*joueurEnvie,michel[i].classe);
+                                //printf("Classement[joueurTour] = %d\n",classement[*joueurEnvie]);
+
+                                *joueurEnvie = *joueurEnvie -1;
+                                //printf("JOUEUR ENVIE : %d\n",classement[nb_joueur+1]);
+                            }
+                            else  {}
                             //affichage rouge + rests
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
                         }
                     }
                     if (*etat==1)
@@ -400,6 +446,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
             }
         }
     }
+
 
 }
 
@@ -521,5 +568,22 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour)
     tempPosy=michel[compt].posy;
     michel[compt].posy=michel[joueurTour].posy;
     michel[joueurTour].posy=tempPosy;
+
+}
+
+
+void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour)
+{
+    BITMAP *podium;
+
+    podium = load_bitmap("images/podium.bmp",NULL);
+    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+   /* int i =0;
+    for(i=0; i<nb_joueur; i++)
+    {
+        //textprintf_ex(screen,font,50,650+i*20,makecol(255,255,255),-1,"TOP JOUEUR %d : Classe : %d",i+1,classement[i]);
+        printf(" i : %d et TOP JOUEUR: %d et Classe : %d\n",i,i+1,classement[i]);
+    }*/
+    rest(5000);
 
 }

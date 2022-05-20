@@ -3,6 +3,12 @@
 void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 {
     int c;
+    int classement[nb_joueur+1];
+    printf("nb_joueur  debut : %d\n",nb_joueur);
+    classement[nb_joueur] = nb_joueur;
+    printf("Nb_joueur + 1 = %d",nb_joueur+1);
+    printf("Classement : %d\n",classement[nb_joueur]);
+    int joueur = nb_joueur-1;
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
@@ -75,18 +81,35 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
+    initialisation(michel,nb_joueur);
 
     choixEmplacement(buffer,skins,nb_joueur,michel,maps, joueurTour, nom);
 
-    initialisation(michel,nb_joueur);
+    //initialisation(michel,nb_joueur);
 
     time_t temps = time(NULL);
 
 
-    while (cliquer_zone(0,0,50, 50)!=1)
+    while (cliquer_zone(0,0,50, 50)!=1 && classement[nb_joueur] != 0)
     {
+        printf("nb_joueur: %d\n",nb_joueur);
+        printf("Classement nb joueur envie : %d\n",classement[nb_joueur]);
+        //printf("JoueurTour: %d\n",joueurTour);
+        printf("Nb Joueur : %d\n",nb_joueur);
         int *deplacement1 = &deplacement;
+        int *joueurEnvie = &joueur;
         clear_bitmap(buffer);
+
+        if(michel[joueurTour].PV <= 0)
+        {
+            joueurTour++;
+        }
+
+        if (classement[nb_joueur] == 1)
+        {
+            classement[0] = michel[joueurTour].classe;
+            classement[nb_joueur] = 0;
+        }
 
         // printf("Dur�e : %d seconde \n",(int) (time(NULL)-temps))
 
@@ -94,6 +117,16 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         textprintf_ex(buffer,font,1065,630,makecol(0,150,255),makecol(2,2,2),"C'est a %s de JOUER",nom[michel[joueurTour].classe-1]);
         textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+         /*if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+         {
+             joueurTour = 0;
+             printf("sqqdqsd\n");
+
+         }*/
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
@@ -104,12 +137,14 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             mise_a_zero(etat_hotbar);
             joueurTour++;
             etat=0;
+
             if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
             {
                 joueurTour = 0;
                 premsTour = 1;
 
             }
+
             if(premsTour == 1)
             {
                 michel[joueurTour].PA = michel[joueurTour].PA + 3;
@@ -142,6 +177,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
                 mise_a_zero(etat_hotbar);
                 etat = 0;
                 joueurTour++;
+                rest(50);
                 if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
                 {
                     joueurTour = 0;
@@ -180,7 +216,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat, nom);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,nom,classement,joueurEnvie);
         }
 
         if (etat_hotbar[0]==1 )///sort 1
@@ -193,8 +229,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
             textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
         }
-
-
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
@@ -236,5 +270,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     }
     stop_sample(son);
+
+    clear_bitmap(screen);
+    classementTop(michel,nb_joueur,classement,joueurTour);
+
     menuFIN(michel,nb_joueur);
 }

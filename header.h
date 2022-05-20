@@ -60,6 +60,10 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etat);
 void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 
+//void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie);
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer);
+void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
 
 
 
@@ -79,6 +83,5 @@ void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur*
 //mettre les prototypes des nouveaux fichier ici
 
 //void update_coo2(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
-
 
 #endif // HEADER_H_INCLUDED
