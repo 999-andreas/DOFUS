@@ -399,7 +399,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             michel[i].toucher = 30;
 
                             printf("avant: %d\n",michel[i].PV);
-                            michel[i].PV -=5;
+                            michel[i].PV -=200;
                             printf("apres: %d\n",michel[i].PV);
 
                             //sons des degats

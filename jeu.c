@@ -10,7 +10,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     printf("Classement : %d\n",classement[nb_joueur]);
     int joueur = nb_joueur-1;
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
-    int sorts[4][3][4];
 
     int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
     int deplacement=0;
@@ -125,12 +124,12 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-         /*if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+         if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
          {
              joueurTour = 0;
              printf("sqqdqsd\n");
 
-         }*/
+         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
@@ -275,6 +274,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     stop_sample(son);
 
     clear_bitmap(screen);
+    destroy_tout(skins,skins_rouge,viseur,dirt,grass,lava, hotbar1, hotbar2,hotbar3, hotbar4, bush,bleu, rouge, orange, suivant,suivantRouge,terrain, buffer,jaune);
+
     classementTop(michel,nb_joueur,classement,joueurTour);
 
     menuFIN(michel,nb_joueur);
