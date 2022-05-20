@@ -35,7 +35,7 @@ void controle_points(t_joueur *michel, int nb_joueur)
 
 void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat)
 {
-    int i;
+    int i=0;
     int j=0;
     int k=0;
 
@@ -69,10 +69,10 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                         michel[joueurTour].PA -= 2;
                         *etat = 1;
 
-                        if(rand()%100 >=0)
+                        if(rand()%10 >=0)
                         {
                             michel[i].PV -=5;
-                            michel[i].toucher = 10;
+                            michel[i].toucher = 30;
                         }
                     }
                 }
@@ -142,8 +142,8 @@ void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* mi
             draw_sprite(buffer, skins_rouge[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
             michel[i].toucher -=1;
         }
-
-        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx+1), (michel[i].posy));
+        else
+            draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx+1), (michel[i].posy));
     }
 }
 
@@ -154,12 +154,13 @@ void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur*
 
     for(i = 0; i<nb_joueur; i++)
     {
-        if(michel[i].toucher!=0)
+        if(michel[i].toucher!=0) // on affiche l'anime de degats pendant 30 tours de l   boucle while principale
         {
             draw_sprite(buffer, skins_rouge[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
             michel[i].toucher -=1;
         }
-        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx-1), (michel[i].posy));
+        else
+            draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx-1), (michel[i].posy));
 
     }
 }
