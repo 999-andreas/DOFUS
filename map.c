@@ -405,8 +405,8 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                     }
                     if (*etat==1)
                     {
-                      textprintf_ex(buffer,font,890,630,makecol(100,255,0),makecol(2,2,2),"%s perd 2 PA", nom[michel[joueurTour].classe-1]);
-                      textprintf_ex(buffer,font,890,650,makecol(100,255,0),makecol(2,2,2),"%s perd 5 PV", nom[michel[i].classe-1]);
+                        textprintf_ex(buffer,font,880,650,makecol(100,255,0),makecol(2,2,2),"%s perd 2 PA   ", nom[michel[joueurTour].classe-1]);
+                        textprintf_ex(buffer,font,880,660,makecol(100,255,0),makecol(2,2,2),"%s perd 5 PV   ", nom[michel[i].classe-1]);
 
                     }
                 }
@@ -416,24 +416,23 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
 }
 
-
 void controle_points(t_joueur *michel, int nb_joueur)
 {
-    int i ;
+    int i;
 
     for(i = 0; i<nb_joueur; i++)
     {
-        if(michel[i].PA>100)
+        if(michel[i].PA>20)
         {
-            michel[i].PA = 100;
+            michel[i].PA = 20;
         }
         if(michel[i].PA<0)
         {
             michel[i].PA = 0;
         }
-        if(michel[i].PM>100)
+        if(michel[i].PM>50)
         {
-            michel[i].PM = 100;
+            michel[i].PM = 50;
         }
         if(michel[i].PM<0)
         {
@@ -454,7 +453,7 @@ void controle_points(t_joueur *michel, int nb_joueur)
 
 ///sous programme premier sort des classes///
 
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etat)
 {
     t_sorts potion[4][4];
     int i,j,k,b;
@@ -485,7 +484,6 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posx==k)
                 {
-                    printf("il y a qlq1 \n");
                     if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1)
                     {
                         printf("toucherrrrr\n");
@@ -500,5 +498,41 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             }
         }
     }
+    ///sort 1 inversement de position///
+    int compt=0;
+    if (michel[joueurTour].classe==3)
+    {
+        for (compt=0; compt<nbjoueur; compt++)
+        {
+           if (compt==joueurTour)
+            continue;
+
+            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);
+            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etat!=1 )
+            {
+                *etat=1;
+               inverse_pos(michel,compt,joueurTour);
+            }
+
+
+        }
+    }
+
+}
+
+
+void inverse_pos(t_joueur*michel, int compt, int joueurTour)
+{
+    int tempPosx=0;
+    int tempPosy=0;
+
+    michel[compt].posx=tempPosx;
+    michel[compt].posx=michel[joueurTour].posx;
+    michel[joueurTour].posx=tempPosx;
+
+
+    michel[compt].posy=tempPosy;
+    michel[compt].posy=michel[joueurTour].posy;
+    michel[joueurTour].posy=tempPosy;
 
 }
