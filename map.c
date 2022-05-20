@@ -526,12 +526,12 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour)
     int tempPosx=0;
     int tempPosy=0;
 
-    michel[compt].posx=tempPosx;
+    tempPosx=michel[compt].posx;
     michel[compt].posx=michel[joueurTour].posx;
     michel[joueurTour].posx=tempPosx;
 
 
-    michel[compt].posy=tempPosy;
+    tempPosy=michel[compt].posy;
     michel[compt].posy=michel[joueurTour].posy;
     michel[joueurTour].posy=tempPosy;
 
