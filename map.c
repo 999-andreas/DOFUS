@@ -399,7 +399,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             michel[i].toucher = 30;
 
                             printf("avant: %d\n",michel[i].PV);
-                            michel[i].PV -=5;
+                            michel[i].PV -=500;
                             printf("apres: %d\n",michel[i].PV);
 
                             //sons des degats
@@ -577,16 +577,115 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
 {
     BITMAP *podium;
 
+    BITMAP *steveNormal;
+    BITMAP *zombieNormal;
+    BITMAP *sorciereNR;
+    BITMAP *skeletteNormal;
+
+    BITMAP *steveRoi;
+    BITMAP *skeletteRoi;
+    BITMAP *zombieRoi;
+
+    steveNormal = load_bitmap("images/steveNormal.bmp",NULL);
+    zombieNormal = load_bitmap("images/zombieNormal.bmp",NULL);
+    sorciereNR = load_bitmap("images/sorcierNormal.bmp",NULL);
+    skeletteNormal = load_bitmap("images/skeletteNormal.bmp",NULL);
+
+    steveRoi = load_bitmap("images/steveRoi.bmp",NULL);
+    skeletteRoi = load_bitmap("images/skeletteRoi.bmp",NULL);
+    zombieRoi = load_bitmap("images/zombieRoi.bmp",NULL);
+
     podium = load_bitmap("images/podium.bmp",NULL);
+
+     /*   draw_sprite(podium,steveRoi,1000,135); // droite
+        draw_sprite(podium,skeletteRoi,145,100); // gauche
+        draw_sprite(podium,zombieRoi,575,88); // milieu
+
+
+    draw_sprite(podium,steveRoi,575,88); // droite
+    draw_sprite(podium,skeletteRoi,575,88); // gauche
+    draw_sprite(podium,sorciereNR,575,60); // milieu
+
+
+    draw_sprite(podium,steveNormal,1000,135); // droite
+    draw_sprite(podium,skeletteNormal,145,100); // gauche
+    draw_sprite(podium,sorciereNR,575,88); // milieu  */
+
     blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-   /* int i =0;
-    for(i=0; i<nb_joueur; i++)
+
+    int i =0;
+    for(i=0; i<3; i++)
     {
+        if(i == 0)
+        {
+            if (classement[i] == 1)
+            {
+                draw_sprite(podium,sorciereNR,575,60);
+            }
+            else if (classement[i] == 2)
+            {
+                draw_sprite(podium,steveRoi,575,88);
+            }
+            else if(classement[i] == 3)
+            {
+                draw_sprite(podium,skeletteRoi,575,88);
+            }
+            else if(classement[i] == 4)
+            {
+                draw_sprite(podium,zombieRoi,575,88);
+            }
+            else {}
+        }
+        else if (i == 1)
+        {
+            if (classement[i] == 1)
+            {
+                draw_sprite(podium,sorciereNR,1000,87);
+            }
+            else if (classement[i] == 2)
+            {
+                draw_sprite(podium,steveNormal,1000,125);
+            }
+            else if(classement[i] == 3)
+            {
+                draw_sprite(podium,skeletteNormal,1000,125);
+            }
+            else if(classement[i] == 4)
+            {
+                draw_sprite(podium,zombieNormal,1000,125);
+            }
+            else {}
+
+        }
+        else if (i == 2)
+        {
+            if (classement[i] == 1)
+            {
+                draw_sprite(podium,sorciereNR,145,90);
+            }
+            else if (classement[i] == 2)
+            {
+                draw_sprite(podium,steveNormal,145,105);
+            }
+            else if(classement[i] == 3)
+            {
+                draw_sprite(podium,skeletteNormal,145,105);
+            }
+            else if(classement[i] == 4)
+            {
+                draw_sprite(podium,zombieNormal,145,105);
+            }
+            else {}
+
+        }
+        else {}
+
+
         //textprintf_ex(screen,font,50,650+i*20,makecol(255,255,255),-1,"TOP JOUEUR %d : Classe : %d",i+1,classement[i]);
         printf(" i : %d et TOP JOUEUR: %d et Classe : %d\n",i,i+1,classement[i]);
-    }*/
+    }
+    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     rest(5000);
 
 }
-
 
