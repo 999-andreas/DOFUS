@@ -503,10 +503,43 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
             {
                 blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
+                if (michel[joueurTour].posx==i)
+                    continue;
+
+                if (michel[nb].posx==i)
+                {
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
+                    {
+                        printf("cliquer zoneeee\n");
+                       if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
+                        michel[nb].PV=michel[nb].PV-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        *etatEPEE=1;
+                    }
+                }
             }
             for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
             {
                 blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+                if (michel[joueurTour].posy==j)
+                    continue;
+
+                if (michel[nb].posy==j)
+                {
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=2))
+                    {
+                        if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
+                        michel[nb].PV=michel[nb].PV-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        *etatEPEE=2;
+                    }
+                }
             }
             for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
             {
@@ -517,11 +550,15 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posx==k)
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=3))
                     {
+                        if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-10;
-                        *etatEPEE=1;
+                        *etatEPEE=3;
                     }
                 }
 
@@ -530,6 +567,22 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
             {
                 blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+                if (michel[joueurTour].posx==b)
+                    continue;
+
+                if (michel[nb].posx==b)
+                {
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=4))
+                    {
+                        if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
+                        michel[nb].PV=michel[nb].PV-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        *etatEPEE=4;
+                    }
+                }
             }
         }
     }

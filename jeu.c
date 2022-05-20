@@ -96,10 +96,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     while (cliquer_zone(0,0,50, 50)!=1 && classement[nb_joueur] != 0)
     {
-        printf("nb_joueur: %d\n",nb_joueur);
-        printf("Classement nb joueur envie : %d\n",classement[nb_joueur]);
+        //printf("nb_joueur: %d\n",nb_joueur);
+        //printf("Classement nb joueur envie : %d\n",classement[nb_joueur]);
         //printf("JoueurTour: %d\n",joueurTour);
-        printf("Nb Joueur : %d\n",nb_joueur);
+       // printf("Nb Joueur : %d\n",nb_joueur);
         int *deplacement1 = &deplacement;
         int *joueurEnvie = &joueur;
         clear_bitmap(buffer);
