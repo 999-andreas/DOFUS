@@ -5,11 +5,13 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int c;
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
-    int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
+    int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
     int deplacement=0;
     int joueurTour=0; // indique l'indice du jour a qui c'est le tour
-    int etat; // indique si le joueur a deja attaquer
+    int etat=0; // indique si le joueur a deja attaquer
     int premsTour=0;
+
+    char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
 
     BITMAP* skins[4];
     BITMAP* skins_rouge[4];
@@ -74,7 +76,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
 
-    choixEmplacement(buffer,skins,nb_joueur,michel,maps, joueurTour);
+    choixEmplacement(buffer,skins,nb_joueur,michel,maps, joueurTour, nom);
 
     initialisation(michel,nb_joueur);
 
@@ -88,7 +90,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         // printf("Dur�e : %d seconde \n",(int) (time(NULL)-temps))
 
-        textprintf_ex(buffer,font,1080,630,makecol(0,150,255),makecol(2,2,2),"C'est au joueur %d de JOUER",joueurTour+1);
+
+        textprintf_ex(buffer,font,1065,630,makecol(0,150,255),makecol(2,2,2),"C'est a %s de JOUER",nom[michel[joueurTour].classe-1]);
         textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
 
@@ -100,6 +103,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             mise_a_zero(etat_hotbar);
             joueurTour++;
+            etat=0;
             if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
             {
                 joueurTour = 0;
@@ -176,12 +180,18 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat, nom);
         }
 
         if (etat_hotbar[0]==1 )///sort 1
         {
-            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer);
+            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etat);
+        }
+
+        if(premsTour == 1)
+        {
+            textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
+            textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
         }
 
 
