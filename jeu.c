@@ -2,7 +2,7 @@
 
 void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 {
-
+    int c;
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     int etat_hotbar[9] = {0}; // stock 1 sur le num de la case presse
@@ -12,6 +12,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int premsTour=0;
 
     BITMAP* skins[4];
+    BITMAP* skins_rouge[4];
 
     BITMAP* viseur; //utile
     BITMAP* dirt; //utile
@@ -46,6 +47,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     skins[1] = load_bitmap("images/steve.bmp", NULL);
     skins[2] = load_bitmap("images/squelette.bmp", NULL);
     skins[3] = load_bitmap("images/zombie.bmp", NULL);
+
+    skins_rouge[0] = load_bitmap("images/sorciere2.bmp", NULL);
+    skins_rouge[1] = load_bitmap("images/steve2.bmp", NULL);
+    skins_rouge[2] = load_bitmap("images/squelette2.bmp", NULL);
+    skins_rouge[3] = load_bitmap("images/zombie2.bmp", NULL);
 
     hotbar1 = load_bitmap("images/hotbar1.bmp", NULL);
     hotbar2 = load_bitmap("images/hotbar2.bmp", NULL);
@@ -181,7 +187,24 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);
-        affichagePersonnage(buffer,skins,michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+
+
+        if(c==0)
+        {
+        animm(buffer,skins,skins_rouge,michel,nb_joueur);
+        }
+        else if (c==1)
+        {
+        animmms(buffer,skins,skins_rouge, michel,nb_joueur);
+
+        }
+        c=c+1;
+        if (c==2)
+        {
+            c=0;
+        }
+
+        //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUr
 
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets

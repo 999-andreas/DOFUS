@@ -14,7 +14,7 @@
 1652787122 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\main.c
 	"header.h"
 
-1652975809 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\header.h
+1653051129 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\header.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
@@ -23,16 +23,16 @@
 1651175610 d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\utilitaire.c
 	"header.h"
 
-1652975585 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\utilitaire.c
+1653044845 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\utilitaire.c
 	"header.h"
 
-1652976435 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\map.c
+1653050465 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\map.c
 	"header.h"
 
 1652972105 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\menu.c
 	"header.h"
 
-1652975263 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\jeu.c
+1653051385 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\jeu.c
 	"header.h"
 
 1652970030 source:c:\users\jackq\documents\github\dofus\jeu.c
@@ -74,6 +74,6 @@
 1652816598 source:c:\users\james\documents\github\dofus\utilitaire.c
 	"header.h"
 
-1652975187 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\player.c
+1653051280 source:d:\andreas\documents\ece\algo-programtion-structurée c\allegro\dofus\player.c
 	"header.h"
 

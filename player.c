@@ -2,7 +2,7 @@
 
 void controle_points(t_joueur *michel, int nb_joueur)
 {
-    int i ;
+    int i;
 
     for(i = 0; i<nb_joueur; i++)
     {
@@ -69,10 +69,10 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                         michel[joueurTour].PA -= 2;
                         *etat = 1;
 
-                        if(rand()%100 >=10)
+                        if(rand()%100 >=0)
                         {
                             michel[i].PV -=5;
-                            //affichage rouge + rests
+                            michel[i].toucher = 10;
                         }
                     }
                 }
@@ -128,5 +128,38 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             }
         }
     }
+}
 
+void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur ) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+{
+    int i;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+        if(michel[i].toucher>0 && michel[i].toucher<10)
+        {
+            printf("test\n");
+            draw_sprite(buffer, skins_rouge[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
+            michel[i].toucher -=1;
+        }
+
+        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx+1), (michel[i].posy));
+    }
+}
+
+
+void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+{
+    int i;
+
+    for(i = 0; i<nb_joueur; i++)
+    {
+        if(michel[i].toucher!=0)
+        {
+            draw_sprite(buffer, skins_rouge[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
+            michel[i].toucher -=1;
+        }
+        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx-1), (michel[i].posy));
+
+    }
 }

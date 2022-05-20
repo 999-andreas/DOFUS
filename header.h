@@ -18,6 +18,7 @@ typedef struct joueur
     int vivant; // 1 ou 0
     int posx; // position sur l'axe x
     int posy; // position sur l'axe y
+    int toucher; // savvoir il est touché ou non
 
 }t_joueur;
 
@@ -50,12 +51,11 @@ void update_coo(t_joueur* michel, int maps[26][12]);
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4);
 void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9]);
 
+//merde
 void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur);
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour);
-
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer);
+void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour, int *bouger);
 
 
 
@@ -66,15 +66,17 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur);
 void menuDEBUT();
 void menuFIN(t_joueur *michel,int nb_joueur);
 
+
 ///player.c
 void controle_points(t_joueur *michel, int nb_joueur );
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer);
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
+void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur );
+void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur);
 
 //mettre les prototypes des nouveaux fichier ici
 
 //void update_coo2(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
-void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour, int *bouger);
 
 
 #endif // HEADER_H_INCLUDED

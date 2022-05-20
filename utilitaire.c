@@ -53,7 +53,7 @@ void mise_a_zero(int etat_hotbar[9])
     }
 }
 
-
+//a enlever
 int joueur_la(t_joueur* michel, int nb_joueur, int x, int y)
 {
     int i;

@@ -167,24 +167,7 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
 
     for(i = 0; i<nb_joueur; i++)
     {
-        if(i==0)
-        {
-            draw_sprite(buffer, skins[(michel[0].classe)-1], (michel[0].posx), (michel[0].posy));
-        }
-
-        if(i==1)
-        {
-            draw_sprite(buffer, skins[(michel[1].classe)-1], (michel[1].posx), (michel[1].posy));
-        }
-
-        if(i==2)
-        {
-            draw_sprite(buffer, skins[(michel[2].classe)-1], (michel[2].posx), (michel[2].posy));
-        }
-        if(i==3)
-        {
-            draw_sprite(buffer, skins[(michel[3].classe)-1], (michel[3].posx), (michel[3].posy));
-        }
+        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
     }
 }
 
@@ -320,9 +303,6 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
             if(cliquer_zone((i*50), (j*50), 50,50) == 1)
             {
                 if(maps[i][j] == 2) // SI ON CLICK SUR LA LAVE
-                {}
-
-                else if(joueur_la(michel,nb_joueur,i,j)==1)
                 {}
 
                 // SI ON CLICK SUR LA CASE DE GAUCHE
