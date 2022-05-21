@@ -16,6 +16,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etat=0; // indique si le joueur a deja attaquer
     int etatPOS=0;
     int etatEPEE=0;
+    int etatVOL=0;
+    int etatZONE=0;
+    int etatPOISON=0;
     int premsTour=0;
 
     char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
@@ -124,6 +127,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etat=0;
             etatPOS=0;
             etatEPEE=0;
+            etatVOL=0;
+            etatZONE=0;
+            etatPOISON=0;
+
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
             {
@@ -164,7 +171,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,nom,classement,&joueurEnvie);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,classement,&joueurEnvie);
         }
 
         if (etat_hotbar[0]==1 )///sort 1
@@ -172,7 +179,14 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
         }
 
-        if(premsTour == 1)
+        if(etat_hotbar[3]==1)
+        {
+            attaqueTroisieme_SORT(michel,joueurTour,orange,buffer, nb_joueur, &etatVOL,&etatZONE, &etatPOISON, classement,&joueurEnvie);
+        }
+
+
+
+        if(premsTour == 1) // si le premier tour est passé
         {
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
             textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
@@ -202,7 +216,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             c=0;
         }
 
-
+        controle_points(michel, nb_joueur); // controle des limites de point
         textprintf_ex(buffer,font,1065,630,makecol(0,150,255),makecol(2,2,2),"C'est a %s de JOUER",nom[michel[joueurTour].classe-1]);
         textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
