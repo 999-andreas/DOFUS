@@ -8,7 +8,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     classement[nb_joueur] = nb_joueur;
     printf("Nb_joueur + 1 = %d",nb_joueur+1);
     printf("Classement : %d\n",classement[nb_joueur]);
-    int joueur = nb_joueur;
+    int joueur = nb_joueur-1;
     printf("joueur : %d\n",joueur);
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
     int sorts[4][3][4];
