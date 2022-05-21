@@ -67,8 +67,6 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
 
-
-
 ///Menu.c
 void nbr_joueur(SAMPLE* son);
 void classeJ(int choixJ,SAMPLE *son);
