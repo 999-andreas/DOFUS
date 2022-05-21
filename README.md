@@ -1,5 +1,7 @@
 # DOFUS
 DOFUS
+jeu de combat au tour par tour, inspiré du jeu Dofus
+Arena. Sur le thème de Minecraft.
 
 ## Frabriqué avec
 
