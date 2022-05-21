@@ -10,7 +10,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     printf("Classement : %d\n",classement[nb_joueur]);
     int joueur = nb_joueur-1;
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
-    int sorts[4][3][4];
+    //int sorts[4][3][4];
 
     int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
     int deplacement=0;
@@ -19,6 +19,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etat=0; // indique si le joueur a deja attaquer
     int etatPOS=0;
     int etatEPEE=0;
+    int etatDEG=0;
+    int etatPOT_CP=0;
+    int etatFLECHE=0;
+
     int premsTour=0;
 
     char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
@@ -99,7 +103,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         //printf("nb_joueur: %d\n",nb_joueur);
         //printf("Classement nb joueur envie : %d\n",classement[nb_joueur]);
         //printf("JoueurTour: %d\n",joueurTour);
-       // printf("Nb Joueur : %d\n",nb_joueur);
+        // printf("Nb Joueur : %d\n",nb_joueur);
         int *deplacement1 = &deplacement;
         int *joueurEnvie = &joueur;
         clear_bitmap(buffer);
@@ -125,10 +129,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-         if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
-         {
-             joueurTour = 0;
-         }
+        if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+        {
+            joueurTour = 0;
+        }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
@@ -141,6 +145,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etat=0;
             etatPOS=0;
             etatEPEE=0;
+            etatDEG=0;
+            etatPOT_CP=0;
+            etatFLECHE=0;
 
             if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
             {
@@ -180,6 +187,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             {
                 mise_a_zero(etat_hotbar);
                 etat = 0;
+                etatPOS=0;
+                etatEPEE=0;
+                etatDEG=0;
+                etatPOT_CP=0;
+                etatFLECHE=0;
                 joueurTour++;
                 rest(50);
                 if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
@@ -228,6 +240,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
         }
 
+        if (etat_hotbar[1]==1 )///sort 1
+        {
+            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE);
+        }
+
         if(premsTour == 1)
         {
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
@@ -241,11 +258,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUr
         if(c==0)
         {
-        animm(buffer,skins,skins_rouge,michel,nb_joueur);
+            animm(buffer,skins,skins_rouge,michel,nb_joueur);
         }
         else if (c==1)
         {
-        animmms(buffer,skins,skins_rouge, michel,nb_joueur);
+            animmms(buffer,skins,skins_rouge, michel,nb_joueur);
 
         }
 

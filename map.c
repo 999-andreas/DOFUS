@@ -458,9 +458,9 @@ void controle_points(t_joueur *michel, int nb_joueur)
 
     for(i = 0; i<nb_joueur; i++)//boucle pour parcourir le nombre de joueur
     {
-        if(michel[i].PA>20)//si PA du joueur > 20
+        if(michel[i].PA>40)//si PA du joueur > 20
         {
-            michel[i].PA = 20;//mettre PA a 20
+            michel[i].PA = 40;//mettre PA a 20
         }
         if(michel[i].PA<0)//si PA du joueur <0
         {
@@ -539,7 +539,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posy==j)
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=2))
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
                     {
                         if (michel[joueurTour].PA<10)
                         {
@@ -547,7 +547,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         }
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=2;
+                        *etatEPEE=1;
                         michel[nb].toucher = 30;
                     }
                 }
@@ -561,7 +561,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posx==k)
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=3))
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
                     {
                         if (michel[joueurTour].PA<10)
                         {
@@ -569,7 +569,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         }
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=3;
+                        *etatEPEE=1;
                         michel[nb].toucher = 30;
                     }
                 }
@@ -584,7 +584,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posx==b)
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=4))
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
                     {
                         if (michel[joueurTour].PA<10)
                         {
@@ -592,7 +592,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         }
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=4;
+                        *etatEPEE=1;
                         michel[nb].toucher = 30;
                     }
                 }
@@ -746,5 +746,6 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     }
     destroy_sample(victoire);
 }
+
 
 
