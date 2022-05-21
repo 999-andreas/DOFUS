@@ -343,7 +343,7 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 }
 
 
-///sous programme premier sort des classes///
+///sous programme ATTAQUE CORPS A COPRS ///
 
 void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie)
 {
@@ -370,31 +370,31 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
     esquive = load_sample("esquive.wav");
     mort = load_sample("MORT.wav");
 
-    for (i=0; i<nb_joueur; i++)
+    for (i=0; i<nb_joueur; i++)///BOUCLE incrémentation i jusqu'au nombre de joueur
     {
-        for(j = (debutx); j <(finx); j++)
+        for(j = (debutx); j <(finx); j++) //parcourir l'axe des x pour voir s'il y a des adversaires autour du JOUEURTOUR
         {
 
-            for(k = (debuty); k <(finy); k++)
+            for(k = (debuty); k <(finy); k++) //parcourir l'axe des y pour voir s'il y a des adversaires JOUEURTOUR
             {
 
-                if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0)
+                if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0)//si adversaire est autour du joueurTour et les PV de l'adversaire > 0
                 {
-                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
+                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))///prend pas en compte le joueurTour
                         continue;
 
-                    blit(orange, buffer, 0,0,j*50,k*50, 50,50);
+                    blit(orange, buffer, 0,0,j*50,k*50, 50,50);///AFFICHAGE DES CARRES SURBRILLANCE
 
 
 
 
-                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
+                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))//si on clic sur un joueur autour et que etat différent de 1
                     {
-                        michel[joueurTour].PA -= 2;
+                        michel[joueurTour].PA -= 2;//- 2 pa pour le JoueurTour
 
-                        *etat = 1;
+                        *etat = 1;//passage de etat a 1
 
-                        if(rand()%100 >=10)
+                        if(rand()%100 >=10)///nombre alea entre 0 et 100 > 10
                         {
                             michel[i].toucher = 30;
 
@@ -403,21 +403,21 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             printf("apres: %d\n",michel[i].PV);
 
                             //sons des degats
-                            if(michel[i].classe == 1 && michel[i].PV > 0)
+                            if(michel[i].classe == 1 && michel[i].PV > 0)///si la classe est 1 alors c'est sorciere et que le joueur n'est pas mort (0PV)
                             {
-                                play_sample(degatSorciere,200,125,1003,0);
+                                play_sample(degatSorciere,200,125,1003,0);//joue un son de degat sorciere
                             }
-                            else if(michel[i].classe == 2 && michel[i].PV > 0)
+                            else if(michel[i].classe == 2 && michel[i].PV > 0)///si la classe est 2 alors c'est steve et que le joueur n'est pas mort (0PV)
                             {
-                                play_sample(degatSteve,200,125,1003,0);
+                                play_sample(degatSteve,200,125,1003,0);//joue un son de degat steve
                             }
-                            else if (michel[i].classe == 3 && michel[i].PV > 0)
+                            else if (michel[i].classe == 3 && michel[i].PV > 0)///si la classe est 3 alors c'est squelette et que le joueur n'est pas mort (0PV)
                             {
-                                play_sample(degatSkeleton,200,125,1003,0);
+                                play_sample(degatSkeleton,200,125,1003,0);//joue un son de degat squelette
                             }
-                            else if (michel[i].classe == 4 && michel[i].PV > 0)
+                            else if (michel[i].classe == 4 && michel[i].PV > 0)///si la classe est 4 alors c'est zombie et que le joueur n'est pas mort (0PV)
                             {
-                                play_sample(degatZombie,1000,125,1003,0);
+                                play_sample(degatZombie,1000,125,1003,0);//joue un son de degat Zombie
                             }
 
 
@@ -438,7 +438,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                         }
                         else
                         {
-                            play_sample(esquive,200,125,1003,0);
+                            play_sample(esquive,200,125,1003,0);//joue un son esquive quand alea est <10
                         }
                     }
                 }
@@ -449,20 +449,26 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
 }
 
+
+///SOUS PROGRAMME POUR CONTROLER LES POINT DE PA PV PM
+
 void controle_points(t_joueur *michel, int nb_joueur)
 {
     int i;
 
-    for(i = 0; i<nb_joueur; i++)
+    for(i = 0; i<nb_joueur; i++)//boucle pour parcourir le nombre de joueur
     {
-        if(michel[i].PA>20)
+        if(michel[i].PA>20)//si PA du joueur > 20
         {
-            michel[i].PA = 20;
+            michel[i].PA = 20;//mettre PA a 20
         }
-        if(michel[i].PA<0)
+        if(michel[i].PA<0)//si PA du joueur <0
         {
-            michel[i].PA = 0;
+            michel[i].PA = 0; //mettre PA a 0
         }
+
+        ///meme chose pour les PM et PV
+
         if(michel[i].PM>50)
         {
             michel[i].PM = 50;
@@ -488,39 +494,42 @@ void controle_points(t_joueur *michel, int nb_joueur)
 
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE)
 {
-    t_sorts potion[4][4];
     int i,j,k,b;
     int nb;
 
-
+///Si la classe du joueur = 1, 2 ou 4///
     ////Sort coup d'epee///
 
     if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
     {
-        for (nb=0; nb<nbjoueur; nb++)
+        for (nb=0; nb<nbjoueur; nb++)///parcourir le nombre de joueur
         {
 
-            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
+            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)//parcour de la position en y+ jusqu'a posy+200
             {
-                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
-                if (michel[joueurTour].posx==i)
-                    continue;
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);//affichage du carre en y+
 
-                if (michel[nb].posx==i)
+                if (michel[joueurTour].posy==i)//si le joueur actuelle a les meme position en y que i alors
+                    continue;//sort de la boucle
+
+                if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))// si le joueur clic sur la zone et que etatepee != 1
                     {
-                        printf("cliquer zoneeee\n");
-                       if (michel[joueurTour].PA<10)
+                       if (michel[joueurTour].PA<10)//si les PA du
                         {
-                            continue;
+                            continue;//sort de la boucle
                         }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
-                        *etatEPEE=1;
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        *etatEPEE=1; //EPEE PASSE A 1
                     }
                 }
             }
+
+
+            ///MEME CHOSE POUR LES POSITIONS EN X- X+ Y-//
+
             for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
             {
                 blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
@@ -536,7 +545,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                             continue;
                         }
                         michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;
                         *etatEPEE=2;
                     }
                 }
@@ -557,7 +566,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                             continue;
                         }
                         michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;
                         *etatEPEE=3;
                     }
                 }
@@ -579,7 +588,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                             continue;
                         }
                         michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;
                         *etatEPEE=4;
                     }
                 }
@@ -588,31 +597,35 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
     }
     ///sort 1 inversement de position///
     int compt=0;
-    if (michel[joueurTour].classe==3)
+    if (michel[joueurTour].classe==3)///SI la classe == 3
     {
-        for (compt=0; compt<nbjoueur; compt++)
+        for (compt=0; compt<nbjoueur; compt++)///parcour d'un compteur jusqu'a le nombre de joueur choisie
         {
-           if (compt==joueurTour)
+           if (compt==joueurTour)//si compteur est égal a la meme valeur du joueur actuelle
            {
-               continue;
+               continue;//sort de la boucle
            }
 
-            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);
-            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )
+            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
+
+            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
             {
-                *etatPOS=1;
-                inverse_pos(michel,compt,joueurTour);
+                *etatPOS=1;//passage de etatPOS a 1
+                michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
+                michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
+                inverse_pos(michel,compt,joueurTour);//APPELLE DU SOUS PROG pour inversé les positions
             }
         }
     }
 
 }
 
+///SOUS PROG POUR INVERSE LES POSITIONS POUR LES SORT
 
 void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 {
-    int tempPosx=0;
-    int tempPosy=0;
+    int tempPosx=0;//déclare d'une variable entier temporaire en x pour inversé
+    int tempPosy=0;//déclare d'une variable entier temporaire en y pour inversé
 
     tempPosx=michel[compt].posx;
     michel[compt].posx=michel[joueurTour].posx;
