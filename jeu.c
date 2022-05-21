@@ -8,7 +8,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     classement[nb_joueur] = nb_joueur;
     printf("Nb_joueur + 1 = %d",nb_joueur+1);
     printf("Classement : %d\n",classement[nb_joueur]);
-    int joueur = nb_joueur-1;
+    int joueur = nb_joueur;
+    printf("joueur : %d\n",joueur);
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
     int sorts[4][3][4];
 
@@ -99,9 +100,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         printf("nb_joueur: %d\n",nb_joueur);
         printf("Classement nb joueur envie : %d\n",classement[nb_joueur]);
         //printf("JoueurTour: %d\n",joueurTour);
+
         printf("Nb Joueur : %d\n",nb_joueur);
         int *deplacement1 = &deplacement;
         int *joueurEnvie = &joueur;
+        printf("Joueur ENVIE : %d\n",*joueurEnvie);
         clear_bitmap(buffer);
 
         if(michel[joueurTour].PV <= 0)

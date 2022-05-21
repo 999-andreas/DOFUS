@@ -586,6 +586,8 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     BITMAP *skeletteRoi;
     BITMAP *zombieRoi;
 
+    SAMPLE *victoire;
+
     steveNormal = load_bitmap("images/steveNormal.bmp",NULL);
     zombieNormal = load_bitmap("images/zombieNormal.bmp",NULL);
     sorciereNR = load_bitmap("images/sorcierNormal.bmp",NULL);
@@ -596,6 +598,8 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     zombieRoi = load_bitmap("images/zombieRoi.bmp",NULL);
 
     podium = load_bitmap("images/podium.bmp",NULL);
+
+    victoire = load_sample("victoire.wav");
 
      /*   draw_sprite(podium,steveRoi,1000,135); // droite
         draw_sprite(podium,skeletteRoi,145,100); // gauche
@@ -611,8 +615,11 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     draw_sprite(podium,skeletteNormal,145,100); // gauche
     draw_sprite(podium,sorciereNR,575,88); // milieu  */
 
-    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+    play_sample(victoire,50,125,1003,5);
+    time_t temps = time(NULL);
 
+    while(time(NULL)-temps < 3000)
+    {
     int i =0;
     for(i=0; i<3; i++)
     {
@@ -679,13 +686,11 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
 
         }
         else {}
-
-
-        //textprintf_ex(screen,font,50,650+i*20,makecol(255,255,255),-1,"TOP JOUEUR %d : Classe : %d",i+1,classement[i]);
-        printf(" i : %d et TOP JOUEUR: %d et Classe : %d\n",i,i+1,classement[i]);
     }
     blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-    rest(5000);
+    }
+    //rest(5000);
 
+    destroy_sample(victoire);
 }
 
