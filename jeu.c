@@ -25,7 +25,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     BITMAP* skins[4];
     BITMAP* skins_rouge[4];
-
+    BITMAP* epee;
+    BITMAP* epees;
     BITMAP* viseur; //utile
     BITMAP* dirt; //utile
     BITMAP* grass; //utile
@@ -59,6 +60,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     skins[1] = load_bitmap("images/steve.bmp", NULL);
     skins[2] = load_bitmap("images/squelette.bmp", NULL);
     skins[3] = load_bitmap("images/zombie.bmp", NULL);
+    epee = load_bitmap("images/epee.bmp", NULL);
+    epees = load_bitmap("images/epees.bmp", NULL);
 
     skins_rouge[0] = load_bitmap("images/sorciere2.bmp", NULL);
     skins_rouge[1] = load_bitmap("images/steve2.bmp", NULL);
@@ -222,7 +225,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         if (etat_hotbar[5]==1)
         {
-            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,nom,classement,joueurEnvie);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,nom,classement,joueurEnvie,epee,epees);
         }
 
         if (etat_hotbar[0]==1 )///sort 1

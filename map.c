@@ -345,7 +345,7 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 
 ///sous programme premier sort des classes///
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie,BITMAP *epee,BITMAP *epees)
 {
     int i;
     int j=0;
@@ -382,7 +382,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                 {
                     if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
                         continue;
-
+                   draw_sprite(buffer,epees,michel[joueurTour].posx-45,michel[joueurTour].posy+20);
                     blit(orange, buffer, 0,0,j*50,k*50, 50,50);
 
 
@@ -391,8 +391,8 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                     if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
                     {
                         michel[joueurTour].PA -= 2;
-
                         *etat = 1;
+
 
                         if(rand()%100 >=10)
                         {
