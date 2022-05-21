@@ -69,7 +69,7 @@ int joueur_la(t_joueur* michel, int nb_joueur, int x, int y)
     return 0;
 }
 
-void destroy_tout(BITMAP* skins[4],BITMAP* skins_rouge[4],BITMAP* viseur,BITMAP* dirt,BITMAP* grass,BITMAP* lava,BITMAP* hotbar1,BITMAP* hotbar2,BITMAP* hotbar3,BITMAP* hotbar4,BITMAP* bush,BITMAP* bleu,BITMAP* rouge,BITMAP* orange,BITMAP* suivant,BITMAP* suivantRouge,BITMAP* terrain,BITMAP* buffer,BITMAP* jaune, SAMPLE* )
+void destroy_tout(BITMAP* skins[4],BITMAP* skins_rouge[4],BITMAP* viseur,BITMAP* dirt,BITMAP* grass,BITMAP* lava,BITMAP* hotbar1,BITMAP* hotbar2,BITMAP* hotbar3,BITMAP* hotbar4,BITMAP* bush,BITMAP* bleu,BITMAP* rouge,BITMAP* orange,BITMAP* suivant,BITMAP* suivantRouge,BITMAP* terrain,BITMAP* buffer,BITMAP* jaune)
 {
 
     destroy_bitmap(skins[0]);

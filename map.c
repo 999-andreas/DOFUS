@@ -55,12 +55,6 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
             }
         }
     }
-
-    for(i=0 ; i<26; i++)
-    {
-        blit(lava, terrain,0,0,(50*i),(0), 50, 50 );
-
-    }
 }
 
 //mise a jour des coo

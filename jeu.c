@@ -3,12 +3,14 @@
 void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 {
     int c=0;
+    //----------------------------------------------------
     int classement[nb_joueur+1];
     printf("nb_joueur  debut : %d\n",nb_joueur);
     classement[nb_joueur] = nb_joueur;
     printf("Nb_joueur + 1 = %d",nb_joueur+1);
     printf("Classement : %d\n",classement[nb_joueur]);
     int joueur = nb_joueur-1;
+    //----------------------------------------------------
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
     int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
@@ -80,29 +82,33 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     lava = load_bitmap("images/lava.bmp", NULL);
     bush = load_bitmap("images/herbe.bmp", NULL);
 
+    //initialisation de la map et du terrain graphique
     init_maps(maps);
     init_terrain(terrain, maps, dirt, grass, lava);
     blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);
 
+    //initialisation des elements de la structure joueur
     initialisation(michel,nb_joueur);
 
+    //poser les joueurs sur le terrain
     choixEmplacement(buffer,skins,nb_joueur,michel,maps, joueurTour, nom);
 
-    //initialisation(michel,nb_joueur);
 
     time_t temps = time(NULL);
 
-
+    /// boucle principale du jeu ///
     while (cliquer_zone(0,0,50, 50)!=1 && classement[nb_joueur] != 0)
     {
+        //----------------------------------------------------
         printf("nb_joueur: %d\n",nb_joueur);
-        printf("Classement nb joueur envie : %d\n",classement[nb_joueur]);
-        //printf("JoueurTour: %d\n",joueurTour);
+        printf("Classement nb joueur envie : %id\n",classement[nb_joueur]);
         printf("Nb Joueur : %d\n",nb_joueur);
         int *deplacement1 = &deplacement;
         int *joueurEnvie = &joueur;
+        //----------------------------------------------------
         clear_bitmap(buffer);
 
+        //----------------------------------------------------
         if(michel[joueurTour].PV <= 0)
         {
             joueurTour++;
@@ -113,8 +119,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             classement[0] = michel[joueurTour].classe;
             classement[nb_joueur] = 0;
         }
-
-        // printf("Dur�e : %d seconde \n",(int) (time(NULL)-temps))
 
 
         textprintf_ex(buffer,font,1065,630,makecol(0,150,255),makecol(2,2,2),"C'est a %s de JOUER",nom[michel[joueurTour].classe-1]);
@@ -147,7 +151,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             {
                 joueurTour = 0;
                 premsTour = 1;
-
             }
 
             if(premsTour == 1)
@@ -174,7 +177,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         /////////////  PROGRAMME QUI PERMET D'AFFICHER LE BOUTON SUIVANT ET FAIRE UN CONTOUR EN UNE COULEUR SI ON PASSE PAR DESSUS AVEC LA SOURIS ////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686)
+        //----------------------------------------------------
+
+        if( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686) // appuie du bouton suivant
         {
             draw_sprite(buffer,suivantRouge,1030,630);
             if(mouse_b&1)
@@ -213,7 +218,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h);//affichage du decor
+        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); //reaffichage du decor
 
         if (etat_hotbar[6]==1)
         {
@@ -234,10 +239,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
             textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
         }
+
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
-        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets
+        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets(case surbrillance)
 
         //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUr
         if(c==0)
@@ -256,7 +262,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             c=0;
         }
 
-        controle_points(michel, nb_joueur);
+        controle_points(michel, nb_joueur); //controle de la limite des points
 
         //affichage des PV PA PM
         textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
@@ -271,12 +277,17 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);//affichage final sur l'ecran
 
     }
+    //arret de la musique
     stop_sample(son);
 
     clear_bitmap(screen);
+
+    //destruction des bitmaps
     destroy_tout(skins,skins_rouge,viseur,dirt,grass,lava, hotbar1, hotbar2,hotbar3, hotbar4, bush,bleu, rouge, orange, suivant,suivantRouge,terrain, buffer,jaune);
 
+    //affichage du classement
     classementTop(michel,nb_joueur,classement,joueurTour);
 
+    //menu de fin
     menuFIN(michel,nb_joueur);
 }

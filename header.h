@@ -64,7 +64,6 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE);
 void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 
-//void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
 void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie);
 
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
