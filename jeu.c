@@ -3,18 +3,14 @@
 void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 {
     int c=0;
-    //----------------------------------------------------
     int classement[nb_joueur+1];
-    printf("nb_joueur  debut : %d\n",nb_joueur);
     classement[nb_joueur] = nb_joueur;
-    printf("Nb_joueur + 1 = %d",nb_joueur+1);
-    printf("Classement : %d\n",classement[nb_joueur]);
-    int joueur = nb_joueur-1;
-    //----------------------------------------------------
+    int joueurEnvie = nb_joueur-1;
+
     int maps[26][12]; //matrice de la map (case de 50 sur 50 pixels)
 
-    int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presse
-    int deplacement=0;
+    int etat_hotbar[7] = {0}; // stock 1 sur le num de la case presses
+    int deplacement1 = 0;
     int joueurTour=0; // indique l'indice du jour a qui c'est le tour
 
     int etat=0; // indique si le joueur a deja attaquer
@@ -43,7 +39,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     BITMAP* orange;
     BITMAP* suivant;
     BITMAP* suivantRouge;
-
 
     BITMAP* terrain;
     BITMAP* buffer;
@@ -99,61 +94,44 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     /// boucle principale du jeu ///
     while (cliquer_zone(0,0,50, 50)!=1 && classement[nb_joueur] != 0)
     {
-        //----------------------------------------------------
-        printf("nb_joueur: %d\n",nb_joueur);
-        printf("Classement nb joueur envie : %id\n",classement[nb_joueur]);
-        printf("Nb Joueur : %d\n",nb_joueur);
-        int *deplacement1 = &deplacement;
-        int *joueurEnvie = &joueur;
-        //----------------------------------------------------
         clear_bitmap(buffer);
+        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); //reaffichage du decor
 
-        //----------------------------------------------------
-        if(michel[joueurTour].PV <= 0)
+
+        if(michel[joueurTour].PV <= 0) // pour sauter le tour des morts
         {
             joueurTour++;
         }
 
-        if (classement[nb_joueur] == 1)
+        if (classement[nb_joueur] == 1) // on ajoute le gagnant au classement
         {
             classement[0] = michel[joueurTour].classe;
             classement[nb_joueur] = 0;
         }
 
-
-        textprintf_ex(buffer,font,1065,630,makecol(0,150,255),makecol(2,2,2),"C'est a %s de JOUER",nom[michel[joueurTour].classe-1]);
-        textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////// PROGRAMME QUI PERMET DE FAIRE LE SYSTEME DE TOUR DES JOUEURS QUI JOUENT ///////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-         if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
-         {
-             joueurTour = 0;
-             printf("sqqdqsd\n");
-
-         }
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////  PROGRAMME QUI PERMET DE COMPTER LE TEMPS ET A CHAQUE 15 SECONDES SA CHANGE DE JOUEUR QUI JOUE ////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        if(time(NULL)-temps > 15 )    // SYTSTEME DE COMPTAGE DE TEMPS
+        if(joueurTour % nb_joueur == 0) // SYSTEME DE TOUR POUR LES JOUEURS
         {
+             joueurTour = 0;
+        }
+
+
+        if((time(NULL)-temps > 15 )|| ( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686 && mouse_b&1))    // passage au tour suivant
+        {
+
+            // routine passage de tour
             mise_a_zero(etat_hotbar);
             joueurTour++;
             etat=0;
             etatPOS=0;
             etatEPEE=0;
 
-            if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
+            if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
             {
                 joueurTour = 0;
-                premsTour = 1;
+                premsTour = 1; // incrementer au premier tour
             }
 
-            if(premsTour == 1)
+            if(premsTour == 1) // si ce n'est pas le premier tour
             {
                 michel[joueurTour].PA = michel[joueurTour].PA + 3;
                 michel[joueurTour].PM = michel[joueurTour].PM + 1;
@@ -161,72 +139,32 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             else
             {
             }
-            deplacement = 0;
+            deplacement1 = 0;
             temps = time(NULL);
+            rest(200);
         }
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        //printf("JoueurTour : %d\n",joueurTour);     // DERTERMINER C'EST A QUI DE JOUER
-        //printf("C'est au joueur %d de jouer\n",michel[joueurTour].classe); // MEME CHOSE
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////  PROGRAMME QUI PERMET D'AFFICHER LE BOUTON SUIVANT ET FAIRE UN CONTOUR EN UNE COULEUR SI ON PASSE PAR DESSUS AVEC LA SOURIS ////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //----------------------------------------------------
-
-        if( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686) // appuie du bouton suivant
+        if( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686)
         {
             draw_sprite(buffer,suivantRouge,1030,630);
-            if(mouse_b&1)
-            {
-                mise_a_zero(etat_hotbar);
-                etat = 0;
-                joueurTour++;
-                rest(50);
-                if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
-                {
-                    joueurTour = 0;
-                    premsTour = 1;
-
-                }
-
-                if(premsTour == 1)
-                {
-                    michel[joueurTour].PA = michel[joueurTour].PA + 3;
-                    michel[joueurTour].PM = michel[joueurTour].PM + 1;
-                }
-                else
-                {
-                }
-                deplacement = 0;
-                temps = time(NULL);
-
-                rest(200);
-            }
-            else
-            {
-            }
         }
         else
         {
             draw_sprite(buffer,suivant,1030,630);
         }
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); //reaffichage du decor
 
         if (etat_hotbar[6]==1)
         {
-            deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1); //si clique sur une case changement des coo du joueur
+            deplacement_case(michel,maps,nb_joueur,joueurTour,&deplacement1); //si clique sur une case changement des coo du joueur
         }
         if (etat_hotbar[5]==1)
         {
-            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,nom,classement,joueurEnvie);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,nom,classement,&joueurEnvie);
         }
 
         if (etat_hotbar[0]==1 )///sort 1
@@ -240,12 +178,14 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
         }
 
+
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
         affiche_selectSORT(buffer,jaune, etat_hotbar);
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets(case surbrillance)
 
-        //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUr
+        //affichagePersonnage(buffer,skins, michel,nb_joueur);    // AFFICHAGE DU JOUEUR
+
         if(c==0)
         {
         animm(buffer,skins,skins_rouge,michel,nb_joueur);
@@ -262,7 +202,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             c=0;
         }
 
-        controle_points(michel, nb_joueur); //controle de la limite des points
+
+        textprintf_ex(buffer,font,1065,630,makecol(0,150,255),makecol(2,2,2),"C'est a %s de JOUER",nom[michel[joueurTour].classe-1]);
+        textprintf_ex(buffer,font,1140,650,makecol(255,255,0),makecol(2,2,2),"CHRONO: %d ",15-(time(NULL)-temps));
 
         //affichage des PV PA PM
         textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
