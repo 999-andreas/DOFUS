@@ -523,6 +523,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
                         michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
                         *etatEPEE=1; //EPEE PASSE A 1
+                        michel[nb].toucher = 30;
                     }
                 }
             }
@@ -547,6 +548,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-6;
                         *etatEPEE=2;
+                        michel[nb].toucher = 30;
                     }
                 }
             }
@@ -568,6 +570,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-6;
                         *etatEPEE=3;
+                        michel[nb].toucher = 30;
                     }
                 }
 
@@ -590,6 +593,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         michel[nb].PV=michel[nb].PV-10;
                         michel[joueurTour].PA=michel[joueurTour].PA-6;
                         *etatEPEE=4;
+                        michel[nb].toucher = 30;
                     }
                 }
             }
