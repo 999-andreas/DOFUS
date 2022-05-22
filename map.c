@@ -337,125 +337,25 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 }
 
 
-///sous programme premier sort des classes///
-
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
-{
-    int i;
-    int j=0;
-    int k=0;
-    SAMPLE *degatSteve;
-    SAMPLE *degatZombie;
-    SAMPLE *degatSkeleton;
-    SAMPLE *degatSorciere;
-    SAMPLE *esquive;
-    SAMPLE *mort;
-
-    int debutx = ((michel[joueurTour].posx)-50)/50;
-    int finx = ((michel[joueurTour].posx)+100)/50;
-
-    int debuty = ((michel[joueurTour].posy)-50)/50;
-    int finy = ((michel[joueurTour].posy)+150)/50;
-
-    degatSteve = load_sample("degat_steve.wav");
-    degatZombie = load_sample("degat_zombie.wav");
-    degatSkeleton = load_sample("degat_skeleton.wav");
-    degatSorciere = load_sample("degat_villagoie.wav");
-    esquive = load_sample("esquive.wav");
-    mort = load_sample("MORT.wav");
-
-    for (i=0; i<nb_joueur; i++)
-    {
-        for(j = (debutx); j <(finx); j++)
-        {
-
-            for(k = (debuty); k <(finy); k++)
-            {
-
-                if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0)
-                {
-                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
-                        continue;
-
-                    blit(orange, buffer, 0,0,j*50,k*50, 50,50);
-
-
-
-
-                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
-                    {
-                        michel[joueurTour].PA -= 2;
-
-                        *etat = 1;
-
-                        if(rand()%100 >=10)
-                        {
-                            michel[i].toucher = 30;
-
-                            printf("avant: %d\n",michel[i].PV);
-                            michel[i].PV -=200;
-                            printf("apres: %d\n",michel[i].PV);
-
-                            //sons des degats
-                            if(michel[i].classe == 1 && michel[i].PV > 0)
-                            {
-                                play_sample(degatSorciere,200,125,1003,0);
-                            }
-                            else if(michel[i].classe == 2 && michel[i].PV > 0)
-                            {
-                                play_sample(degatSteve,200,125,1003,0);
-                            }
-                            else if (michel[i].classe == 3 && michel[i].PV > 0)
-                            {
-                                play_sample(degatSkeleton,200,125,1003,0);
-                            }
-                            else if (michel[i].classe == 4 && michel[i].PV > 0)
-                            {
-                                play_sample(degatZombie,1000,125,1003,0);
-                            }
-
-
-                            if(michel[i].PV < 0)
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[i].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-
-                                //printf("JoueurEnvie %d et Classe MORTTTTTTTTTTTTT: %d\n",*joueurEnvie,michel[i].classe);
-                                //printf("Classement[joueurTour] = %d\n",classement[*joueurEnvie]);
-
-                                *joueurEnvie = *joueurEnvie -1;
-                                //printf("JOUEUR ENVIE : %d\n",classement[nb_joueur+1]);
-                            }
-                            else  {}
-                        }
-                        else
-                        {
-                            play_sample(esquive,200,125,1003,0);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-}
+///SOUS PROGRAMME POUR CONTROLER LES POINT DE PA PV PM
 
 void controle_points(t_joueur *michel, int nb_joueur)
 {
     int i;
 
-    for(i = 0; i<nb_joueur; i++)
+    for(i = 0; i<nb_joueur; i++)//boucle pour parcourir le nombre de joueur
     {
-        if(michel[i].PA>20)
+        if(michel[i].PA>40)//si PA du joueur > 20
         {
-            michel[i].PA = 20;
+            michel[i].PA = 40;//mettre PA a 20
         }
-        if(michel[i].PA<0)
+        if(michel[i].PA<0)//si PA du joueur <0
         {
-            michel[i].PA = 0;
+            michel[i].PA = 0; //mettre PA a 0
         }
+
+        ///meme chose pour les PM et PV
+
         if(michel[i].PM>50)
         {
             michel[i].PM = 50;
@@ -476,146 +376,12 @@ void controle_points(t_joueur *michel, int nb_joueur)
 }
 
 
-
-///sous programme premier sort des classes///
-
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE)
-{
-    int i,j,k,b;
-    int nb;
-
-///Si la classe du joueur = 1, 2 ou 4///
-    ////Sort coup d'epee///
-
-    if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
-    {
-        for (nb=0; nb<nbjoueur; nb++)///parcourir le nombre de joueur
-        {
-
-            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)//parcour de la position en y+ jusqu'a posy+200
-            {
-                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);//affichage du carre en y+
-
-                if (michel[joueurTour].posy==i)//si le joueur actuelle a les meme position en y que i alors
-                    continue;//sort de la boucle
-
-                if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
-                {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))// si le joueur clic sur la zone et que etatepee != 1
-                    {
-                       if (michel[joueurTour].PA<10)//si les PA du
-                        {
-                            continue;//sort de la boucle
-                        }
-                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
-                        *etatEPEE=1; //EPEE PASSE A 1
-                        michel[nb].toucher = 30;
-                    }
-                }
-            }
-
-
-            ///MEME CHOSE POUR LES POSITIONS EN X- X+ Y-//
-
-            for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
-            {
-                blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
-                if (michel[joueurTour].posy==j)
-                    continue;
-
-                if (michel[nb].posy==j)
-                {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=2))
-                    {
-                        if (michel[joueurTour].PA<10)
-                        {
-                            continue;
-                        }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=2;
-                        michel[nb].toucher = 30;
-                    }
-                }
-            }
-            for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
-            {
-                blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
-
-                if (michel[joueurTour].posx==k)
-                    continue;
-
-                if (michel[nb].posx==k)
-                {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=3))
-                    {
-                        if (michel[joueurTour].PA<10)
-                        {
-                            continue;
-                        }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=3;
-                        michel[nb].toucher = 30;
-                    }
-                }
-
-
-            }
-            for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
-            {
-                blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
-                if (michel[joueurTour].posx==b)
-                    continue;
-
-                if (michel[nb].posx==b)
-                {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=4))
-                    {
-                        if (michel[joueurTour].PA<10)
-                        {
-                            continue;
-                        }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=4;
-                        michel[nb].toucher = 30;
-                    }
-                }
-            }
-        }
-    }
-    ///sort 1 inversement de position///
-    int compt=0;
-    if (michel[joueurTour].classe==3)///SI la classe == 3
-    {
-        for (compt=0; compt<nbjoueur; compt++)///parcour d'un compteur jusqu'a le nombre de joueur choisie
-        {
-           if (compt==joueurTour)//si compteur est égal a la meme valeur du joueur actuelle
-           {
-               continue;//sort de la boucle
-           }
-
-            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
-
-            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
-            {
-                *etatPOS=1;//passage de etatPOS a 1
-                michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
-                michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
-                inverse_pos(michel,compt,joueurTour);//APPELLE DU SOUS PROG pour inversé les positions
-            }
-        }
-    }
-
-}
-
+///SOUS PROG POUR INVERSE LES POSITIONS POUR LES SORT
 
 void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 {
-    int tempPosx=0;
-    int tempPosy=0;
+    int tempPosx=0;//déclare d'une variable entier temporaire en x pour inversé
+    int tempPosy=0;//déclare d'une variable entier temporaire en y pour inversé
 
     tempPosx=michel[compt].posx;
     michel[compt].posx=michel[joueurTour].posx;
@@ -1297,16 +1063,105 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
 {
     BITMAP *podium;
 
-    podium = load_bitmap("images/podium.bmp",NULL);
-    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-   /* int i =0;
-    for(i=0; i<nb_joueur; i++)
-    {
-        //textprintf_ex(screen,font,50,650+i*20,makecol(255,255,255),-1,"TOP JOUEUR %d : Classe : %d",i+1,classement[i]);
-        printf(" i : %d et TOP JOUEUR: %d et Classe : %d\n",i,i+1,classement[i]);
-    }*/
-    rest(1000);
+    BITMAP *steveNormal;
+    BITMAP *zombieNormal;
+    BITMAP *sorciereNR;
+    BITMAP *skeletteNormal;
 
+    BITMAP *steveRoi;
+    BITMAP *skeletteRoi;
+    BITMAP *zombieRoi;
+
+    SAMPLE *victoire;
+
+    steveNormal = load_bitmap("images/steveNormal.bmp",NULL);
+    zombieNormal = load_bitmap("images/zombieNormal.bmp",NULL);
+    sorciereNR = load_bitmap("images/sorcierNormal.bmp",NULL);
+    skeletteNormal = load_bitmap("images/skeletteNormal.bmp",NULL);
+
+    steveRoi = load_bitmap("images/steveRoi.bmp",NULL);
+    skeletteRoi = load_bitmap("images/skeletteRoi.bmp",NULL);
+    zombieRoi = load_bitmap("images/zombieRoi.bmp",NULL);
+
+    podium = load_bitmap("images/podium.bmp",NULL);
+
+    victoire = load_sample("victoire.wav");
+    play_sample(victoire,50,125,1003,5);
+    time_t temps = time(NULL);
+
+    while(time(NULL)-temps < 3000)
+    {
+    int i =0;
+    for(i=0; i<3; i++)
+    {
+        if(i == 0)
+        {
+            if (classement[i] == 1)
+            {
+                draw_sprite(podium,sorciereNR,575,60);
+            }
+            else if (classement[i] == 2)
+            {
+                draw_sprite(podium,steveRoi,575,88);
+            }
+            else if(classement[i] == 3)
+            {
+                draw_sprite(podium,skeletteRoi,575,88);
+            }
+            else if(classement[i] == 4)
+            {
+                draw_sprite(podium,zombieRoi,575,88);
+            }
+            else {}
+        }
+        else if (i == 1)
+        {
+            if (classement[i] == 1)
+            {
+                draw_sprite(podium,sorciereNR,1000,87);
+            }
+            else if (classement[i] == 2)
+            {
+                draw_sprite(podium,steveNormal,1000,125);
+            }
+            else if(classement[i] == 3)
+            {
+                draw_sprite(podium,skeletteNormal,1000,125);
+            }
+            else if(classement[i] == 4)
+            {
+                draw_sprite(podium,zombieNormal,1000,125);
+            }
+            else {}
+
+        }
+        else if (i == 2)
+        {
+            if (classement[i] == 1)
+            {
+                draw_sprite(podium,sorciereNR,145,90);
+            }
+            else if (classement[i] == 2)
+            {
+                draw_sprite(podium,steveNormal,145,105);
+            }
+            else if(classement[i] == 3)
+            {
+                draw_sprite(podium,skeletteNormal,145,105);
+            }
+            else if(classement[i] == 4)
+            {
+                draw_sprite(podium,zombieNormal,145,105);
+            }
+            else {}
+
+        }
+        else {}
+    }
+    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+    destroy_sample(victoire);
 }
+
 
 

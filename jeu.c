@@ -13,13 +13,27 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int deplacement1 = 0;
     int joueurTour=0; // indique l'indice du jour a qui c'est le tour
 
+
+    //attaque 1er sort//
     int etat=0; // indique si le joueur a deja attaquer
     int etatPOS=0;
     int etatEPEE=0;
+
+    //attaque 4e sort//
     int etatVOL=0;
     int etatZONE=0;
     int etatPOISON=0;
     int etatCELESTE=0;
+
+    //attaque 2e sort//
+    int etatDEG=0;
+    int etatPOT_CP=0;
+    int etatFLECHE=0;
+    int etatPOT_LP=0;
+
+    //attaque 3e sort//
+    int etatINV2=0;
+
     int premsTour=0;
 
     char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
@@ -132,6 +146,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatZONE=0;
             etatPOISON=0;
             etatCELESTE=0;
+            etatDEG=0;
+            etatPOT_CP=0;
+            etatFLECHE=0;
+            etatPOT_LP=0;
+            etatINV2=0;
 
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
@@ -180,15 +199,24 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
         }
+        
+        if (etat_hotbar[1]==1 )///sort 2
+        {
+            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP);
+        }
 
-        if(etat_hotbar[3]==1)
+        if (etat_hotbar[2]==1 )///sort 3
+        {
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2);
+        }
+
+        if(etat_hotbar[3]==1 )///sort 4
         {
             attaqueQuatrieme_SORT(michel,joueurTour,orange,buffer, nb_joueur, &etatVOL,&etatZONE, &etatPOISON, &etatCELESTE, classement,&joueurEnvie);
         }
 
-
-
-        if(premsTour == 1) // si le premier tour est passé
+        
+        if(premsTour == 1)
         {
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
             textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
@@ -204,11 +232,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if(c==0)
         {
-        animm(buffer,skins,skins_rouge,michel,nb_joueur);
+            animm(buffer,skins,skins_rouge,michel,nb_joueur);
         }
         else if (c==1)
         {
-        animmms(buffer,skins,skins_rouge, michel,nb_joueur);
+            animmms(buffer,skins,skins_rouge, michel,nb_joueur);
 
         }
 
