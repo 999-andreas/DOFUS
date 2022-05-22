@@ -345,7 +345,7 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 
 ///sous programme premier sort des classes///
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie,BITMAP *epee,BITMAP *epees)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie,BITMAP *epees)
 {
     int i;
     int j=0;

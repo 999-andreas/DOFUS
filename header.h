@@ -63,7 +63,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 
 //void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie,BITMAP *epee,BITMAP *epees);
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie,BITMAP *epees);
 
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
 
