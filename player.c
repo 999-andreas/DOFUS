@@ -1,7 +1,7 @@
 #include "header.h"
 
-
-void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur ) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+// AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur )
 {
     int i;
 
@@ -24,7 +24,8 @@ void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* mi
     }
 }
 
-void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+// AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur)
 {
     int i;
 
@@ -48,7 +49,6 @@ void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur*
 }
 
 ///sous programme ATTAQUE CORPS A COPRS ///
-
 void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
 {
     int i;
@@ -130,15 +130,9 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[i].classe;
                                 classement[nb_joueur] = (classement[nb_joueur])-1;
-
-                                //printf("JoueurEnvie %d et Classe MORTTTTTTTTTTTTT: %d\n",*joueurEnvie,michel[i].classe);
-                                //printf("Classement[joueurTour] = %d\n",classement[*joueurEnvie]);
-
                                 *joueurEnvie = *joueurEnvie -1;
-                                //printf("JOUEUR ENVIE : %d\n",classement[nb_joueur+1]);
                             }
                             else  {}
-                            //affichage rouge + rests
                         }
                         else
                         {
@@ -298,12 +292,13 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
 }
 
+///sous programme deuxieme sort des classes///
 void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE,int *etatPOT_LP)
 {
     int i,j,k,b;
     int nb;
 
-    ///SORT 2 DE LA CLASSE SORCIERE : POTION DE DEGAT ///
+    ///SORT 2 DE LA CLASSE 1 ///
     if (michel[joueurTour].classe==1)
     {
         for (nb=0; nb<nbjoueur; nb++)///parcourir le nombre de joueur
@@ -553,9 +548,8 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
     }
 }
 
-///SOUS PROG POUR LE 3E SORT DE CHAQUE CLASSE///
 
-void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int*etatFEU)
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int*etatFEU, int etatPoing)
 {
     ///3E SORT DE LA CLASSE 1: inversement de position
     if (michel[joueurTour].classe==1)
@@ -595,7 +589,7 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
 
     if (michel[joueurTour].classe==2)
     {
-
+        attaque_poison(michel,joueurTour, nbjoueur, blanc, buffer, etatPOING);
     }
 
     ///3E SORT DE LA CLASSE 3 : FLECHE EN FEU
@@ -641,39 +635,40 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
 
 }
 
+///sous programme quatrieme sort des classes///
 void attaqueQuatrieme_SORT(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,int* etat2,int* etat3,int* etat4, int classement[nb_joueur+1],int *joueurEnvie)
 {
-    switch(michel[joueurTour].classe)
-    {
-    case 1:
-    {
-        attaque_poison(michel,joueurTour, nb_joueur, orange, buffer, etat3);
-        break;
-    }
+        switch(michel[joueurTour].classe)
+        {
+        case 1: //classe 1
+            {
+                attaque_poison(michel,joueurTour, nb_joueur, orange, buffer, etat3);
+                break;
+            }
 
-    case 2:
-    {
-        attaque_epee_celeste(michel,joueurTour, nb_joueur, orange, buffer, etat4);
-        break;
-    }
+        case 2: //classe 2
+            {
+                attaque_epee_celeste(michel,joueurTour, nb_joueur, orange, buffer, etat4);
+                break;
+            }
 
-    case 3:
-    {
-        sort_vol_vie(michel,joueurTour,orange,buffer, nb_joueur, etat,classement,joueurEnvie);
-        break;
-    }
+        case 3: //classe 3
+            {
+                sort_vol_vie(michel,joueurTour,orange,buffer, nb_joueur, etat,classement,joueurEnvie);
+                break;
+            }
 
 
-    case 4:
-    {
-        attaque_zone(michel,joueurTour,orange,buffer, nb_joueur, etat2,classement,joueurEnvie);
+        case 4: //classe 4
+            {
+                attaque_zone(michel,joueurTour,orange,buffer, nb_joueur, etat2,classement,joueurEnvie);
 
         break;
     }
     }
 }
 
-
+//le joueur qui lance, gagne les pv de degats qu'il a inflige
 void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
 {
     int i,j,k;
@@ -718,13 +713,13 @@ void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
 
                         *etat = 1;
 
-                        if(rand()%100 >=10)
+                        if(rand()%100 >=10) // 10% de chance de raté
                         {
                             michel[i].toucher = 30;
 
                             printf("avant: %d\n",michel[i].PV);
-                            michel[i].PV -=10;
-                            michel[joueurTour].PV +=10;
+                            michel[i].PV -=10; // ennemis perd 10 PV
+                            michel[joueurTour].PV +=10; //gagne 10 PV
                             printf("apres: %d\n",michel[i].PV);
 
                             //sons des degats
@@ -746,21 +741,16 @@ void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
                             }
 
 
-                            if(michel[i].PV < 0)
+                            if(michel[i].PV < 0) // si le joueur meurt
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[i].classe;
                                 classement[nb_joueur] = (classement[nb_joueur])-1;
-
-                                //printf("JoueurEnvie %d et Classe MORTTTTTTTTTTTTT: %d\n",*joueurEnvie,michel[i].classe);
-                                //printf("Classement[joueurTour] = %d\n",classement[*joueurEnvie]);
-
                                 *joueurEnvie = *joueurEnvie -1;
-                                //printf("JOUEUR ENVIE : %d\n",classement[nb_joueur+1]);
                             }
                             else  {}
                         }
-                        else
+                        else //si le coup est raté
                         {
                             play_sample(esquive,200,125,1003,0);
                         }
@@ -772,6 +762,7 @@ void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
 
 }
 
+//sort courte porter permettant de frapper tout les enemis a proximité
 void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
 {
     int i;
@@ -816,7 +807,7 @@ void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
 
                         michel[joueurTour].PA -= 2;
 
-                        if(rand()%100>50)
+                        if(rand()%100>50)// 50% de chance de rater
                         {
                             michel[i].toucher = 30;
 
@@ -864,6 +855,7 @@ void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
     }
 }
 
+//sort tres courte porte permettant de frapper une personne
 void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* blanc, BITMAP*buffer,int* etat)
 {
     int nb,i,j,k,b;
@@ -1083,6 +1075,8 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
     }
 }
 
+
+//attaque long porté vers le haut, le bas, et les deux cotés
 void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* blanc, BITMAP*buffer,int* etat)
 {
     int nb,i,j,k,b;

@@ -34,6 +34,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     //attaque 3e sort//
     int etatINV2=0;
     int etatFEU=0;
+    int etatPOING=0;
 
     int premsTour=0;
 
@@ -153,6 +154,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatPOT_LP=0;
             etatINV2=0;
             etatFEU=0;
+            etatPOING=0;
 
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
@@ -209,7 +211,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[2]==1 )///sort 3
         {
-           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU);
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU,&etatPOING);
         }
 
         if(etat_hotbar[3]==1 )///sort 4
