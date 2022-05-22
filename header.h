@@ -59,15 +59,9 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
 void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour, int *bouger);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour, char nom[4][20]);
 
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE);
-void inverse_pos(t_joueur*michel, int compt, int joueurTour);
-
-void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE);
-
-//void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie);
-
+///CLASSEMENT DES JOUEURS///
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
+
 
 ///Menu.c
 void nbr_joueur(SAMPLE* son);
@@ -81,6 +75,19 @@ void menuFIN(t_joueur *michel,int nb_joueur);
 void controle_points(t_joueur *michel, int nb_joueur );
 void animm(BITMAP * buffer,BITMAP* skins[4],BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur );
 void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur* michel, int nb_joueur);
+
+///ATTAQUE CORPS A CORPS///
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie);
+
+///LE PREMIER SORT DE CHAQUE CLASSE///
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE);
+void inverse_pos(t_joueur*michel, int compt, int joueurTour);
+
+///LE DEUXIEME SORT DE CHAQUE CLASSE///
+void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE, int*etatPOT_LP);
+
+///LE TROISIEME SORT DE CHAQUE CLASSE///
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer);
 
 //mettre les prototypes des nouveaux fichier ici
 

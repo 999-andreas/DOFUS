@@ -22,6 +22,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etatDEG=0;
     int etatPOT_CP=0;
     int etatFLECHE=0;
+    int etatPOT_LP=0;
 
     int premsTour=0;
 
@@ -148,6 +149,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatDEG=0;
             etatPOT_CP=0;
             etatFLECHE=0;
+            etatPOT_LP=0;
 
             if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
             {
@@ -192,6 +194,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
                 etatDEG=0;
                 etatPOT_CP=0;
                 etatFLECHE=0;
+                etatPOT_LP=0;
                 joueurTour++;
                 rest(50);
                 if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
@@ -240,9 +243,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
         }
 
-        if (etat_hotbar[1]==1 )///sort 1
+        if (etat_hotbar[1]==1 )///sort 2
         {
-            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE);
+            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP);
         }
 
         if(premsTour == 1)
