@@ -211,7 +211,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[2]==1 )///sort 3
         {
-           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU,&etatPOING);
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU, &etatPOING);
         }
 
         if(etat_hotbar[3]==1 )///sort 4

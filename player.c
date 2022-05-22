@@ -549,7 +549,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 }
 
 
-void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int*etatFEU, int etatPoing)
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int*etatFEU, int* etatPoing)
 {
     ///3E SORT DE LA CLASSE 1: inversement de position
     if (michel[joueurTour].classe==1)
@@ -589,7 +589,7 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
 
     if (michel[joueurTour].classe==2)
     {
-        attaque_poison(michel,joueurTour, nbjoueur, blanc, buffer, etatPOING);
+        attaque_poison(michel,joueurTour, nbjoueur, blanc, buffer, etatPoing);
     }
 
     ///3E SORT DE LA CLASSE 3 : FLECHE EN FEU
@@ -893,7 +893,7 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
                     {
                         continue;//sort de la boucle
                     }
-                    if(rand()%100>50)
+                    if(rand()%100>10)
                     {
                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
                         michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
