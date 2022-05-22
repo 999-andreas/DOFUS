@@ -204,7 +204,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[1]==1 )///sort 2
         {
-            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP);
+            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP,classement,&joueurEnvie);
         }
 
         if (etat_hotbar[2]==1 )///sort 3

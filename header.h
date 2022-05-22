@@ -85,7 +85,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 
 ///LE DEUXIEME SORT DE CHAQUE CLASSE///
-void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE, int*etatPOT_LP);
+void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE,int *etatPOT_LP, int classement[nbjoueur+1],int *joueurEnvie);
 
 ///LE TROISIEME SORT DE CHAQUE CLASSE///
 void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int*etatINV2,int*etatFEU);

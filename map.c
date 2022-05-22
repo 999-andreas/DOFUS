@@ -161,10 +161,12 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
 
     for(i = 0; i<nb_joueur; i++)
     {
-        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
+        if(michel[i].PV > 0)
+        {
+            draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
+        }
     }
 }
-
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
 {
     int x=0;
