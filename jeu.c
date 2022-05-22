@@ -141,6 +141,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if((time(NULL)-temps > 15 )|| ( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686 && mouse_b&1))    // passage au tour suivant
         {
+            if(premsTour == 1) // si ce n'est pas le premier tour
+            {
+                michel[joueurTour].PA = michel[joueurTour].PA + 3;
+                michel[joueurTour].PM = michel[joueurTour].PM + 1;
+            }
 
             // routine passage de tour
             mise_a_zero(etat_hotbar);
@@ -166,15 +171,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             {
                 joueurTour = 0;
                 premsTour = 1; // incrementer au premier tour
-            }
-
-            if(premsTour == 1) // si ce n'est pas le premier tour
-            {
-                michel[joueurTour].PA = michel[joueurTour].PA + 3;
-                michel[joueurTour].PM = michel[joueurTour].PM + 1;
-            }
-            else
-            {
             }
             deplacement1 = 0;
             temps = time(NULL);
