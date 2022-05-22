@@ -34,6 +34,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     //attaque 3e sort//
     int etatINV2=0;
     int etatFEU=0;
+    int etatBOOM=0;
 
     int premsTour=0;
 
@@ -153,6 +154,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatPOT_LP=0;
             etatINV2=0;
             etatFEU=0;
+            etatBOOM=0;
 
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
@@ -192,9 +194,9 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             deplacement_case(michel,maps,nb_joueur,joueurTour,&deplacement1); //si clique sur une case changement des coo du joueur
         }
-        if (etat_hotbar[5]==1)
+        if (etat_hotbar[5]==1)///CASE ATTAQUE CORPS A CORPS
         {
-            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,classement,&joueurEnvie);
+            attaque_CAC(michel,joueurTour,orange,buffer, nb_joueur, &etat,classement,&joueurEnvie);//APPEL DU SOUS PROG
         }
 
         if (etat_hotbar[0]==1 )///sort 1
@@ -209,7 +211,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[2]==1 )///sort 3
         {
-           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU);
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU, &etatBOOM);
         }
 
         if(etat_hotbar[3]==1 )///sort 4
@@ -218,15 +220,16 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         }
 
 
-        if(premsTour == 1)
+        if(premsTour == 1)//APRES LE 1ER TOUR
         {
+            ///incrementation des PA ET PM a chaque tour
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);
             textprintf_ex(buffer,font,880,620,makecol(100,255,0),makecol(2,2,2),"%s gagne 1 PM",nom[michel[joueurTour].classe-1]);
         }
 
 
         update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
-        affiche_selectSORT(buffer,jaune, etat_hotbar);
+        affiche_selectSORT(buffer,jaune, etat_hotbar);///affichage des carre jaune de selections des sorts
 
         refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar);//affichage des objets(case surbrillance)
 

@@ -61,12 +61,14 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
     SAMPLE *esquive;
     SAMPLE *mort;
 
-    int debutx = ((michel[joueurTour].posx)-50)/50;
-    int finx = ((michel[joueurTour].posx)+100)/50;
+    int debutx = ((michel[joueurTour].posx)-50)/50;//encadrement du debutx
+    int finx = ((michel[joueurTour].posx)+100)/50;//encadrement du finx
 
-    int debuty = ((michel[joueurTour].posy)-50)/50;
-    int finy = ((michel[joueurTour].posy)+150)/50;
+    int debuty = ((michel[joueurTour].posy)-50)/50;//encadrement du debuty
+    int finy = ((michel[joueurTour].posy)+150)/50;//encadrement du finy
 
+
+    ///différent sons//
     degatSteve = load_sample("degat_steve.wav");
     degatZombie = load_sample("degat_zombie.wav");
     degatSkeleton = load_sample("degat_skeleton.wav");
@@ -149,8 +151,6 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
             }
         }
     }
-
-
 }
 
 
@@ -269,19 +269,19 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
     {
         for (compt=0; compt<nbjoueur; compt++)///parcour d'un compteur jusqu'a le nombre de joueur choisie
         {
-            if (compt==joueurTour)//si compteur est �gal a la meme valeur du joueur actuelle
+            if (compt==joueurTour)//si compteur est egal a la meme valeur du joueur actuelle
             {
                 continue;//sort de la boucle
             }
 
             blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
 
-            if (michel[joueurTour].PA<5)
+            if (michel[joueurTour].PA<5)//boucle afficher quand les pa sont inf a une valeur
             {
                 textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
                 textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
             }
-            if (michel[joueurTour].PM<10)
+            if (michel[joueurTour].PM<10)//boucle afficher quand les pm sont inf a une valeur
             {
                 textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
                 textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PM");
@@ -418,7 +418,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
         int debuty = ((michel[joueurTour].posy)-50)/50;
         int finy = ((michel[joueurTour].posy)+150)/50;
 
-        for (i=0; i<nbjoueur; i++)///BOUCLE incr�mentation i jusqu'au nombre de joueur
+        for (i=0; i<nbjoueur; i++)///BOUCLE incrementation i jusqu'au nombre de joueur
         {
             for(j = (debutx); j <(finx); j++) //parcourir l'axe des x pour voir s'il y a des adversaires autour du JOUEURTOUR
             {
@@ -430,7 +430,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                         continue;
                     blit(blanc, buffer, 0,0,j*50,k*50, 50,50);
 
-                    if (michel[joueurTour].PA<15)
+                    if (michel[joueurTour].PA<15)///affichage texte quand les pa du joueur sont inf a une valeur
                     {
                         textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
                         textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
@@ -446,7 +446,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 
                             if(rand()%100 >=10)///nombre alea entre 0 et 100 > 10
                             {
-                                michel[i].toucher = 30;
+                                michel[i].toucher = 30;//affichage de l'image rouge du perso pendant 30 tour de boucles
                                 michel[i].PV -=20;
 
                             }
@@ -464,7 +464,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
     {
         for (fleche=0; fleche<nbjoueur; fleche++)///parcour d'un flecheeur jusqu'a le nombre de joueur choisie
         {
-            if (fleche==joueurTour)//si flecheeur est �gal a la meme valeur du joueur actuelle
+            if (fleche==joueurTour)//si flecheeur est egal a la meme valeur du joueur actuelle
             {
                 continue;//sort de la boucle
             }
@@ -487,7 +487,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
             }
             else
             {
-                cont=cont+1;
+                cont=cont+1;//compteur qui compte le nombre de joueur pret du joueur actuelle
                 textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"%d adversaire(s) trop",cont);
                 textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"pret ");
             }
@@ -509,7 +509,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
         int debuty = ((michel[joueurTour].posy)-150)/50;
         int finy = ((michel[joueurTour].posy)+200)/50;
 
-        for (a=0; a<nbjoueur; a++)///BOUCLE incr�mentation i jusqu'au nombre de joueur
+        for (a=0; a<nbjoueur; a++)///BOUCLE incrementation i jusqu'au nombre de joueur
         {
             for(j = (debutx); j <(finx); j++) //parcourir l'axe des x pour voir s'il y a des adversaires autour du JOUEURTOUR
             {
@@ -519,11 +519,11 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 
                     if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))///prend pas en compte le joueurTour
                         continue;
-
+                        //condition pour prendre en compte les adversaire sur une zone précise atour du joueur actuelle
                     if(((j*50>michel[joueurTour].posx-150) && (j*50<michel[joueurTour].posx+150))&&((k*50>michel[joueurTour].posy-150) && (k*50<michel[joueurTour].posy+150)))///prend pas en compte le joueurTour
                         continue;
 
-                    blit(blanc, buffer, 0,0,j*50,k*50, 50,50);
+                    blit(blanc, buffer, 0,0,j*50,k*50, 50,50);//affichage des carrés de surbrillance
 
                     if (michel[joueurTour].PA<15)
                     {
@@ -531,7 +531,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                         textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                     }
 
-                    if(michel[a].posx == j*50 && michel[a].posy == k*50 && michel[a].PV > 0 && michel[joueurTour].PA>15 )//si adversaire est autour du joueurTour et les PV de l'adversaire > 0
+                    if(michel[a].posx == j*50 && michel[a].posy == k*50 && michel[a].PV > 0 && michel[joueurTour].PA>15 )//si adversaire est autour du joueurTour et les PV de l'adversaire > 0 et pa sup a une valeur
                     {
                         if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etatPOT_LP !=1))//si on clic sur un joueur autour et que etat diff�rent de 1
                         {
@@ -541,7 +541,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 
                             if(rand()%100 >=10)///nombre alea entre 0 et 100 > 10
                             {
-                                michel[a].toucher = 30;
+                                michel[a].toucher = 30;//affichage du joueur en rouge prenant des degat pendant 30tour de boucle
                                 michel[a].PV -=20;
 
                             }
@@ -555,7 +555,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 
 ///SOUS PROG POUR LE 3E SORT DE CHAQUE CLASSE///
 
-void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int*etatFEU)
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int*etatFEU, int *etatBOOM)
 {
     ///3E SORT DE LA CLASSE 1: inversement de position
     if (michel[joueurTour].classe==1)
@@ -612,7 +612,7 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
                 {
                     continue;//sort de la boucle
                 }
-
+                        //condition d'un intervalle de position >350 sur laxe x et y
                 if( ((michel[feu].posx > michel[joueurTour].posx+350) || (michel[feu].posx < michel[joueurTour].posx-350)) || ((michel[feu].posy > michel[joueurTour].posy+350) || (michel[feu].posy < michel[joueurTour].posy-350)) )
                 {
 
@@ -629,7 +629,7 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
                 }
                 else
                 {
-                    plus=plus+1;
+                    plus=plus+1;//compteur contant le nombre d'aversaire pret du joueur
                     textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"%d adversaire(s) trop",plus);
                     textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"pret ");
                 }
@@ -638,8 +638,39 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
 
 
     }
+    ///sort 3 de la classe Zombie : effet missile
+    int boom=0;
 
+    if (michel[joueurTour].classe==4)
+    {
+        for (boom=0; boom<nbjoueur; boom++)///parcour d'un flecheeur jusqu'a le nombre de joueur choisie
+        {
+            if (boom==joueurTour)//si flecheeur est �gal a la meme valeur du joueur actuelle
+            {
+                continue;//sort de la boucle
+            }
+
+            blit(blanc, buffer, 0,0,michel[boom].posx,michel[boom].posy, 50,50);///affichage du carrer surbrillance blanc
+            if (cliquer_zone(michel[boom].posx,michel[boom].posy,50,50)==1 && *etatBOOM!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
+            {
+                if (michel[joueurTour].PA<4)
+                {
+                    continue;
+                }
+                if (michel[joueurTour].PV<8)
+                {
+                    continue;
+                }
+                *etatBOOM=1;//passage de etatPOS a 1
+                michel[boom].toucher = 30;
+                michel[joueurTour].PA=michel[joueurTour].PA-4;//joueurtour perd 4 PA
+                michel[boom].PV=michel[boom].PV-8;//joueur tour perd 8 PM
+            }
+        }
+    }
 }
+
+///SOUS PROG 4E SORT DE CHAQUE CLASSE//
 
 void attaqueQuatrieme_SORT(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,int* etat2,int* etat3,int* etat4, int classement[nb_joueur+1],int *joueurEnvie)
 {

@@ -153,7 +153,7 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
 
 
 
-    ///cr�ation ou chargement de chaque bitmap
+    ///creation ou chargement de chaque bitmap
 
     bmp=create_bitmap(1300,700); ///buffer
     Classss=load_bitmap("images/classes.bmp",NULL);
@@ -174,17 +174,17 @@ void classeJ(int choixJ, SAMPLE* son)//Passage en parametre le nombre de joueur 
 
     if (!Classss)/// V�rification que l'image est bien charg�e///
     {
-        allegro_message("pas pu trouver/charger Classe.bmp");
+        allegro_message("pas pu trouver/charger classes.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    if (!rect)/// V�rification que l'image est bien charg�e///
+    if (!rect)/// Verification que l'image est bien charg�e///
     {
         allegro_message("pas pu trouver/charger rectt.bmp");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-    if (!suivant)/// V�rification que l'image est bien charg�e///
+    if (!suivant)/// Verification que l'image est bien charg�e///
     {
         allegro_message("pas pu trouver/charger suivant.bmp");
         allegro_exit();
