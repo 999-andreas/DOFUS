@@ -33,6 +33,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
     //attaque 3e sort//
     int etatINV2=0;
+    int etatPOING=0;
 
     int premsTour=0;
 
@@ -151,6 +152,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatFLECHE=0;
             etatPOT_LP=0;
             etatINV2=0;
+            etatPOING=0;
 
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
@@ -199,7 +201,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         {
             attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
         }
-        
+
         if (etat_hotbar[1]==1 )///sort 2
         {
             Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP);
@@ -207,7 +209,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[2]==1 )///sort 3
         {
-           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2);
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatPOING);
         }
 
         if(etat_hotbar[3]==1 )///sort 4
@@ -215,7 +217,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             attaqueQuatrieme_SORT(michel,joueurTour,orange,buffer, nb_joueur, &etatVOL,&etatZONE, &etatPOISON, &etatCELESTE, classement,&joueurEnvie);
         }
 
-        
+
         if(premsTour == 1)
         {
             textprintf_ex(buffer,font,880,610,makecol(100,255,0),makecol(2,2,2),"%s gagne 3 PA",nom[michel[joueurTour].classe-1]);

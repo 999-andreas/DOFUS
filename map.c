@@ -13,23 +13,24 @@ void init_maps(int maps[26][12])
         {
             proba = rand()%100;
 
-            if(proba<20 && i>1 && i<24 && j>1 )
+            if(proba<70 && i>1 && i<24 && j>1 )//proba qu'on pose une herbe + limite de la map
                 maps[i][j] = 3;
 
-            else if(proba <23 && i>1 && i<24 && j>1 )
+            else if(proba <35 && i>1 && i<24 && j>1 )//proba qu'on pose une lave + limite de la map
                 maps[i][j] = 2;
 
             else
-                maps[i][j] = rand()%2;
+                maps[i][j] = rand()%2; //proba qu'on pose un sol dirt ou sol herbe
         }
     }
-    for(i=0; i<26; i++)
+    for(i=0; i<26; i++)// on pose de la lave tout le long de la bordure haute
     {
         maps[i][0] = 2;
     }
 }
 
 //initialise le terrain en debut de partie
+//on construit la bitmap du terrain
 void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass, BITMAP* lava)
 {
     int i = 0;
@@ -57,7 +58,7 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
     }
 }
 
-//mise a jour des coo
+//mise a jour des coo des joueurs
 void update_coo(t_joueur* michel, int maps[26][12])
 {
 
@@ -83,7 +84,7 @@ void update_coo(t_joueur* michel, int maps[26][12])
     }
 }
 
-//affichage des objets sur la map c�d les element qui sont par dessus tout le reste
+//affichage des objets sur la map(rouge ou bleu)
 void refresh_objets(BITMAP* buffer, int maps[26][12],BITMAP* lava, BITMAP* bush, BITMAP* bleu, BITMAP* rouge, BITMAP* jaune, int etat_hotbar[7])
 {
     int i = 0;
@@ -155,7 +156,8 @@ void update_jauge(t_joueur *michel, BITMAP* buffer)
     }
 }
 
-void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur) // AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+// AFFICHAGE DU JOUEUR EN FONCTION DU NB DE JOUEUR ET DU TOUR PASSER EN PARAMETRE
+void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur)
 {
     int i;
 
@@ -165,6 +167,7 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
     }
 }
 
+// permet de placer automatiquement les joueurs au bout tu temps impartis
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
 {
     int x=0;
@@ -184,6 +187,7 @@ void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12])
     }
 }
 
+//permet de placer les joueurs sur la map au debut de la partie
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour, char nom[4][20])
 {
     int choixJoueur=0;
@@ -230,7 +234,6 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
 
 
 ///SOUS PROGRAMME POUR AFFICHER LA BAR DES SORT DANS LE JEU///
-
 void update_bar(t_joueur * playeur, int joueurTour,BITMAP * buffer,BITMAP*bar1,BITMAP*bar2,BITMAP*bar3,BITMAP*bar4 )
 {
     if (playeur[joueurTour].classe==1)///si le joueur a choisie la classe 1
@@ -284,7 +287,7 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[7])
     }
 }
 
-
+//permet le deplacement des personnage sur la map
 void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger)
 {
     int i = 0;
@@ -338,7 +341,6 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 
 
 ///SOUS PROGRAMME POUR CONTROLER LES POINT DE PA PV PM
-
 void controle_points(t_joueur *michel, int nb_joueur)
 {
     int i;
@@ -376,7 +378,6 @@ void controle_points(t_joueur *michel, int nb_joueur)
 }
 
 ///SOUS PROG POUR INVERSE LES POSITIONS POUR LES SORT
-
 void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 {
     int tempPosx=0;//déclare d'une variable entier temporaire en x pour inversé
@@ -393,13 +394,7 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 
 }
 
-
-
-
-
-
-
-
+//affichage du classement en fin de partie
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour)
 {
     BITMAP *podium;

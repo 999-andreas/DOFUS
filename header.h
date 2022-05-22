@@ -88,16 +88,14 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE, int*etatPOT_LP);
 
 ///LE TROISIEME SORT DE CHAQUE CLASSE///
-void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int*etatINV2);
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2, int* etatPOING);
 
+///Le QUATRIEME SOR DE CHAQUE CLASSE///
 void attaqueQuatrieme_SORT(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,int* etat2,int* etat3,int* etat4, int classement[nb_joueur+1],int *joueurEnvie);
 void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
 void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
 void attaque_poison(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etat);
 void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* blanc, BITMAP*buffer,int* etat);
 
-//mettre les prototypes des nouveaux fichier ici
-
-//void update_coo2(int ancienI,int ancienJ,int maps[26][12],t_joueur *michel,int joueurTour,int newI);
 
 #endif // HEADER_H_INCLUDED
