@@ -103,7 +103,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             michel[i].toucher = 30;
 
                             printf("avant: %d\n",michel[i].PV);
-                            michel[i].PV -=500;
+                            michel[i].PV -=5;
                             printf("apres: %d\n",michel[i].PV);
 
                             //sons des degats
@@ -191,12 +191,12 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         *etatEPEE=1; //EPEE PASSE A 1
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[nb].toucher = 30;
+                            michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                            michel[nb].toucher = 30;
 
-                        play_sample(coup_epee,80,125,1003,0);
+                            play_sample(coup_epee,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -236,12 +236,12 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[nb].toucher = 30;
+                            michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                            michel[nb].toucher = 30;
 
-                        play_sample(coup_epee,80,125,1003,0);
+                            play_sample(coup_epee,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -276,12 +276,12 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         *etatEPEE=1; //EPEE PASSE A 1
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[nb].toucher = 30;
+                            michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                            michel[nb].toucher = 30;
 
-                        play_sample(coup_epee,80,125,1003,0);
+                            play_sample(coup_epee,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -318,12 +318,12 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[nb].toucher = 30;
+                            michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                            michel[nb].toucher = 30;
 
-                        play_sample(coup_epee,80,125,1003,0);
+                            play_sample(coup_epee,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -353,7 +353,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             }
             if(michel[compt].PV > 0)
             {
-            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
+                blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
             }
 
             if (michel[joueurTour].PA<5)
@@ -373,8 +373,8 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                 michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
                 if(rand()%100 >= 10)
                 {
-                inverse_pos(michel,compt,joueurTour);//APPELLE DU SOUS PROG pour invers� les positions
-                play_sample(esquive,50,125,1003,0);
+                    inverse_pos(michel,compt,joueurTour);//APPELLE DU SOUS PROG pour invers� les positions
+                    play_sample(esquive,50,125,1003,0);
                 }
                 else
                 {
@@ -425,17 +425,17 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                             continue;//sort de la boucle
                         }
 
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;//le joueur adverse perd 6 PA
+                        michel[joueurTour].PA=michel[joueurTour].PA-8;//le joueur adverse perd 6 PA
                         *etatDEG=1; //EPEE PASSE A 1
 
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[nb].toucher = 30;
+                            michel[nb].PV=michel[nb].PV-12;//le joueur adverse perd 10 PV
+                            michel[nb].toucher = 30;
 
-                        play_sample(potion,80,125,1003,0);
+                            play_sample(potion,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -469,17 +469,17 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                         {
                             continue;
                         }
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-8;
                         *etatDEG=2;
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;
-                        michel[nb].toucher = 30;
+                            michel[nb].PV=michel[nb].PV-12;
+                            michel[nb].toucher = 30;
 
 
-                        play_sample(potion,80,125,1003,0);
+                            play_sample(potion,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -511,15 +511,15 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                             continue;
                         }
 
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-8;
                         *etatDEG=3;
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;
-                        michel[nb].toucher = 30;
-                        play_sample(potion,80,125,1003,0);
+                            michel[nb].PV=michel[nb].PV-200;
+                            michel[nb].toucher = 30;
+                            play_sample(potion,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -551,15 +551,15 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                         {
                             continue;
                         }
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-8;
                         *etatDEG=4;
                         if(rand()%100 >= 10)
                         {
-                        michel[nb].PV=michel[nb].PV-200;
-                        michel[nb].toucher = 30;
-                        play_sample(potion,80,125,1003,0);
+                            michel[nb].PV=michel[nb].PV-12;
+                            michel[nb].toucher = 30;
+                            play_sample(potion,80,125,1003,0);
 
-                        if(michel[nb].PV <= 0)
+                            if(michel[nb].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[nb].classe;
@@ -604,39 +604,39 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                         continue;
                     blit(blanc, buffer, 0,0,j*50,k*50, 50,50);
 
-                    if (michel[joueurTour].PA<15)
+                    if (michel[joueurTour].PA<5)
                     {
                         textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
                         textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                     }
-                    if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0 && michel[joueurTour].PA>15)//si adversaire est autour du joueurTour et les PV de l'adversaire > 0
+                    if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0 && michel[joueurTour].PA>5)//si adversaire est autour du joueurTour et les PV de l'adversaire > 0
                     {
 
                         if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etatPOT_CP !=1))//si on clic sur un joueur autour et que etat diff�rent de 1
                         {
-                            michel[joueurTour].PA -= 15;//- 2 pa pour le JoueurTour
+                            michel[joueurTour].PA -= 5;//- 2 pa pour le JoueurTour
 
                             *etatPOT_CP = 1;//passage de etat a 1
 
-                        if(rand()%100 >= 10)
-                        {
-                        michel[i].toucher = 30;
-                        michel[i].PV -=200;
-                        play_sample(potion,80,125,1003,0);
-
-                        if(michel[i].PV <= 0)
+                            if(rand()%100 >= 10)
                             {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[i].classe;
-                                classement[nbjoueur] = (classement[nbjoueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                                michel[i].toucher = 30;
+                                michel[i].PV -=15;
+                                play_sample(potion,80,125,1003,0);
 
-                        }
-                        else
-                        {
-                            play_sample(esquive,200,125,1003,0);
-                        }
+                                if(michel[i].PV <= 0)
+                                {
+                                    play_sample(mort,200,125,1003,0);
+                                    classement[*joueurEnvie] = michel[i].classe;
+                                    classement[nbjoueur] = (classement[nbjoueur])-1;
+                                    *joueurEnvie = *joueurEnvie -1;
+                                }
+
+                            }
+                            else
+                            {
+                                play_sample(esquive,200,125,1003,0);
+                            }
                         }
                     }
                 }
@@ -662,33 +662,38 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
             {
                 if(michel[fleche].PV > 0)
                 {
-                blit(blanc, buffer, 0,0,michel[fleche].posx,michel[fleche].posy, 50,50);///affichage du carrer surbrillance blanc
+                    blit(blanc, buffer, 0,0,michel[fleche].posx,michel[fleche].posy, 50,50);///affichage du carrer surbrillance blanc
                 }
 
-                if (cliquer_zone(michel[fleche].posx,michel[fleche].posy,50,50)==1 && *etatFLECHE!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
+                if (cliquer_zone(michel[fleche].posx,michel[fleche].posy,50,50)==1 && *etatFLECHE!=1 && michel[joueurTour].PA>8 && michel[fleche].PV>14)//si tu clic sur un des joueur adverse et etatPOS diff de 1
                 {
                     *etatFLECHE=1;//passage de etatPOS a 1
-                    michel[joueurTour].PA=michel[joueurTour].PA-4;//joueurtour perd 4 PA
+                    michel[joueurTour].PA=michel[joueurTour].PA-8;//joueurtour perd 4 PA
 
                     if(rand()%100 >= 10)
-                        {
-                        michel[fleche].PV=michel[fleche].PV-200;//joueur tour perd 8 PM
+                    {
+                        michel[fleche].PV=michel[fleche].PV-14;//joueur tour perd 8 PM
                         michel[fleche].toucher = 30;
                         play_sample(fleche1,80,125,1003,0);
 
                         if(michel[fleche].PV <= 0)
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[fleche].classe;
-                                classement[nbjoueur] = (classement[nbjoueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
-
-                        }
-                        else
                         {
-                            play_sample(esquive,200,125,1003,0);
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[fleche].classe;
+                            classement[nbjoueur] = (classement[nbjoueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
                         }
+
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                }
+                else
+                {
+                    textprintf_ex(buffer,font,880,670,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                    textprintf_ex(buffer,font,880,680,makecol(255,0,0),makecol(2,2,2),"de PA ");
                 }
 
 
@@ -733,7 +738,7 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 
                     blit(blanc, buffer, 0,0,j*50,k*50, 50,50);
 
-                    if (michel[joueurTour].PA<15)
+                    if (michel[joueurTour].PA<8)
                     {
                         textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
                         textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
@@ -743,28 +748,28 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
                     {
                         if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etatPOT_LP !=1))//si on clic sur un joueur autour et que etat diff�rent de 1
                         {
-                            michel[joueurTour].PA -= 15;//- 2 pa pour le JoueurTour
+                            michel[joueurTour].PA -= 8;//- 2 pa pour le JoueurTour
 
                             *etatPOT_LP = 1;//passage de etat a 1
-                        if(rand()%100 >= 10)
-                        {
-                        michel[a].toucher = 30;
-                        michel[a].PV -=200;
-                        play_sample(potion,80,125,1003,0);
-
-                        if(michel[fleche].PV <= 0)
+                            if(rand()%100 >= 10)
                             {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[a].classe;
-                                classement[nbjoueur] = (classement[nbjoueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                                michel[a].toucher = 30;
+                                michel[a].PV -=15;
+                                play_sample(potion,80,125,1003,0);
 
-                        }
-                        else
-                        {
-                            play_sample(esquive,200,125,1003,0);
-                        }
+                                if(michel[fleche].PV <= 0)
+                                {
+                                    play_sample(mort,200,125,1003,0);
+                                    classement[*joueurEnvie] = michel[a].classe;
+                                    classement[nbjoueur] = (classement[nbjoueur])-1;
+                                    *joueurEnvie = *joueurEnvie -1;
+                                }
+
+                            }
+                            else
+                            {
+                                play_sample(esquive,200,125,1003,0);
+                            }
                         }
                     }
                 }
@@ -817,16 +822,16 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
                 michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
 
                 if(rand()%100 >= 10)
-                        {
-                        michel[nb].toucher = 30;
-                        michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
-                        inverse_pos(michel,nb,joueurTour);//APPELLE DU SOUS PROG pour invers� les positions
-                        play_sample(esquive,80,125,1003,0);
-                        }
-                        else
-                        {
-                            play_sample(esquive,200,125,1003,0);
-                        }
+                {
+                    michel[nb].toucher = 30;
+                    michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
+                    inverse_pos(michel,nb,joueurTour);//APPELLE DU SOUS PROG pour invers� les positions
+                    play_sample(esquive,80,125,1003,0);
+                }
+                else
+                {
+                    play_sample(esquive,200,125,1003,0);
+                }
             }
         }
     }
@@ -857,24 +862,30 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
                 if( ((michel[feu].posx > michel[joueurTour].posx+350) || (michel[feu].posx < michel[joueurTour].posx-350)) || ((michel[feu].posy > michel[joueurTour].posy+350) || (michel[feu].posy < michel[joueurTour].posy-350)) )
                 {
 
-                if(michel[feu].PV > 0)
-                {
-                    blit(blanc, buffer, 0,0,michel[feu].posx,michel[feu].posy, 50,50);///affichage du carrer surbrillance blanc
-                }
+                    if(michel[feu].PV > 0)
+                    {
+                        blit(blanc, buffer, 0,0,michel[feu].posx,michel[feu].posy, 50,50);///affichage du carrer surbrillance blanc
+                    }
+                    if (michel[joueurTour].PA<10)
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                        continue;
+                    }
+
                     if (cliquer_zone(michel[feu].posx,michel[feu].posy,50,50)==1 && *etatFEU!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
                     {
                         *etatFEU=1;//passage de etatPOS a 1
                         michel[feu].toucher = 30;
-                        michel[joueurTour].PA=michel[joueurTour].PA-4;//joueurtour perd 4 PA
-                        michel[feu].PV=michel[feu].PV-8;//joueur tour perd 8 PM
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;//joueurtour perd 4 PA
 
                         if(rand()%100 >= 10)
                         {
-                        michel[feu].PV=michel[feu].PV-200;//joueur tour perd 8 PM
-                        michel[feu].toucher = 30;
-                        play_sample(flecheEnflammer,80,125,1003,0);
+                            michel[feu].PV=michel[feu].PV-20;//joueur tour perd 8 PM
+                            michel[feu].toucher = 30;
+                            play_sample(flecheEnflammer,80,125,1003,0);
 
-                        if(michel[feu].PV <= 0)
+                            if(michel[feu].PV <= 0)
                             {
                                 play_sample(mort,200,125,1003,0);
                                 classement[*joueurEnvie] = michel[feu].classe;
@@ -917,38 +928,42 @@ void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc
             }
 
             blit(blanc, buffer, 0,0,michel[boom].posx,michel[boom].posy, 50,50);///affichage du carrer surbrillance blanc
+            if (michel[joueurTour].PA<15)
+            {
+                textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                continue;
+            }
+
             if (cliquer_zone(michel[boom].posx,michel[boom].posy,50,50)==1 && *etatBOOM!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
             {
-                if (michel[joueurTour].PA<4)
-                {
-                    continue;
-                }
-                if (michel[joueurTour].PV<8)
+
+                if (michel[joueurTour].PV<30)
                 {
                     continue;
                 }
                 *etatBOOM=1;//passage de etatPOS a 1
-                michel[joueurTour].PA=michel[joueurTour].PA-4;//joueurtour perd 4 PA
+                michel[joueurTour].PA=michel[joueurTour].PA-15;//joueurtour perd 4 PA
 
                 if(rand()%100 >= 10)
-                        {
-                        michel[boom].PV=michel[boom].PV-200;//joueur tour perd 8 PM
-                        michel[boom].toucher = 30;
-                        play_sample(missile,80,125,1003,0);
+                {
+                    michel[boom].PV=michel[boom].PV-30;//joueur tour perd 8 PM
+                    michel[boom].toucher = 30;
+                    play_sample(missile,80,125,1003,0);
 
-                        if(michel[boom].PV <= 0)
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[boom].classe;
-                                classement[nbjoueur] = (classement[nbjoueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                    if(michel[boom].PV <= 0)
+                    {
+                        play_sample(mort,200,125,1003,0);
+                        classement[*joueurEnvie] = michel[boom].classe;
+                        classement[nbjoueur] = (classement[nbjoueur])-1;
+                        *joueurEnvie = *joueurEnvie -1;
+                    }
 
-                        }
-                        else
-                        {
-                            play_sample(esquive,200,125,1003,0);
-                        }
+                }
+                else
+                {
+                    play_sample(esquive,200,125,1003,0);
+                }
             }
         }
     }
@@ -972,16 +987,16 @@ void attaqueQuatrieme_SORT(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP
         break;
     }
 
-        case 3: //classe 3
-            {
-                sort_vol_vie(michel,joueurTour,orange,buffer, nb_joueur, etat,classement,joueurEnvie);
-                break;
-            }
+    case 3: //classe 3
+    {
+        sort_vol_vie(michel,joueurTour,orange,buffer, nb_joueur, etat,classement,joueurEnvie);
+        break;
+    }
 
 
-        case 4: //classe 4
-            {
-                attaque_zone(michel,joueurTour,orange,buffer, nb_joueur, etat2,classement,joueurEnvie);
+    case 4: //classe 4
+    {
+        attaque_zone(michel,joueurTour,orange,buffer, nb_joueur, etat2,classement,joueurEnvie);
 
         break;
     }
@@ -1027,6 +1042,12 @@ void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
 
                     blit(orange, buffer, 0,0,j*50,k*50, 50,50);
 
+                    if (michel[joueurTour].PA < 5)
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                        continue;
+                    }
                     if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
                     {
                         michel[joueurTour].PA -= 5;
@@ -1037,10 +1058,10 @@ void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
                         {
                             michel[i].toucher = 30;
 
-                            printf("avant: %d\n",michel[i].PV);
+
                             michel[i].PV -=10; // ennemis perd 10 PV
                             michel[joueurTour].PV +=10; //gagne 10 PV
-                            printf("apres: %d\n",michel[i].PV);
+
 
                             //sons des degats
                             if(michel[i].classe == 1 && michel[i].PV > 0)
@@ -1117,7 +1138,12 @@ void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
 
                 for(k = (debuty); k <(finy); k++)
                 {
-
+                    if (michel[i].posx<debutx || michel[i].posx>finx || michel[i].posy<debuty || michel[i].posy> finy )
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous etes loin de vos");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"adversaire(s)");
+                        continue;
+                    }
                     if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0 )
                     {
                         if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
@@ -1125,12 +1151,12 @@ void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, 
 
                         blit(orange, buffer, 0,0,j*50,k*50, 50,50);
 
-                        michel[joueurTour].PA -= 2;
+                        michel[joueurTour].PA -= 3;
 
                         if(rand()%100>10)
                         {
                             michel[i].toucher = 30;
-                            michel[i].PV -=200;
+                            michel[i].PV -=5;
 
                             //sons des degats
                             if(michel[i].classe == 1 && michel[i].PV > 0)
@@ -1198,12 +1224,15 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
 
             if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
             {
+                if (michel[joueurTour].PA<10)//si les PA du
+                {
+                    textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                    textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                    continue;//sort de la boucle
+                }
                 if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))// si le joueur clic sur la zone et que etatepee != 1
                 {
-                    if (michel[joueurTour].PA<10)//si les PA du
-                    {
-                        continue;//sort de la boucle
-                    }
+
                     if(michel[joueurTour].classe == 2)
                     {
                         play_sample(poing,80,125,1003,0);
@@ -1214,19 +1243,19 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
                     }
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-25;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(poing,80,125,1003,0);
                         printf("POING\n");
 
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1253,6 +1282,8 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
                 {
                     if (michel[joueurTour].PA<10)
                     {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                         continue;
                     }
 
@@ -1267,19 +1298,19 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
 
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-25;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(potion,80,125,1003,0);
 
 
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1298,12 +1329,15 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
 
             if (michel[nb].posx==k)
             {
+                if (michel[joueurTour].PA<10)
+                {
+                    textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                    textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                    continue;
+                }
                 if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
                 {
-                    if (michel[joueurTour].PA<10)
-                    {
-                        continue;
-                    }
+
 
                     if(michel[joueurTour].classe == 2)
                     {
@@ -1316,18 +1350,18 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
 
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-25;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(potion,80,125,1003,0);
 
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1347,12 +1381,15 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
 
             if (michel[nb].posx==b)
             {
+                if (michel[joueurTour].PA<10)
+                {
+                    textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                    textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                    continue;
+                }
                 if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
                 {
-                    if (michel[joueurTour].PA<10)
-                    {
-                        continue;
-                    }
+
 
                     if(michel[joueurTour].classe == 2)
                     {
@@ -1365,18 +1402,18 @@ void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* bla
 
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-25;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-10;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(potion,80,125,1003,0);
 
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1424,16 +1461,20 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
 
             if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
             {
-                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))// si le joueur clic sur la zone et que etatepee != 1
-                {
-                    if (michel[joueurTour].PA<10)//si les PA du
+                if (michel[joueurTour].PA<9)//si les PA du
                     {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                         continue;//sort de la boucle
                     }
+
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))// si le joueur clic sur la zone et que etatepee != 1
+                {
+
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-18;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-9;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(epee,80,125,1003,0);
 
@@ -1455,12 +1496,12 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
                             play_sample(degatZombie,1000,125,1003,0);
                         }
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1483,16 +1524,19 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
 
             if (michel[nb].posy==j)
             {
-                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
-                {
-                    if (michel[joueurTour].PA<10)
+                if (michel[joueurTour].PA<9)
                     {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                         continue;
                     }
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-18;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-9;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(epee,80,125,1003,0);
 
@@ -1514,12 +1558,12 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
                             play_sample(degatZombie,1000,125,1003,0);
                         }
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1538,16 +1582,20 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
 
             if (michel[nb].posx==k)
             {
-                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
-                {
-                    if (michel[joueurTour].PA<10)
+                if (michel[joueurTour].PA<9)
                     {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                         continue;
                     }
+
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-18;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-9;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(epee,80,125,1003,0);
 
@@ -1569,12 +1617,12 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
                             play_sample(degatZombie,1000,125,1003,0);
                         }
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {
@@ -1594,16 +1642,20 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
 
             if (michel[nb].posx==b)
             {
-                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
-                {
-                    if (michel[joueurTour].PA<10)
+                if (michel[joueurTour].PA<9)
                     {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
                         continue;
                     }
+
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+
                     if(rand()%100>10)
                     {
-                        michel[nb].PV=michel[nb].PV-200;//le joueur adverse perd 10 PV
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].PV=michel[nb].PV-18;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-9;//le joueur adverse perd 6 PA
                         michel[nb].toucher = 30;
                         play_sample(epee,80,125,1003,0);
 
@@ -1625,12 +1677,12 @@ void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMA
                             play_sample(degatZombie,1000,125,1003,0);
                         }
                         if(michel[nb].PV <= 0) // si le joueur meurt
-                            {
-                                play_sample(mort,200,125,1003,0);
-                                classement[*joueurEnvie] = michel[nb].classe;
-                                classement[nb_joueur] = (classement[nb_joueur])-1;
-                                *joueurEnvie = *joueurEnvie -1;
-                            }
+                        {
+                            play_sample(mort,200,125,1003,0);
+                            classement[*joueurEnvie] = michel[nb].classe;
+                            classement[nb_joueur] = (classement[nb_joueur])-1;
+                            *joueurEnvie = *joueurEnvie -1;
+                        }
                     }
                     else
                     {

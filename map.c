@@ -13,10 +13,10 @@ void init_maps(int maps[26][12])
         {
             proba = rand()%100;
 
-            if(proba<70 && i>1 && i<24 && j>1 )//proba qu'on pose une herbe + limite de la map
+            if(proba<20 && i>1 && i<24 && j>1 )//proba qu'on pose une herbe + limite de la map
                 maps[i][j] = 3;
 
-            else if(proba <35 && i>1 && i<24 && j>1 )//proba qu'on pose une lave + limite de la map
+            else if(proba <30 && i>1 && i<24 && j>1 )//proba qu'on pose une lave + limite de la map
                 maps[i][j] = 2;
 
             else
