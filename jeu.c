@@ -16,13 +16,21 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int deplacement=0;
     int joueurTour=0; // indique l'indice du jour a qui c'est le tour
 
+
+    //attaque 1er sort//
     int etat=0; // indique si le joueur a deja attaquer
     int etatPOS=0;
     int etatEPEE=0;
+
+    //attaque 2e sort//
     int etatDEG=0;
     int etatPOT_CP=0;
     int etatFLECHE=0;
     int etatPOT_LP=0;
+
+    //attaque 3e sort//
+
+    int etatINV2=0;
 
     int premsTour=0;
 
@@ -150,6 +158,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatPOT_CP=0;
             etatFLECHE=0;
             etatPOT_LP=0;
+            etatINV2=0;
 
             if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
             {
@@ -195,6 +204,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
                 etatPOT_CP=0;
                 etatFLECHE=0;
                 etatPOT_LP=0;
+                etatINV2=0;
+
                 joueurTour++;
                 rest(50);
                 if(joueurTour % nb_joueur == 0) // SYSTEME DE JOUEUR POUR LES TOURS
@@ -246,6 +257,10 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
         if (etat_hotbar[1]==1 )///sort 2
         {
             Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP);
+        }
+        if (etat_hotbar[2]==1 )///sort 3
+        {
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2);
         }
 
         if(premsTour == 1)

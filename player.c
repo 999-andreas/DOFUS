@@ -84,7 +84,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
                 if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0)//si adversaire est autour du joueurTour et les PV de l'adversaire > 0
                 {
-                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))///prend pas en compte le joueurTour
+                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))///prend pas en nbe le joueurTour
                         continue;
 
                     blit(orange, buffer, 0,0,j*50,k*50, 50,50);///AFFICHAGE DES CARRES SURBRILLANCE
@@ -180,7 +180,7 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                 {
                     if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))// si le joueur clic sur la zone et que etatepee != 1
                     {
-                       if (michel[joueurTour].PA<10)//si les PA du
+                        if (michel[joueurTour].PA<6)//si les PA du
                         {
                             continue;//sort de la boucle
                         }
@@ -269,14 +269,24 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
     {
         for (compt=0; compt<nbjoueur; compt++)///parcour d'un compteur jusqu'a le nombre de joueur choisie
         {
-           if (compt==joueurTour)//si compteur est égal a la meme valeur du joueur actuelle
-           {
-               continue;//sort de la boucle
-           }
+            if (compt==joueurTour)//si compteur est égal a la meme valeur du joueur actuelle
+            {
+                continue;//sort de la boucle
+            }
 
             blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
 
-            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
+            if (michel[joueurTour].PA<5)
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                    }
+            if (michel[joueurTour].PM<10)
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PM");
+                    }
+            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1  && michel[joueurTour].PA>5 && michel[joueurTour].PM>10 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
             {
                 *etatPOS=1;//passage de etatPOS a 1
                 michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
@@ -464,14 +474,14 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
             if( ((michel[fleche].posx > michel[joueurTour].posx+150) || (michel[fleche].posx < michel[joueurTour].posx-150)) || ((michel[fleche].posy > michel[joueurTour].posy+150) || (michel[fleche].posy < michel[joueurTour].posy-150)) )
             {
 
-                    blit(blanc, buffer, 0,0,michel[fleche].posx,michel[fleche].posy, 50,50);///affichage du carrer surbrillance blanc
-                    if (cliquer_zone(michel[fleche].posx,michel[fleche].posy,50,50)==1 && *etatFLECHE!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
-                    {
-                        *etatFLECHE=1;//passage de etatPOS a 1
-                        michel[fleche].toucher = 30;
-                        michel[joueurTour].PA=michel[joueurTour].PA-4;//joueurtour perd 4 PA
-                        michel[fleche].PV=michel[fleche].PV-8;//joueur tour perd 8 PM
-                    }
+                blit(blanc, buffer, 0,0,michel[fleche].posx,michel[fleche].posy, 50,50);///affichage du carrer surbrillance blanc
+                if (cliquer_zone(michel[fleche].posx,michel[fleche].posy,50,50)==1 && *etatFLECHE!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
+                {
+                    *etatFLECHE=1;//passage de etatPOS a 1
+                    michel[fleche].toucher = 30;
+                    michel[joueurTour].PA=michel[joueurTour].PA-4;//joueurtour perd 4 PA
+                    michel[fleche].PV=michel[fleche].PV-8;//joueur tour perd 8 PM
+                }
 
 
             }
@@ -545,13 +555,47 @@ void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blan
 
 ///SOUS PROG POUR LE 3E SORT DE CHAQUE CLASSE///
 
-void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer)
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int*etatINV2)
 {
     ///POUR LE 3E SORT DE LA PREMIER CLASSE//
     if (michel[joueurTour].classe==1)
     {
+        int nb=0;
+        for (nb=0; nb<nbjoueur; nb++)///parcour d'un nbeur jusqu'a le nombre de joueur choisie
+        {
+            if (nb==joueurTour)//si nbeur est égal a la meme valeur du joueur actuelle
+            {
+                continue;//sort de la boucle
+            }
+
+            blit(blanc, buffer, 0,0,michel[nb].posx,michel[nb].posy, 50,50);///affichage du carrer surbrillance blanc
+
+             if (michel[joueurTour].PA<5)
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PA");
+                    }
+            if (michel[joueurTour].PM<10)
+                    {
+                        textprintf_ex(buffer,font,880,650,makecol(255,0,0),makecol(2,2,2),"vous avez pas assez");
+                        textprintf_ex(buffer,font,880,660,makecol(255,0,0),makecol(2,2,2),"de PM");
+                    }
+
+            if (cliquer_zone(michel[nb].posx,michel[nb].posy,50,50)==1 && *etatINV2!=1 && michel[joueurTour].PA>5 && michel[joueurTour].PM>10)//si tu clic sur un des joueur adverse et etatPOS diff de 1
+            {
+                *etatINV2=1;//passage de etatPOS a 1
+                michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
+                michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
+                inverse_pos(michel,nb,joueurTour);//APPELLE DU SOUS PROG pour inversé les positions
+            }
+        }
+    }
+
+    if (michel[joueurTour].classe==2)
+    {
 
     }
+
 }
 
 

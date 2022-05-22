@@ -87,7 +87,7 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE, int*etatPOT_LP);
 
 ///LE TROISIEME SORT DE CHAQUE CLASSE///
-void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer);
+void toisieme_SORT(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int*etatINV2);
 
 //mettre les prototypes des nouveaux fichier ici
 
