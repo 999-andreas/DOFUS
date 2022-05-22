@@ -39,6 +39,8 @@ int cliquer_zone(int x, int y, int tx, int ty);
 void initialisation(t_joueur* michel,int nb_joueur);
 void mise_a_zero(int etat_hotbar[9]);
 int joueur_la(t_joueur* michel, int nb_joueur, int x, int y);
+void destroy_tout(BITMAP* skins[4],BITMAP* skins_rouge[4],BITMAP* viseur,BITMAP* dirt,BITMAP* grass,BITMAP* lava,BITMAP* hotbar1,BITMAP* hotbar2,BITMAP* hotbar3,BITMAP* hotbar4,BITMAP* bush,BITMAP* bleu,BITMAP* rouge,BITMAP* orange,BITMAP* suivant,BITMAP* suivantRouge,BITMAP* terrain,BITMAP* buffer,BITMAP* jaune);
+
 
 
 ///map.c
@@ -62,11 +64,16 @@ void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur 
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE);
 void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 
-//void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat);
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie);
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
 
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour);
 
+
+void attaqueQuatrieme_SORT(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,int* etat2,int* etat3,int* etat4, int classement[nb_joueur+1],int *joueurEnvie);
+void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
+void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
+void attaque_poison(t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etat);
+void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* blanc, BITMAP*buffer,int* etat);
 
 
 ///Menu.c

@@ -68,3 +68,33 @@ int joueur_la(t_joueur* michel, int nb_joueur, int x, int y)
     }
     return 0;
 }
+
+void destroy_tout(BITMAP* skins[4],BITMAP* skins_rouge[4],BITMAP* viseur,BITMAP* dirt,BITMAP* grass,BITMAP* lava,BITMAP* hotbar1,BITMAP* hotbar2,BITMAP* hotbar3,BITMAP* hotbar4,BITMAP* bush,BITMAP* bleu,BITMAP* rouge,BITMAP* orange,BITMAP* suivant,BITMAP* suivantRouge,BITMAP* terrain,BITMAP* buffer,BITMAP* jaune)
+{
+
+    destroy_bitmap(skins[0]);
+    destroy_bitmap(skins[1]);
+    destroy_bitmap(skins[2]);
+    destroy_bitmap(skins[3]);
+    destroy_bitmap(skins_rouge[0]);
+    destroy_bitmap(skins_rouge[1]);
+    destroy_bitmap(skins_rouge[2]);
+    destroy_bitmap(skins_rouge[3]);
+    destroy_bitmap(viseur);
+    destroy_bitmap(dirt);
+    destroy_bitmap(grass);
+    destroy_bitmap(lava);
+    destroy_bitmap(hotbar1);
+    destroy_bitmap(hotbar2);
+    destroy_bitmap(hotbar3);
+    destroy_bitmap(hotbar4);
+    destroy_bitmap(bush);
+    destroy_bitmap(bleu);
+    destroy_bitmap(rouge);
+    destroy_bitmap(orange);
+    destroy_bitmap(suivant);
+    destroy_bitmap(suivantRouge);
+    destroy_bitmap(terrain);
+    destroy_bitmap(jaune);
+
+}

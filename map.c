@@ -55,12 +55,6 @@ void init_terrain(BITMAP* terrain, int maps[26][12], BITMAP* dirt, BITMAP* grass
             }
         }
     }
-
-    for(i=0 ; i<26; i++)
-    {
-        blit(lava, terrain,0,0,(50*i),(0), 50, 50 );
-
-    }
 }
 
 //mise a jour des coo
@@ -345,7 +339,7 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
 
 ///sous programme premier sort des classes///
 
-void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,char nom[4][20], int classement[nb_joueur+1],int *joueurEnvie)
+void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
 {
     int i;
     int j=0;
@@ -399,7 +393,7 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                             michel[i].toucher = 30;
 
                             printf("avant: %d\n",michel[i].PV);
-                            michel[i].PV -=5;
+                            michel[i].PV -=200;
                             printf("apres: %d\n",michel[i].PV);
 
                             //sons des degats
@@ -434,7 +428,6 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
                                 //printf("JOUEUR ENVIE : %d\n",classement[nb_joueur+1]);
                             }
                             else  {}
-                            //affichage rouge + rests
                         }
                         else
                         {
@@ -488,25 +481,63 @@ void controle_points(t_joueur *michel, int nb_joueur)
 
 void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE)
 {
-    t_sorts potion[4][4];
     int i,j,k,b;
     int nb;
 
-
+///Si la classe du joueur = 1, 2 ou 4///
     ////Sort coup d'epee///
 
     if (michel[joueurTour].classe==1 || michel[joueurTour].classe==2 || michel[joueurTour].classe==4 )
     {
-        for (nb=0; nb<nbjoueur; nb++)
+        for (nb=0; nb<nbjoueur; nb++)///parcourir le nombre de joueur
         {
 
-            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)
+            for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+200; i=i+50)//parcour de la position en y+ jusqu'a posy+200
             {
-                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);
+                blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);//affichage du carre en y+
+
+                if (michel[joueurTour].posy==i)//si le joueur actuelle a les meme position en y que i alors
+                    continue;//sort de la boucle
+
+                if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
+                {
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))// si le joueur clic sur la zone et que etatepee != 1
+                    {
+                       if (michel[joueurTour].PA<10)//si les PA du
+                        {
+                            continue;//sort de la boucle
+                        }
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        *etatEPEE=1; //EPEE PASSE A 1
+                        michel[nb].toucher = 30;
+                    }
+                }
             }
+
+
+            ///MEME CHOSE POUR LES POSITIONS EN X- X+ Y-//
+
             for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-150; j=j-50)
             {
                 blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+                if (michel[joueurTour].posy==j)
+                    continue;
+
+                if (michel[nb].posy==j)
+                {
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=2))
+                    {
+                        if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
+                        michel[nb].PV=michel[nb].PV-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;
+                        *etatEPEE=2;
+                        michel[nb].toucher = 30;
+                    }
+                }
             }
             for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+150; k=k+50)
             {
@@ -517,11 +548,16 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
 
                 if (michel[nb].posx==k)
                 {
-                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=1))
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=3))
                     {
+                        if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
                         michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-10;
-                        *etatEPEE=1;
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;
+                        *etatEPEE=3;
+                        michel[nb].toucher = 30;
                     }
                 }
 
@@ -530,25 +566,45 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-150; b=b-50)
             {
                 blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+                if (michel[joueurTour].posx==b)
+                    continue;
+
+                if (michel[nb].posx==b)
+                {
+                    if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etatEPEE!=4))
+                    {
+                        if (michel[joueurTour].PA<10)
+                        {
+                            continue;
+                        }
+                        michel[nb].PV=michel[nb].PV-10;
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;
+                        *etatEPEE=4;
+                        michel[nb].toucher = 30;
+                    }
+                }
             }
         }
     }
     ///sort 1 inversement de position///
     int compt=0;
-    if (michel[joueurTour].classe==3)
+    if (michel[joueurTour].classe==3)///SI la classe == 3
     {
-        for (compt=0; compt<nbjoueur; compt++)
+        for (compt=0; compt<nbjoueur; compt++)///parcour d'un compteur jusqu'a le nombre de joueur choisie
         {
-           if (compt==joueurTour)
+           if (compt==joueurTour)//si compteur est égal a la meme valeur du joueur actuelle
            {
-               continue;
+               continue;//sort de la boucle
            }
 
-            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);
-            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )
+            blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);///affichage du carrer surbrillance blanc
+
+            if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
             {
-                *etatPOS=1;
-                inverse_pos(michel,compt,joueurTour);
+                *etatPOS=1;//passage de etatPOS a 1
+                michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
+                michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
+                inverse_pos(michel,compt,joueurTour);//APPELLE DU SOUS PROG pour inversé les positions
             }
         }
     }
@@ -573,6 +629,670 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 }
 
 
+void attaqueQuatrieme_SORT(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat,int* etat2,int* etat3,int* etat4, int classement[nb_joueur+1],int *joueurEnvie)
+{
+        switch(michel[joueurTour].classe)
+        {
+        case 1:
+            {
+                attaque_poison(michel,joueurTour, nb_joueur, orange, buffer, etat3);
+                break;
+            }
+
+        case 2:
+            {
+                attaque_epee_celeste(michel,joueurTour, nb_joueur, orange, buffer, etat4);
+                break;
+            }
+
+        case 3:
+            {
+                sort_vol_vie(michel,joueurTour,orange,buffer, nb_joueur, etat,classement,joueurEnvie);
+                break;
+            }
+
+
+        case 4:
+            {
+                attaque_zone(michel,joueurTour,orange,buffer, nb_joueur, etat2,classement,joueurEnvie);
+
+                break;
+            }
+        }
+}
+
+
+void sort_vol_vie(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
+{
+    int i,j,k;
+    SAMPLE *degatSteve;
+    SAMPLE *degatZombie;
+    SAMPLE *degatSkeleton;
+    SAMPLE *degatSorciere;
+    SAMPLE *esquive;
+    SAMPLE *mort;
+
+    int debutx = ((michel[joueurTour].posx)-100)/50;
+    int finx = ((michel[joueurTour].posx)+150)/50;
+
+    int debuty = ((michel[joueurTour].posy)-100)/50;
+    int finy = ((michel[joueurTour].posy)+200)/50;
+
+    degatSteve = load_sample("degat_steve.wav");
+    degatZombie = load_sample("degat_zombie.wav");
+    degatSkeleton = load_sample("degat_skeleton.wav");
+    degatSorciere = load_sample("degat_villagoie.wav");
+    esquive = load_sample("esquive.wav");
+    mort = load_sample("MORT.wav");
+
+    for (i=0; i<nb_joueur; i++)
+    {
+        for(j = (debutx); j <(finx); j++)
+        {
+
+            for(k = (debuty); k <(finy); k++)
+            {
+                blit(orange, buffer, 0,0,j*50,k*50, 50,50);
+                if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0)
+                {
+                    if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
+                        continue;
+
+                    blit(orange, buffer, 0,0,j*50,k*50, 50,50);
+
+                    if ((cliquer_zone(j*50,k*50, 50,50)==1) && (*etat !=1))
+                    {
+                        michel[joueurTour].PA -= 5;
+
+                        *etat = 1;
+
+                        if(rand()%100 >=10)
+                        {
+                            michel[i].toucher = 30;
+
+                            printf("avant: %d\n",michel[i].PV);
+                            michel[i].PV -=10;
+                            michel[joueurTour].PV +=10;
+                            printf("apres: %d\n",michel[i].PV);
+
+                            //sons des degats
+                            if(michel[i].classe == 1 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSorciere,200,125,1003,0);
+                            }
+                            else if(michel[i].classe == 2 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSteve,200,125,1003,0);
+                            }
+                            else if (michel[i].classe == 3 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSkeleton,200,125,1003,0);
+                            }
+                            else if (michel[i].classe == 4 && michel[i].PV > 0)
+                            {
+                                play_sample(degatZombie,1000,125,1003,0);
+                            }
+
+
+                            if(michel[i].PV < 0)
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nb_joueur] = (classement[nb_joueur])-1;
+
+                                //printf("JoueurEnvie %d et Classe MORTTTTTTTTTTTTT: %d\n",*joueurEnvie,michel[i].classe);
+                                //printf("Classement[joueurTour] = %d\n",classement[*joueurEnvie]);
+
+                                *joueurEnvie = *joueurEnvie -1;
+                                //printf("JOUEUR ENVIE : %d\n",classement[nb_joueur+1]);
+                            }
+                            else  {}
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+void attaque_zone(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie)
+{
+    int i;
+    int j=0;
+    int k=0;
+    SAMPLE *degatSteve;
+    SAMPLE *degatZombie;
+    SAMPLE *degatSkeleton;
+    SAMPLE *degatSorciere;
+    SAMPLE *esquive;
+    SAMPLE *mort;
+
+    int debutx = ((michel[joueurTour].posx)-50)/50;
+    int finx = ((michel[joueurTour].posx)+100)/50;
+
+    int debuty = ((michel[joueurTour].posy)-50)/50;
+    int finy = ((michel[joueurTour].posy)+150)/50;
+
+    degatSteve = load_sample("degat_steve.wav");
+    degatZombie = load_sample("degat_zombie.wav");
+    degatSkeleton = load_sample("degat_skeleton.wav");
+    degatSorciere = load_sample("degat_villagoie.wav");
+    esquive = load_sample("esquive.wav");
+    mort = load_sample("MORT.wav");
+
+    if(*etat!=1)
+    {
+        for (i=0; i<nb_joueur; i++)
+        {
+            for(j = (debutx); j <(finx); j++)
+            {
+
+                for(k = (debuty); k <(finy); k++)
+                {
+
+                    if(michel[i].posx == j*50 && michel[i].posy == k*50 && michel[i].PV > 0 )
+                    {
+                        if((michel[joueurTour].posx == j*50) && (michel[joueurTour].posy == k*50))
+                            continue;
+
+                        blit(orange, buffer, 0,0,j*50,k*50, 50,50);
+
+                        michel[joueurTour].PA -= 2;
+
+                        if(rand()%100>50)
+                        {
+                            michel[i].toucher = 30;
+
+                            printf("avant: %d\n",michel[i].PV);
+                            michel[i].PV -=20;
+                            printf("apres: %d\n",michel[i].PV);
+
+                            //sons des degats
+                            if(michel[i].classe == 1 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSorciere,200,125,1003,0);
+                            }
+                            else if(michel[i].classe == 2 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSteve,200,125,1003,0);
+                            }
+                            else if (michel[i].classe == 3 && michel[i].PV > 0)
+                            {
+                                play_sample(degatSkeleton,200,125,1003,0);
+                            }
+                            else if (michel[i].classe == 4 && michel[i].PV > 0)
+                            {
+                                play_sample(degatZombie,1000,125,1003,0);
+                            }
+
+
+                            if(michel[i].PV < 0) // si le joueur meurt
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nb_joueur] = (classement[nb_joueur])-1;
+                                *joueurEnvie = *joueurEnvie -1;
+                            }
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
+                        }
+
+                    }
+                }
+            }
+        }
+        *etat = 1;
+    }
+}
+
+void attaque_poison(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* blanc, BITMAP*buffer,int* etat)
+{
+    int nb,i,j,k,b;
+
+
+    SAMPLE *degatSteve;
+    SAMPLE *degatZombie;
+    SAMPLE *degatSkeleton;
+    SAMPLE *degatSorciere;
+    SAMPLE *esquive;
+    SAMPLE *mort;
+
+    degatSteve = load_sample("degat_steve.wav");
+    degatZombie = load_sample("degat_zombie.wav");
+    degatSkeleton = load_sample("degat_skeleton.wav");
+    degatSorciere = load_sample("degat_villagoie.wav");
+    esquive = load_sample("esquive.wav");
+    mort = load_sample("MORT.wav");
+
+    for (nb=0; nb<nb_joueur; nb++)///parcourir le nombre de joueur
+    {
+
+        for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+100; i=i+50)//parcour de la position en y+ jusqu'a posy+200
+        {
+            blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);//affichage du carre en y+
+
+            if (michel[joueurTour].posy==i)//si le joueur actuelle a les meme position en y que i alors
+                continue;//sort de la boucle
+
+            if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))// si le joueur clic sur la zone et que etatepee != 1
+                {
+                   if (michel[joueurTour].PA<10)//si les PA du
+                    {
+                        continue;//sort de la boucle
+                    }
+                    if(rand()%100>50)
+                    {
+                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1; //etat a 1
+
+                }
+            }
+        }
+
+
+        ///MEME CHOSE POUR LES POSITIONS EN X- X+ Y-//
+
+        for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-100; j=j-50)
+        {
+            blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+            if (michel[joueurTour].posy==j)
+                continue;
+
+            if (michel[nb].posy==j)
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+                    if (michel[joueurTour].PA<10)
+                    {
+                        continue;
+                    }
+                    if(rand()%100>50)
+                    {
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1;
+                }
+            }
+        }
+        for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+100; k=k+50)
+        {
+            blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
+
+            if (michel[joueurTour].posx==k)
+                continue;
+
+            if (michel[nb].posx==k)
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+                    if (michel[joueurTour].PA<10)
+                    {
+                        continue;
+                    }
+                    if(rand()%100>50)
+                    {
+                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1;
+                }
+            }
+
+
+        }
+        for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-100; b=b-50)
+        {
+            blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+            if (michel[joueurTour].posx==b)
+                continue;
+
+            if (michel[nb].posx==b)
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+                    if (michel[joueurTour].PA<10)
+                    {
+                        continue;
+                    }
+                    if(rand()%100>50)
+                    {
+                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1;
+                }
+            }
+        }
+    }
+}
+
+void attaque_epee_celeste(t_joueur* michel, int joueurTour, int nb_joueur, BITMAP* blanc, BITMAP*buffer,int* etat)
+{
+    int nb,i,j,k,b;
+
+
+    SAMPLE *degatSteve;
+    SAMPLE *degatZombie;
+    SAMPLE *degatSkeleton;
+    SAMPLE *degatSorciere;
+    SAMPLE *esquive;
+    SAMPLE *mort;
+
+    degatSteve = load_sample("degat_steve.wav");
+    degatZombie = load_sample("degat_zombie.wav");
+    degatSkeleton = load_sample("degat_skeleton.wav");
+    degatSorciere = load_sample("degat_villagoie.wav");
+    esquive = load_sample("esquive.wav");
+    mort = load_sample("MORT.wav");
+
+    for (nb=0; nb<nb_joueur; nb++)///parcourir le nombre de joueur
+    {
+
+        for (i=michel[joueurTour].posy; i<michel[joueurTour].posy+300; i=i+50)//parcour de la position en y+ jusqu'a posy+200
+        {
+            blit(blanc, buffer, 0,0,michel[joueurTour].posx,i, 50,50);//affichage du carre en y+
+
+            if (michel[joueurTour].posy==i)//si le joueur actuelle a les meme position en y que i alors
+                continue;//sort de la boucle
+
+            if (michel[nb].posy==i)///si joueur adverse a les meme position en y que i
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))// si le joueur clic sur la zone et que etatepee != 1
+                {
+                   if (michel[joueurTour].PA<10)//si les PA du
+                    {
+                        continue;//sort de la boucle
+                    }
+                    if(rand()%100>50)
+                    {
+                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1; //etat a 1
+
+                }
+            }
+        }
+
+
+        ///MEME CHOSE POUR LES POSITIONS EN X- X+ Y-//
+
+        for (j=michel[joueurTour].posy; j>michel[joueurTour].posy-300; j=j-50)
+        {
+            blit(blanc, buffer, 0,0,michel[joueurTour].posx,j, 50,50);
+            if (michel[joueurTour].posy==j)
+                continue;
+
+            if (michel[nb].posy==j)
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+                    if (michel[joueurTour].PA<10)
+                    {
+                        continue;
+                    }
+                    if(rand()%100>50)
+                    {
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1;
+                }
+            }
+        }
+        for (k=michel[joueurTour].posx; k<michel[joueurTour].posx+300; k=k+50)
+        {
+            blit(blanc, buffer, 0,0,k,michel[joueurTour].posy, 50,50);
+
+            if (michel[joueurTour].posx==k)
+                continue;
+
+            if (michel[nb].posx==k)
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+                    if (michel[joueurTour].PA<10)
+                    {
+                        continue;
+                    }
+                    if(rand()%100>50)
+                    {
+                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1;
+                }
+            }
+
+
+        }
+        for (b=michel[joueurTour].posx; b>michel[joueurTour].posx-300; b=b-50)
+        {
+            blit(blanc, buffer, 0,0,b,michel[joueurTour].posy, 50,50);
+            if (michel[joueurTour].posx==b)
+                continue;
+
+            if (michel[nb].posx==b)
+            {
+                if (cliquer_zone(michel[nb].posx,michel[nb].posy, 50,50)==1 && (*etat!=1))
+                {
+                    if (michel[joueurTour].PA<10)
+                    {
+                        continue;
+                    }
+                    if(rand()%100>50)
+                    {
+                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        michel[nb].toucher = 30;
+
+                        //sons des degats
+                        if(michel[nb].classe == 1 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSorciere,200,125,1003,0);
+                        }
+                        else if(michel[nb].classe == 2 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSteve,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 3 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatSkeleton,200,125,1003,0);
+                        }
+                        else if (michel[nb].classe == 4 && michel[nb].PV > 0)
+                        {
+                            play_sample(degatZombie,1000,125,1003,0);
+                        }
+                    }
+                    else
+                    {
+                        play_sample(esquive,200,125,1003,0);
+                    }
+                    *etat=1;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour)
 {
     BITMAP *podium;
@@ -585,7 +1305,7 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
         //textprintf_ex(screen,font,50,650+i*20,makecol(255,255,255),-1,"TOP JOUEUR %d : Classe : %d",i+1,classement[i]);
         printf(" i : %d et TOP JOUEUR: %d et Classe : %d\n",i,i+1,classement[i]);
     }*/
-    rest(5000);
+    rest(1000);
 
 }
 
