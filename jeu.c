@@ -219,7 +219,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[6]==1)
         {
-            deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1); //si clique sur une case changement des coo du joueur
+            deplacement_case(michel,maps,nb_joueur,joueurTour,deplacement1,skins,buffer,terrain,hotbar1,hotbar2,hotbar3,hotbar4,jaune,etat_hotbar,lava,bush,bleu,rouge); //si clique sur une case changement des coo du joueur
         }
         if (etat_hotbar[5]==1)
         {

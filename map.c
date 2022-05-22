@@ -167,7 +167,10 @@ void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, in
 
     for(i = 0; i<nb_joueur; i++)
     {
-        draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
+        if(michel[i].PV > 0)
+        {
+            draw_sprite(buffer, skins[(michel[i].classe)-1], (michel[i].posx), (michel[i].posy));
+        }
     }
 }
 
@@ -291,10 +294,13 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[7])
 }
 
 
-void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger)
+void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger,BITMAP *skins[4],BITMAP *buffer,BITMAP *terrain,BITMAP *hotbar1,BITMAP *hotbar2,BITMAP *hotbar3,BITMAP* hotbar4,BITMAP *jaune,int etat_hotbar[7],BITMAP *lava,BITMAP *bush,BITMAP *bleu, BITMAP *rouge)
 {
     int i = 0;
     int j = 0;
+
+    int newposx;
+    int newposy;
 
     int deplace=0;
     for (i = 0 ; i <26 ; i++)
@@ -309,28 +315,92 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
                 // SI ON CLICK SUR LA CASE DE GAUCHE
                 else if ( (i*50 <= michel[joueurTour].posx-50) && (michel[joueurTour].posx <= i*50+50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posx = i*50;
+                    newposx = i*50;  // ON STOP LA POSE EN X
+                    while(michel[joueurTour].posx != newposx) // TANT QUE ANCIEN POSX DIFFERENT DE LA NOUVELLE ALORS ON CONTINUE
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posx = michel[joueurTour].posx -1; // GLISSEMENT DE LA POSX
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
                 // SI ON CLICK SUR LA CASE DE DROITE
                 else if ( (i*50 <= michel[joueurTour].posx+50) && (michel[joueurTour].posx <= i*50-50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posx = i*50;
+                    newposx = i*50;
+                    while(michel[joueurTour].posx != newposx)
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posx = michel[joueurTour].posx +1; // GLISSEMENT DE LA POSX
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
                 // SI ON CLICK SUR LA CASE AU DESSUS
                 else if ( (j*50-50 <= michel[joueurTour].posy-50) && (michel[joueurTour].posy <= j*50) && (i*50 == michel[joueurTour].posx) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posy = j*50-50;
+                    newposy = (j-1)*50;
+                    while(michel[joueurTour].posy != newposy)
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posy = michel[joueurTour].posy -1; // GLISSEMENT DE LA POSY
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
                 // SI ON CLICK SUR LA CASE D'EN BAS
                 else if ( ( j*50 <= michel[joueurTour].posy+100) && (michel[joueurTour].posy <= j*50-100) && (i*50 == michel[joueurTour].posx) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posy = j*50-50;
+                    newposy = (j-1)*50;
+                    while(michel[joueurTour].posy != newposy)
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posy = michel[joueurTour].posy +1; // GLISSEMENT DE LA POSX
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
@@ -539,10 +609,10 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
     {
         for (compt=0; compt<nbjoueur; compt++)
         {
-           if (compt==joueurTour)
-           {
-               continue;
-           }
+            if (compt==joueurTour)
+            {
+                continue;
+            }
 
             blit(blanc, buffer, 0,0,michel[compt].posx,michel[compt].posy, 50,50);
             if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1 )
@@ -575,7 +645,11 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour)
 {
+    int quitter = 0;
+
     BITMAP *podium;
+    BITMAP *classementQuitter;
+    BITMAP *classementQuitterRouge;
 
     BITMAP *steveNormal;
     BITMAP *zombieNormal;
@@ -585,6 +659,10 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     BITMAP *steveRoi;
     BITMAP *skeletteRoi;
     BITMAP *zombieRoi;
+
+    BITMAP *buffer;
+    BITMAP *viseur;
+    buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
     SAMPLE *victoire;
 
@@ -598,12 +676,15 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     zombieRoi = load_bitmap("images/zombieRoi.bmp",NULL);
 
     podium = load_bitmap("images/podium.bmp",NULL);
+    viseur = load_bitmap("images/viseur.bmp",NULL);
+    classementQuitter = load_bitmap("images/classementQuitter.bmp",NULL);
+    classementQuitterRouge = load_bitmap("images/classementQuitterRouge.bmp",NULL);
 
     victoire = load_sample("victoire.wav");
 
-     /*   draw_sprite(podium,steveRoi,1000,135); // droite
-        draw_sprite(podium,skeletteRoi,145,100); // gauche
-        draw_sprite(podium,zombieRoi,575,88); // milieu
+    /*   draw_sprite(podium,steveRoi,1000,135); // droite
+       draw_sprite(podium,skeletteRoi,145,100); // gauche
+       draw_sprite(podium,zombieRoi,575,88); // milieu
 
 
     draw_sprite(podium,steveRoi,575,88); // droite
@@ -618,79 +699,108 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     play_sample(victoire,50,125,1003,5);
     time_t temps = time(NULL);
 
-    while(time(NULL)-temps < 3000)
+    while(time(NULL)-temps < 3000 && quitter != 1)
     {
-    int i =0;
-    for(i=0; i<3; i++)
-    {
-        if(i == 0)
-        {
-            if (classement[i] == 1)
-            {
-                draw_sprite(podium,sorciereNR,575,60);
-            }
-            else if (classement[i] == 2)
-            {
-                draw_sprite(podium,steveRoi,575,88);
-            }
-            else if(classement[i] == 3)
-            {
-                draw_sprite(podium,skeletteRoi,575,88);
-            }
-            else if(classement[i] == 4)
-            {
-                draw_sprite(podium,zombieRoi,575,88);
-            }
-            else {}
-        }
-        else if (i == 1)
-        {
-            if (classement[i] == 1)
-            {
-                draw_sprite(podium,sorciereNR,1000,87);
-            }
-            else if (classement[i] == 2)
-            {
-                draw_sprite(podium,steveNormal,1000,125);
-            }
-            else if(classement[i] == 3)
-            {
-                draw_sprite(podium,skeletteNormal,1000,125);
-            }
-            else if(classement[i] == 4)
-            {
-                draw_sprite(podium,zombieNormal,1000,125);
-            }
-            else {}
 
-        }
-        else if (i == 2)
+        blit(podium,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+        draw_sprite(buffer,viseur,mouse_x-15,mouse_y-5);
+        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+        int i =0;
+        for(i=0; i<3; i++)  // PERMET D'AFFICHER LE CLASSEMENT DES TOP 3 MEILLEUR JOUEURS
         {
-            if (classement[i] == 1)
+            if(i == 0)
             {
-                draw_sprite(podium,sorciereNR,145,90);
+                if (classement[i] == 1)
+                {
+                    draw_sprite(podium,sorciereNR,575,60);
+                }
+                else if (classement[i] == 2)
+                {
+                    draw_sprite(podium,steveRoi,575,88);
+                }
+                else if(classement[i] == 3)
+                {
+                    draw_sprite(podium,skeletteRoi,575,88);
+                }
+                else if(classement[i] == 4)
+                {
+                    draw_sprite(podium,zombieRoi,575,88);
+                }
+                else {}
             }
-            else if (classement[i] == 2)
+            else if (i == 1)
             {
-                draw_sprite(podium,steveNormal,145,105);
+                if (classement[i] == 1)
+                {
+                    draw_sprite(podium,sorciereNR,1000,87);
+                }
+                else if (classement[i] == 2)
+                {
+                    draw_sprite(podium,steveNormal,1000,125);
+                }
+                else if(classement[i] == 3)
+                {
+                    draw_sprite(podium,skeletteNormal,1000,125);
+                }
+                else if(classement[i] == 4)
+                {
+                    draw_sprite(podium,zombieNormal,1000,125);
+                }
+                else {}
+
             }
-            else if(classement[i] == 3)
+            else if (i == 2)
             {
-                draw_sprite(podium,skeletteNormal,145,105);
-            }
-            else if(classement[i] == 4)
-            {
-                draw_sprite(podium,zombieNormal,145,105);
+                if (classement[i] == 1)
+                {
+                    draw_sprite(podium,sorciereNR,145,90);
+                }
+                else if (classement[i] == 2)
+                {
+                    draw_sprite(podium,steveNormal,145,105);
+                }
+                else if(classement[i] == 3)
+                {
+                    draw_sprite(podium,skeletteNormal,145,105);
+                }
+                else if(classement[i] == 4)
+                {
+                    draw_sprite(podium,zombieNormal,145,105);
+                }
+                else {}
+
             }
             else {}
-
         }
-        else {}
+
+        if( mouse_x > 35 && mouse_x < 216 && mouse_y > 25 && mouse_y < 94)
+        {
+            draw_sprite(podium,classementQuitterRouge,5,5);
+            blit(podium,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+            draw_sprite(buffer,viseur,mouse_x-15,mouse_y-5);
+            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            if(mouse_b&1) // SI ON CLICK SUR JOUER ALORS LANCEMENT DE LA PARTIE ET STOP MUSIQUE DU MENU
+            {
+                quitter = 1;
+            }
+
+            // SINON ON AFFICHE L'IMAGE QUI N'EST PAS EN SURBRILLANCE
+        }
+        else
+        {
+            draw_sprite(podium,classementQuitter,5,5);
+        }
     }
-    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-    }
-    //rest(5000);
-
     destroy_sample(victoire);
+    destroy_bitmap(podium);
+    destroy_bitmap(steveNormal);
+    destroy_bitmap(zombieNormal);
+    destroy_bitmap(sorciereNR);
+    destroy_bitmap(skeletteNormal);
+    destroy_bitmap(steveRoi);
+    destroy_bitmap(skeletteRoi);
+    destroy_bitmap(zombieRoi);
+    destroy_bitmap(classementQuitter);
+    destroy_bitmap(classementQuitterRouge);
+    destroy_bitmap(viseur);
 }
-
