@@ -19,6 +19,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etatVOL=0;
     int etatZONE=0;
     int etatPOISON=0;
+    int etatCELESTE=0;
     int premsTour=0;
 
     char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
@@ -130,6 +131,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatVOL=0;
             etatZONE=0;
             etatPOISON=0;
+            etatCELESTE=0;
 
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
@@ -181,7 +183,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if(etat_hotbar[3]==1)
         {
-            attaqueTroisieme_SORT(michel,joueurTour,orange,buffer, nb_joueur, &etatVOL,&etatZONE, &etatPOISON, classement,&joueurEnvie);
+            attaqueQuatrieme_SORT(michel,joueurTour,orange,buffer, nb_joueur, &etatVOL,&etatZONE, &etatPOISON, &etatCELESTE, classement,&joueurEnvie);
         }
 
 
