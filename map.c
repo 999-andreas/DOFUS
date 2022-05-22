@@ -396,13 +396,13 @@ void inverse_pos(t_joueur*michel, int compt, int joueurTour)
 
 
 
-
-
-
-
 void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],int joueurTour)
 {
+    int quitter = 0;
+
     BITMAP *podium;
+    BITMAP *classementQuitter;
+    BITMAP *classementQuitterRouge;
 
     BITMAP *steveNormal;
     BITMAP *zombieNormal;
@@ -412,6 +412,10 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     BITMAP *steveRoi;
     BITMAP *skeletteRoi;
     BITMAP *zombieRoi;
+
+    BITMAP *buffer;
+    BITMAP *viseur;
+    buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
     SAMPLE *victoire;
 
@@ -425,84 +429,118 @@ void classementTop(t_joueur *michel, int nb_joueur, int classement[nb_joueur+1],
     zombieRoi = load_bitmap("images/zombieRoi.bmp",NULL);
 
     podium = load_bitmap("images/podium.bmp",NULL);
+    viseur = load_bitmap("images/viseur.bmp",NULL);
+    classementQuitter = load_bitmap("images/classementQuitter.bmp",NULL);
+    classementQuitterRouge = load_bitmap("images/classementQuitterRouge.bmp",NULL);
 
     victoire = load_sample("victoire.wav");
     play_sample(victoire,50,125,1003,5);
     time_t temps = time(NULL);
 
-    while(time(NULL)-temps < 3000)
+    while(time(NULL)-temps < 3000 && quitter != 1)
     {
-    int i =0;
-    for(i=0; i<3; i++)
-    {
-        if(i == 0)
-        {
-            if (classement[i] == 1)
-            {
-                draw_sprite(podium,sorciereNR,575,60);
-            }
-            else if (classement[i] == 2)
-            {
-                draw_sprite(podium,steveRoi,575,88);
-            }
-            else if(classement[i] == 3)
-            {
-                draw_sprite(podium,skeletteRoi,575,88);
-            }
-            else if(classement[i] == 4)
-            {
-                draw_sprite(podium,zombieRoi,575,88);
-            }
-            else {}
-        }
-        else if (i == 1)
-        {
-            if (classement[i] == 1)
-            {
-                draw_sprite(podium,sorciereNR,1000,87);
-            }
-            else if (classement[i] == 2)
-            {
-                draw_sprite(podium,steveNormal,1000,125);
-            }
-            else if(classement[i] == 3)
-            {
-                draw_sprite(podium,skeletteNormal,1000,125);
-            }
-            else if(classement[i] == 4)
-            {
-                draw_sprite(podium,zombieNormal,1000,125);
-            }
-            else {}
 
-        }
-        else if (i == 2)
+        blit(podium,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+        draw_sprite(buffer,viseur,mouse_x-15,mouse_y-5);
+        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+        int i =0;
+        for(i=0; i<3; i++)  // PERMET D'AFFICHER LE CLASSEMENT DES TOP 3 MEILLEUR JOUEURS
         {
-            if (classement[i] == 1)
+            if(i == 0)
             {
-                draw_sprite(podium,sorciereNR,145,90);
+                if (classement[i] == 1)
+                {
+                    draw_sprite(podium,sorciereNR,575,60);
+                }
+                else if (classement[i] == 2)
+                {
+                    draw_sprite(podium,steveRoi,575,88);
+                }
+                else if(classement[i] == 3)
+                {
+                    draw_sprite(podium,skeletteRoi,575,88);
+                }
+                else if(classement[i] == 4)
+                {
+                    draw_sprite(podium,zombieRoi,575,88);
+                }
+                else {}
             }
-            else if (classement[i] == 2)
+            else if (i == 1)
             {
-                draw_sprite(podium,steveNormal,145,105);
+                if (classement[i] == 1)
+                {
+                    draw_sprite(podium,sorciereNR,1000,87);
+                }
+                else if (classement[i] == 2)
+                {
+                    draw_sprite(podium,steveNormal,1000,125);
+                }
+                else if(classement[i] == 3)
+                {
+                    draw_sprite(podium,skeletteNormal,1000,125);
+                }
+                else if(classement[i] == 4)
+                {
+                    draw_sprite(podium,zombieNormal,1000,125);
+                }
+                else {}
+
             }
-            else if(classement[i] == 3)
+            else if (i == 2)
             {
-                draw_sprite(podium,skeletteNormal,145,105);
-            }
-            else if(classement[i] == 4)
-            {
-                draw_sprite(podium,zombieNormal,145,105);
+                if (classement[i] == 1)
+                {
+                    draw_sprite(podium,sorciereNR,145,90);
+                }
+                else if (classement[i] == 2)
+                {
+                    draw_sprite(podium,steveNormal,145,105);
+                }
+                else if(classement[i] == 3)
+                {
+                    draw_sprite(podium,skeletteNormal,145,105);
+                }
+                else if(classement[i] == 4)
+                {
+                    draw_sprite(podium,zombieNormal,145,105);
+                }
+                else {}
+
             }
             else {}
-
         }
-        else {}
-    }
-    blit(podium,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+
+        if( mouse_x > 35 && mouse_x < 216 && mouse_y > 25 && mouse_y < 94)
+        {
+            draw_sprite(podium,classementQuitterRouge,5,5);
+            blit(podium,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+            draw_sprite(buffer,viseur,mouse_x-15,mouse_y-5);
+            blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            if(mouse_b&1) // SI ON CLICK SUR JOUER ALORS LANCEMENT DE LA PARTIE ET STOP MUSIQUE DU MENU
+            {
+                quitter = 1;
+            }
+
+            // SINON ON AFFICHE L'IMAGE QUI N'EST PAS EN SURBRILLANCE
+        }
+        else
+        {
+            draw_sprite(podium,classementQuitter,5,5);
+        }
     }
     destroy_sample(victoire);
+    destroy_bitmap(podium);
+    destroy_bitmap(steveNormal);
+    destroy_bitmap(zombieNormal);
+    destroy_bitmap(sorciereNR);
+    destroy_bitmap(skeletteNormal);
+    destroy_bitmap(steveRoi);
+    destroy_bitmap(skeletteRoi);
+    destroy_bitmap(zombieRoi);
+    destroy_bitmap(classementQuitter);
+    destroy_bitmap(classementQuitterRouge);
+    destroy_bitmap(viseur);
 }
-
 
 
