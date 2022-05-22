@@ -156,10 +156,19 @@ void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, i
 
 ///sous programme premier sort des classes///
 
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE)
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE,int classement[nbjoueur+1],int *joueurEnvie)
 {
     int i,j,k,b;
     int nb;
+
+    SAMPLE *mort;
+    SAMPLE *esquive;
+    SAMPLE *coup_epee;
+
+    mort = load_sample("MORT.wav");
+    esquive = load_sample("esquive.wav");
+    coup_epee = load_sample("coup_epee.wav");
+
 
 ///Si la classe du joueur = 1, 2 ou 4///
     ///Sort coup d'epee DE LA CLASSE 1 2 3 ///
@@ -184,10 +193,28 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         {
                             continue;//sort de la boucle
                         }
+                        if(rand()%100 >= 10)
+                        {
                         michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
                         michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
                         *etatEPEE=1; //EPEE PASSE A 1
                         michel[nb].toucher = 30;
+
+                        play_sample(coup_epee,80,125,1003,0);
+
+                        if(michel[nb].PV < 0)
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nbjoueur] = (classement[nbjoueur])-1;
+                                *joueurEnvie = *joueurEnvie -1;
+                            }
+
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
+                        }
                     }
                 }
             }
@@ -209,10 +236,28 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         {
                             continue;
                         }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=1;
+                        if(rand()%100 >= 10)
+                        {
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        *etatEPEE=1; //EPEE PASSE A 1
                         michel[nb].toucher = 30;
+
+                        play_sample(coup_epee,80,125,1003,0);
+
+                        if(michel[nb].PV < 0)
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nbjoueur] = (classement[nbjoueur])-1;
+                                *joueurEnvie = *joueurEnvie -1;
+                            }
+
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
+                        }
                     }
                 }
             }
@@ -231,10 +276,28 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         {
                             continue;
                         }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=1;
+                        if(rand()%100 >= 10)
+                        {
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        *etatEPEE=1; //EPEE PASSE A 1
                         michel[nb].toucher = 30;
+
+                        play_sample(coup_epee,80,125,1003,0);
+
+                        if(michel[nb].PV < 0)
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nbjoueur] = (classement[nbjoueur])-1;
+                                *joueurEnvie = *joueurEnvie -1;
+                            }
+
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
+                        }
                     }
                 }
 
@@ -254,10 +317,28 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
                         {
                             continue;
                         }
-                        michel[nb].PV=michel[nb].PV-10;
-                        michel[joueurTour].PA=michel[joueurTour].PA-6;
-                        *etatEPEE=1;
+                        if(rand()%100 >= 10)
+                        {
+                        michel[nb].PV=michel[nb].PV-10;//le joueur adverse perd 10 PV
+                        michel[joueurTour].PA=michel[joueurTour].PA-6;//le joueur adverse perd 6 PA
+                        *etatEPEE=1; //EPEE PASSE A 1
                         michel[nb].toucher = 30;
+
+                        play_sample(coup_epee,80,125,1003,0);
+
+                        if(michel[nb].PV < 0)
+                            {
+                                play_sample(mort,200,125,1003,0);
+                                classement[*joueurEnvie] = michel[i].classe;
+                                classement[nbjoueur] = (classement[nbjoueur])-1;
+                                *joueurEnvie = *joueurEnvie -1;
+                            }
+
+                        }
+                        else
+                        {
+                            play_sample(esquive,200,125,1003,0);
+                        }
                     }
                 }
             }
@@ -288,14 +369,22 @@ void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP
             }
             if (cliquer_zone(michel[compt].posx,michel[compt].posy,50,50)==1 && *etatPOS!=1  && michel[joueurTour].PA>5 && michel[joueurTour].PM>10 )//si tu clic sur un des joueur adverse et etatPOS diff de 1
             {
+                if(rand()%100 >= 10)
+                {
                 *etatPOS=1;//passage de etatPOS a 1
                 michel[joueurTour].PA=michel[joueurTour].PA-5;//joueurtour perd 5 PA
                 michel[joueurTour].PM=michel[joueurTour].PM-10;//joueur tour perd 10 PM
                 inverse_pos(michel,compt,joueurTour);//APPELLE DU SOUS PROG pour invers� les positions
+                play_sample(esquive,50,125,1003,0);
+                }
+                else
+                {
+                    play_sample(esquive,200,125,1003,0);//joue un son esquive quand alea est <10
+                }
+
             }
         }
     }
-
 }
 
 void Deuxieme_Sort (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer, int *etatDEG, int *etatPOT_CP, int *etatFLECHE,int *etatPOT_LP)

@@ -285,10 +285,13 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[7])
 }
 
 
-void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger)
+void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger,BITMAP *skins[4],BITMAP *buffer,BITMAP *terrain,BITMAP *hotbar1,BITMAP *hotbar2,BITMAP *hotbar3,BITMAP* hotbar4,BITMAP *jaune,int etat_hotbar[7],BITMAP *lava,BITMAP *bush,BITMAP *bleu, BITMAP *rouge)
 {
     int i = 0;
     int j = 0;
+
+    int newposx;
+    int newposy;
 
     int deplace=0;
     for (i = 0 ; i <26 ; i++)
@@ -303,28 +306,92 @@ void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueu
                 // SI ON CLICK SUR LA CASE DE GAUCHE
                 else if ( (i*50 <= michel[joueurTour].posx-50) && (michel[joueurTour].posx <= i*50+50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posx = i*50;
+                    newposx = i*50;  // ON STOP LA POSE EN X
+                    while(michel[joueurTour].posx != newposx) // TANT QUE ANCIEN POSX DIFFERENT DE LA NOUVELLE ALORS ON CONTINUE
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posx = michel[joueurTour].posx -1; // GLISSEMENT DE LA POSX
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
                 // SI ON CLICK SUR LA CASE DE DROITE
                 else if ( (i*50 <= michel[joueurTour].posx+50) && (michel[joueurTour].posx <= i*50-50) && ((j-1)*50 == michel[joueurTour].posy) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posx = i*50;
+                    newposx = i*50;
+                    while(michel[joueurTour].posx != newposx)
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posx = michel[joueurTour].posx +1; // GLISSEMENT DE LA POSX
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
                 // SI ON CLICK SUR LA CASE AU DESSUS
                 else if ( (j*50-50 <= michel[joueurTour].posy-50) && (michel[joueurTour].posy <= j*50) && (i*50 == michel[joueurTour].posx) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posy = j*50-50;
+                    newposy = (j-1)*50;
+                    while(michel[joueurTour].posy != newposy)
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posy = michel[joueurTour].posy -1; // GLISSEMENT DE LA POSY
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }
                 // SI ON CLICK SUR LA CASE D'EN BAS
                 else if ( ( j*50 <= michel[joueurTour].posy+100) && (michel[joueurTour].posy <= j*50-100) && (i*50 == michel[joueurTour].posx) && ((michel[joueurTour].PM) >= 0) && (*bouger != 3))
                 {
-                    michel[joueurTour].posy = j*50-50;
+                    newposy = (j-1)*50;
+                    while(michel[joueurTour].posy != newposy)
+                    {
+                        clear_bitmap(buffer); // EFFACEMENT DE LA DERNIERE POSITION AFIN DE PAS AVOIR PLUSIEUR MEME IMAGE
+                        michel[joueurTour].posy = michel[joueurTour].posy +1; // GLISSEMENT DE LA POSX
+                        blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); // AFFICHGE DU TERRAIN
+                        update_bar(michel,joueurTour,buffer, hotbar1,hotbar2, hotbar3,hotbar4);///affichage de la barre des sort dans la map
+                        affiche_selectSORT(buffer,jaune, etat_hotbar); // AFFICHAGE DE LA BARRE SORT
+                        refresh_objets(buffer, maps, lava, bush, bleu, rouge, jaune, etat_hotbar); // AFFICHE DE TOUT LES DIVERS
+                        textprintf_ex(buffer,font,50,610,makecol(255,255,255),-1,"PV: %d", michel[joueurTour].PV);
+                        textprintf_ex(buffer,font,50,630,makecol(255,255,255),-1,"PM: %d", michel[joueurTour].PM);
+                        textprintf_ex(buffer,font,50,650,makecol(255,255,255),-1,"PA: %d", michel[joueurTour].PA);
+                        update_jauge(&michel[joueurTour], buffer);
+                        affichagePersonnage(buffer,skins,michel,nb_joueur);
+                        blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                        rest(1);
+                    }
                     (michel[joueurTour].PM)--;
                     deplace++;
                 }

@@ -58,7 +58,7 @@ void affiche_selectSORT(BITMAP*buffer, BITMAP*jaune, int etat_hotbar[9]);
 
 void affichagePersonnage(BITMAP * buffer, BITMAP* skins[4], t_joueur *michel, int nb_joueur);
 void aleatoirePersonnage(t_joueur *michel,int nb_joueur, int maps[26][12]);
-void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour, int *bouger);
+void deplacement_case(t_joueur* michel, int maps[26][12],int nb_joueur,int joueurTour,int *bouger,BITMAP *skins[4],BITMAP *buffer,BITMAP *terrain,BITMAP *hotbar1,BITMAP *hotbar2,BITMAP *hotbar3,BITMAP* hotbar4,BITMAP *jaune,int etat_hotbar[7],BITMAP *lava,BITMAP *bush,BITMAP *bleu, BITMAP *rouge);
 void choixEmplacement(BITMAP * buffer, BITMAP* skins[4], int nb_joueur,t_joueur *michel,int maps[26][12], int joueurTour, char nom[4][20]);
 void controle_points(t_joueur *michel, int nb_joueur );
 ///CLASSEMENT DES JOUEURS///
@@ -81,7 +81,7 @@ void animmms(BITMAP * buffer,BITMAP* skins[4], BITMAP* skins_rouge[4], t_joueur*
 void attaque_CAC(t_joueur *michel, int joueurTour,BITMAP*orange,BITMAP*buffer, int nb_joueur, int* etat, int classement[nb_joueur+1],int *joueurEnvie);
 
 ///LE PREMIER SORT DE CHAQUE CLASSE///
-void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE);
+void attaquePremier_SORT (t_joueur* michel, int joueurTour, int nbjoueur, BITMAP* blanc, BITMAP*buffer,int* etatPOS, int*etatEPEE,int classement[nbjoueur+1],int *joueurEnvie);
 void inverse_pos(t_joueur*michel, int compt, int joueurTour);
 
 ///LE DEUXIEME SORT DE CHAQUE CLASSE///
