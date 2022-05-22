@@ -36,6 +36,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     int etatFEU=0;
     int etatPOING=0;
 
+    //
+    int etatBOOM=0;
     int premsTour=0;
 
     char nom[4][20]= {"La Sorciere","Steve", "Squelette", "Zombie"};
@@ -114,6 +116,8 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     /// boucle principale du jeu ///
     while (cliquer_zone(0,0,50, 50)!=1 && classement[nb_joueur] != 0)
     {
+        printf("%d joueur \n",joueurTour);
+        printf("%d premsTour\n",premsTour);
         clear_bitmap(buffer);
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); //reaffichage du decor
 
@@ -155,6 +159,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatINV2=0;
             etatFEU=0;
             etatPOING=0;
+            etatBOOM=0;
 
 
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
@@ -192,7 +197,7 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[6]==1)
         {
-            deplacement_case(michel,maps,nb_joueur,joueurTour,&deplacement1); //si clique sur une case changement des coo du joueur
+            deplacement_case(michel,maps,nb_joueur,joueurTour,&deplacement1,skins,buffer,terrain,hotbar1,hotbar2,hotbar3,hotbar4,jaune,etat_hotbar,lava,bush,bleu,rouge); //si clique sur une case changement des coo du joueur
         }
         if (etat_hotbar[5]==1)
         {
@@ -201,17 +206,17 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if (etat_hotbar[0]==1 )///sort 1
         {
-            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE);
+            attaquePremier_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatPOS, &etatEPEE,classement,&joueurEnvie);
         }
 
         if (etat_hotbar[1]==1 )///sort 2
         {
-            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP);
+            Deuxieme_Sort(michel,joueurTour, nb_joueur, orange, buffer, &etatDEG, &etatPOT_CP, &etatFLECHE, &etatPOT_LP,classement,&joueurEnvie);
         }
 
         if (etat_hotbar[2]==1 )///sort 3
         {
-           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU, &etatPOING);
+           toisieme_SORT(michel,joueurTour, nb_joueur, orange, buffer, &etatINV2, &etatFEU,&etatBOOM,&etatPOING,classement,&joueurEnvie);
         }
 
         if(etat_hotbar[3]==1 )///sort 4
