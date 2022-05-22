@@ -116,8 +116,6 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
     /// boucle principale du jeu ///
     while (cliquer_zone(0,0,50, 50)!=1 && classement[nb_joueur] != 0)
     {
-        printf("%d joueur \n",joueurTour);
-        printf("%d premsTour\n",premsTour);
         clear_bitmap(buffer);
         blit(terrain, buffer, 0,0,0,0, terrain->w, terrain->h); //reaffichage du decor
 
@@ -141,7 +139,11 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
 
         if((time(NULL)-temps > 15 )|| ( mouse_x > 1060 && mouse_x <1290  && mouse_y > 664 && mouse_y < 686 && mouse_b&1))    // passage au tour suivant
         {
-
+            if(premsTour == 1)
+            {
+            michel[joueurTour].PA = michel[joueurTour].PA+3 ;
+            michel[joueurTour].PM = michel[joueurTour].PM+3 ;
+            }
             // routine passage de tour
             mise_a_zero(etat_hotbar);
             joueurTour++;
@@ -160,22 +162,14 @@ void jeux(t_joueur *michel,SAMPLE *son,int nb_joueur)
             etatFEU=0;
             etatPOING=0;
             etatBOOM=0;
-
-
             if(joueurTour % nb_joueur == 0) // remise a zero du compteur pour les tours
             {
                 joueurTour = 0;
                 premsTour = 1; // incrementer au premier tour
             }
+           // michel[joueurTour].PA = michel[joueurTour].PA + 3;
+           // michel[joueurTour].PM = michel[joueurTour].PM + 1;
 
-            if(premsTour == 1) // si ce n'est pas le premier tour
-            {
-                michel[joueurTour].PA = michel[joueurTour].PA + 3;
-                michel[joueurTour].PM = michel[joueurTour].PM + 1;
-            }
-            else
-            {
-            }
             deplacement1 = 0;
             temps = time(NULL);
             rest(200);
