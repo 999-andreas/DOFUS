@@ -8,6 +8,7 @@ Arena. Sur le thème de Minecraft.
 ## Frabriqué avec
 
 - [Code::Blocks](https://www.codeblocks.org/)- Editeur de code
+- [Allegro](https://liballeg.org/) -bibliothèque graphique
 - [GitHub Desktop](https://desktop.github.com/) - Extensions Git
 
 ## Auteurs
