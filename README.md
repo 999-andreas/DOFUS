@@ -1,5 +1,7 @@
 # DOFUS
 
+![Dofus](/Dofus_gameplay.png?raw=true "Dofus")
+
 Jeu de combat au tour par tour, inspiré du jeu Dofus
 Arena. Sur le thème de Minecraft.
 
