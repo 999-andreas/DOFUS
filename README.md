@@ -1,11 +1,14 @@
 # DOFUS
 
+![Dofus](/dofus_gameplay.png?raw=true "Dofus")
+
 Jeu de combat au tour par tour, inspiré du jeu Dofus
 Arena. Sur le thème de Minecraft.
 
 ## Frabriqué avec
 
 - [Code::Blocks](https://www.codeblocks.org/)- Editeur de code
+- [Allegro](https://liballeg.org/) -bibliothèque graphique
 - [GitHub Desktop](https://desktop.github.com/) - Extensions Git
 
 ## Auteurs
